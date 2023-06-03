@@ -20,3 +20,17 @@
 # Maps
 
 * Maps in GO can be thought of as JSON objects or Hashtables that have a key and an associated value.
+
+# Database Operations
+
+* For any database operation, what you need? what are the basics?
+    - For instance, if you want to withdraw money from the bank account (NO INTERNET BANKING FACILITY IS AVAILABLE), you must know the BANK_ADDRESS, ACC_NO, ACC_SIGNATURE.
+    - Similary to go ahead and query the database you need a few things, those are:
+    
+        -  BANK_ADDRESS => DATABASE_NAME
+        - ACC_NO        => DATABASE_USER
+        - ACC_SIGNATURE => DATABASE_PASSWORD
+
+    - Using the above we get a database connection object, bingo! once you have a connection object you can go ahead and start querying the databe.
+
+    `THIS IS THE APPLICABLE TO ALL PROGRAMMING LANGUAGES WHEN IT COMES TO QUERYING DATABASE`
