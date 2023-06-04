@@ -1,3 +1,4 @@
 Ever wondered how to get started with low-level Ethereum protocol development?
-- Head over to Ethereum Suggested Reading!!!!!
+- Head over to Ethereum Suggested Reading!!!!! 
+- https://github.com/eth-protocol-fellows/cohort-four/blob/master/program-guide/reading.md
 - It has everything, that one needs to get going at  Ethereum low-level protocol development.
