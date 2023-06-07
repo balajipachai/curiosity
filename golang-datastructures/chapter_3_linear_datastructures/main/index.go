@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 
+	"example.com/doublylists"
 	"example.com/lists"
 )
 
@@ -33,4 +34,30 @@ func main() {
 	linkedList.AddAfter(3, 9)
 	fmt.Println("Prints the list after adding 9 after 3:")
 	linkedList.IterateList()
+
+	fmt.Print("\n")
+	fmt.Println("*******************Doubly Linked List*******************")
+	dLinkedList := doublylists.LinkedList{}
+
+	dLinkedList.AddToHead(10)
+	dLinkedList.AddToHead(20)
+	dLinkedList.AddToHead(30)
+	dLinkedList.AddToHead(40)
+	dLinkedList.AddToHead(50)
+
+	dLinkedList.IterateList()
+
+	fmt.Println("\nDoubly List's LastNode:")
+	fmt.Println(dLinkedList.LastNode())
+
+	fmt.Println("Adds 100 to end of the list:")
+	dLinkedList.AddToEnd(100)
+	fmt.Println("After adding 100 to end of the list, printing the List's LastNode:")
+	fmt.Println(dLinkedList.LastNode())
+	fmt.Println("Chekcs and prints a node with value 50:")
+	fmt.Println(dLinkedList.NodeWithValue(50))
+	fmt.Println("Adds 90 after node having value 30:")
+	dLinkedList.AddAfter(30, 90)
+	fmt.Println("Prints the list after adding 90 after 30:")
+	dLinkedList.IterateList()
 }
