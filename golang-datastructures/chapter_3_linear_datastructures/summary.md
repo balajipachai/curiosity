@@ -22,3 +22,8 @@ How do you create the mental map of linked list and it's linking?
 - Repeating the same thing again, if you understand the linking in Linked list your life will become easy.
 - Take a pen and paper and keep on working to understand the linking.
 - Trust me it's not that hard however it isn't easy as well but it is doable. If I can, You Can too!
+
+# Sets
+
+Sets contain unique elements. IMO this is one of the simplest datastructures that I have come across. The different methods of Set includes
+`New, AddElement, DeleteElement, ContainsElement, Intersection & Union`. If you have solved sets during your mathematics classes then you have an advantage if not then you should learn and implement.

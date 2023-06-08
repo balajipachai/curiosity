@@ -5,6 +5,7 @@ import (
 
 	"example.com/doublylists"
 	"example.com/lists"
+	"example.com/sets"
 )
 
 // The main function creates a singly linked list, adds nodes to it, and performs various operations on it
@@ -60,4 +61,75 @@ func main() {
 	dLinkedList.AddAfter(30, 90)
 	fmt.Println("Prints the list after adding 90 after 30:")
 	dLinkedList.IterateList()
+
+	fmt.Print("\n")
+	fmt.Println("*******************Sets*******************")
+	setA := sets.Set{}
+	setB := sets.Set{}
+	setC := sets.Set{}
+
+	setA.New()
+	setB.New()
+	setC.New()
+
+	fmt.Println("Adds element in Set A, B & C")
+	setA.AddElement(1)
+	setA.AddElement(2)
+	setA.AddElement(3)
+	setA.AddElement(4)
+
+	fmt.Println("\nTry to add existing element")
+	setA.AddElement(4)
+
+	setA.AddElement(5)
+	fmt.Println("Set A: ", setA)
+
+	setB.AddElement(6)
+	setB.AddElement(7)
+	setB.AddElement(8)
+	setB.AddElement(9)
+	setB.AddElement(10)
+	fmt.Println("Set B: ", setB)
+
+	setC.AddElement(11)
+	setC.AddElement(12)
+	setC.AddElement(13)
+	setC.AddElement(14)
+	setC.AddElement(15)
+	fmt.Println("Set C: ", setC)
+
+	fmt.Println("\nChecks if Set contains element")
+	fmt.Println("\tsetA.ContainsElement(4)", setA.ContainsElement(4))
+	fmt.Println("\tsetA.ContainsElement(10)", setA.ContainsElement(10))
+
+	fmt.Println("\nDeletes 1, 7, 14 from SetA, SetB & SetC")
+	setA.DeleteElement(1)
+	setB.DeleteElement(7)
+	setC.DeleteElement(14)
+
+	fmt.Println("\nTry to delete non-existing item")
+	setC.DeleteElement(5)
+
+	fmt.Println("\nPrint Sets after deletion")
+	fmt.Println("\tSet A: ", setA)
+	fmt.Println("\tSet B: ", setB)
+	fmt.Println("\tSet C: ", setC)
+
+	fmt.Println("\nAdd 77 to SetA, SetB & 4 to SetC")
+	setA.AddElement(77)
+	setB.AddElement(77)
+	setC.AddElement(4)
+
+	fmt.Println("\nPrint Sets after adding 77 & 4 to the sets")
+	fmt.Println("\tSet A: ", setA)
+	fmt.Println("\tSet B: ", setB)
+	fmt.Println("\tSet C: ", setC)
+
+	fmt.Println("\nFinds the intersection of SetA & SetB AND SetA & SetC")
+	fmt.Println("\tSetA Intersection SetB: ", setA.Intersection(&setB))
+	fmt.Println("\tSetA Intersection SetC: ", setA.Intersection(&setC))
+
+	fmt.Println("\nFinds the union of SetA & SetB AND SetA & SetC")
+	fmt.Println("\tSetA Union SetB: ", setA.Union(&setB))
+	fmt.Println("\tSetA Union SetC: ", setA.Union(&setC))
 }
