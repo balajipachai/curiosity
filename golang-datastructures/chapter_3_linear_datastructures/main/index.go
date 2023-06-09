@@ -6,6 +6,7 @@ import (
 	"example.com/doublylists"
 	"example.com/lists"
 	"example.com/sets"
+	"example.com/tuples"
 )
 
 // The main function creates a singly linked list, adds nodes to it, and performs various operations on it
@@ -132,4 +133,11 @@ func main() {
 	fmt.Println("\nFinds the union of SetA & SetB AND SetA & SetC")
 	fmt.Println("\tSetA Union SetB: ", setA.Union(&setB))
 	fmt.Println("\tSetA Union SetC: ", setA.Union(&setC))
+
+	fmt.Println("\n*******************Tuples*******************")
+	fmt.Println("\tSquare of 4: ", tuples.Square(4))
+	fmt.Println("\tCube of 4: ", tuples.Cube(4))
+	xToThePower4 := tuples.XToThePower4(4, tuples.Cube(4))
+	fmt.Println("\t4^4: ", xToThePower4)
+
 }
