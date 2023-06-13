@@ -5,14 +5,13 @@ import (
 
 	"example.com/doublylists"
 	"example.com/lists"
+	"example.com/queue"
 	"example.com/sets"
 	"example.com/tuples"
 )
 
-// The main function creates a singly linked list, adds nodes to it, and performs various operations on it
-// such as finding the last node, adding a node to the end, finding a node with a specific value, and
-// adding a node after a specific node.
-func main() {
+// The function demonstrates the implementation and usage of singly and doubly linked lists in Go.
+func executeListOperations() {
 	fmt.Println("*******************Singly Linked List*******************")
 	linkedList := lists.LinkedList{}
 	linkedList.AddToHead(1)
@@ -64,6 +63,11 @@ func main() {
 	dLinkedList.IterateList()
 
 	fmt.Print("\n")
+}
+
+// The function demonstrates the use of sets in Go by performing various set operations such as adding,
+// deleting, checking for element existence, finding intersection and union of sets.
+func executeSetOperations() {
 	fmt.Println("*******************Sets*******************")
 	setA := sets.Set{}
 	setB := sets.Set{}
@@ -133,11 +137,74 @@ func main() {
 	fmt.Println("\nFinds the union of SetA & SetB AND SetA & SetC")
 	fmt.Println("\tSetA Union SetB: ", setA.Union(&setB))
 	fmt.Println("\tSetA Union SetC: ", setA.Union(&setC))
+}
 
+// The function executes tuple operations and prints the results.
+func executeTupleOperations() {
 	fmt.Println("\n*******************Tuples*******************")
 	fmt.Println("\tSquare of 4: ", tuples.Square(4))
 	fmt.Println("\tCube of 4: ", tuples.Cube(4))
 	xToThePower4 := tuples.XToThePower4(4, tuples.Cube(4))
 	fmt.Println("\t4^4: ", xToThePower4)
+}
 
+// The function creates orders and adds them to a queue, then deletes one order from the queue and
+// prints the updated queue.
+func executeQueueOperations() {
+	fmt.Println("\n*******************Queue*******************")
+	priority1 := 10
+	quantity1 := 100
+	product1 := "Utensils"
+	customerName1 := "Balaji"
+
+	priority2 := 20
+	quantity2 := 200
+	product2 := "Chocolates"
+	customerName2 := "Anjali"
+
+	priority3 := 15
+	quantity3 := 150
+	product3 := "Moong Dal Halwa"
+	customerName3 := "Ajit"
+
+	order1 := &queue.Order{}
+	order1.New(priority1, quantity1, product1, customerName1)
+
+	order2 := &queue.Order{}
+	order2.New(priority2, quantity2, product2, customerName2)
+
+	order3 := &queue.Order{}
+	order3.New(priority3, quantity3, product3, customerName3)
+
+	fmt.Println("\n*******************Printing Order1, Order2 & Order 3*******************")
+	fmt.Println("\t", order1)
+	fmt.Println("\t", order2)
+	fmt.Println("\t", order3)
+
+	fmt.Println("\nAdd Order1, Order2, Order3 to the Queue")
+	queue := make(queue.Queue, 0)
+
+	queue.Add(order1)
+	queue.Add(order2)
+	queue.Add(order3)
+	fmt.Println("\n*******************Printing Queue*******************")
+	for _, order := range queue {
+		fmt.Println("\t", order)
+	}
+
+	fmt.Println("\n*******************Delete Order3*******************")
+	queue.Delete(order3)
+
+	fmt.Println("\n*******************Printing Queue After Deletion*******************")
+	for _, order := range queue {
+		fmt.Println("\t", order)
+	}
+}
+
+// The main function executes various operations on lists, sets, tuples, and queues.
+func main() {
+	executeListOperations()
+	executeSetOperations()
+	executeTupleOperations()
+	executeQueueOperations()
 }

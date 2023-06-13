@@ -27,3 +27,7 @@ How do you create the mental map of linked list and it's linking?
 
 Sets contain unique elements. IMO this is one of the simplest datastructures that I have come across. The different methods of Set includes
 `New, AddElement, DeleteElement, ContainsElement, Intersection & Union`. If you have solved sets during your mathematics classes then you have an advantage if not then you should learn and implement.
+
+# Queue
+
+Queue works in First-In-First-Out (FIFO) order. The queue which we had implemented is the priority queue i.e. higher the priority earlier the element would be present in the queue. Imagine a queue to be a slice containing a structure. This structure has a priority field and depending on that the elements are inserted into the priority queue. Its simple all you have to know is the slicing operator and how to check for priority while inserting in the queue. 
