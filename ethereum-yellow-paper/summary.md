@@ -27,7 +27,7 @@
 
 5. If total payload of a list (i.e. combined length of all its items being RLP encoded) is `> 55 bytes long`, thne its RLP encoding is defined as follows:
 
-    5.1 A single byte with value `0xf7` plus the lenght in bytes of the length of the payload in binary form, followed by the length of the payload followed by the concatenation of the RLP encodings of the items.
+    5.1 A single byte with value `0xf7` plus the length in bytes of the length of the payload in binary form, followed by the length of the payload followed by the concatenation of the RLP encodings of the items.
 
 6. First byte in RLP encoding & what it means:
 
