@@ -7,6 +7,7 @@ import (
 	"example.com/lists"
 	"example.com/queue"
 	"example.com/sets"
+	"example.com/stack"
 	"example.com/tuples"
 )
 
@@ -201,10 +202,39 @@ func executeQueueOperations() {
 	}
 }
 
+// The function executes stack operations such as pushing and popping elements from a stack and prints
+// the results.
+func executeStackOperations() {
+	fmt.Println("\n*******************Stack*******************")
+	s := &stack.Stack{}
+	s.New()
+	fmt.Println("\nPrinting the new stack:\n\t", s)
+	fmt.Println("\n Adds 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 in the stack")
+	s.Push(1)
+	s.Push(2)
+	s.Push(3)
+	s.Push(4)
+	s.Push(5)
+	s.Push(6)
+	s.Push(7)
+	s.Push(8)
+	s.Push(9)
+	s.Push(10)
+	fmt.Println("\nPrinting the Stack elements:\t", s.Element)
+	fmt.Println()
+	fmt.Println("\nPrints the Top of the stack element:\t", s.Top())
+	fmt.Println("\nRemoves last element from the stack:")
+	s.Pop()
+	fmt.Println("\nPrinting the Stack elements after Pop:\t", s.Element)
+	fmt.Println("\nPrints the Top of the stack element:\t", s.Top())
+
+}
+
 // The main function executes various operations on lists, sets, tuples, and queues.
 func main() {
 	executeListOperations()
 	executeSetOperations()
 	executeTupleOperations()
 	executeQueueOperations()
+	executeStackOperations()
 }
