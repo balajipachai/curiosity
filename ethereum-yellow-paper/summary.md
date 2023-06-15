@@ -45,3 +45,33 @@ References:
 - [RECURSIVE-LENGTH PREFIX (RLP) SERIALIZATION](https://ethereum.org/en/developers/docs/data-structures-and-encoding/rlp/)
 - [Data structure in Ethereum | Episode 1: Recursive Length Prefix (RLP) Encoding/Decoding.](https://medium.com/coinmonks/data-structure-in-ethereum-episode-1-recursive-length-prefix-rlp-encoding-decoding-d1016832f919)
 - [Ethereum Under The Hood Part 3 (RLP Decoding)](https://medium.com/coinmonks/ethereum-under-the-hood-part-3-rlp-decoding-df236dc13e58)
+
+# EVM Opcodes & Ethereum Virtual Machine
+
+1. There are in all 256 Ethereum opcodes however not all of them exist at the moment.
+2. Some of the opcodes are not defined and are left for future implmentation.
+3. Ethereum Virtual Machine is a stack-based big-endian system.
+4. Stack based implies that each instruction is put on top of the stack and its execution happends by popping those instructions off the stack.
+5. Big Endian: The most significant byte MSB is stored at the lowest memory address and the Least Significant Byte LSB is stored at the largest memory address.
+6. What is the diffrence between a normal and contract creation transaction?
+
+    `Answer`: The receiver or to of contract creation transaction is a `null` address i.e. to = address(0), this informs the EVM that the current transaction is a contract creation transaction. Interesting thing is after contract deployment the bytecode doesn't contain the constructor code, it is run only during contract deployment, which is logical too that after contract deployment anyways we are not going to call the constructor hence it is a good design decision to not include constructor in the deployed contract bytecode.
+
+7. How EVM knows that `transfer()` of `DAI` contract is called?
+
+    `Answer`: Having `to=address(DAI)` informs the EVM that the transaction is headed towards the DAI contract, however, inside `DAI` there are multiple functions then how does the EVM decides to call which function, this is possible by the method selector which is `bytes4(keccak256(transfer(address to, uint256 amount)))`. If you inspect the transaction data on etherscan the first four bytes are always the method selector or function selector. Thus, in this way the EVM determines which function to call.
+
+    - Another simpler analogy to understand above concept is, you live in `Burj Khalifa` (This is the contract address) and your flat number is `567`(This is the method selector)
+
+8. Storage in EVM is a persistent associative map having `uint256s as both keys and values` i.e. mapping(uint256 => uint256). Or you can think of it as a JSON object having keys and values both to be `uint256s`. All contract state variables are stored in storage.
+
+9. How does EVM decides how much gas a transaction will use?
+
+    `Answer`: Each transaction is sent as bytecode to the EVM for execution. Bytecode consists of Opcodes and gas requirement of each opcode is known in advance which is then used to calculate the amount of gas a transaction will take.
+
+10. [EVM OPCODES DEFINITION](https://github.com/ethereum/go-ethereum/blob/master/core/vm/instructions.go#L27)
+
+11. [Solidity Block & Transaction Properties](https://docs.soliditylang.org/en/develop/units-and-global-variables.html#block-and-transaction-properties)
+
+12. [Layout of state variables in storage](https://docs.soliditylang.org/en/latest/internals/layout_in_storage.html)
+
