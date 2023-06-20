@@ -1,4 +1,4 @@
-package main
+package trees
 
 import "fmt"
 
@@ -61,6 +61,191 @@ func insertTreeNode(rootNode *TreeNode, newNode *TreeNode) {
 	}
 }
 
+// `func (tree *BinarySearchTree) InOrderTraverseTree(function func(int))` is a method of the
+// `BinarySearchTree` struct that performs an in-order traversal of the binary search tree. It takes a
+// function as an argument, which is called on each node's value in the tree. The `inOrderTraverseTree`
+// function is called with the root node of the tree and the provided function. The
+// `inOrderTraverseTree` function recursively traverses the left subtree, calls the provided function
+// on the current node's value, and then recursively traverses the right subtree. This results in the
+// nodes being visited in ascending order of their values.
+func (tree *BinarySearchTree) InOrderTraverseTree(function func(int)) {
+	inOrderTraverseTree(tree.rootNode, function)
+}
+
+// The function performs an in-order traversal of a binary tree and applies a given function to each
+// node's value.
+func inOrderTraverseTree(treeNode *TreeNode, function func(int)) {
+	if treeNode != nil {
+		inOrderTraverseTree(treeNode.leftNode, function)
+		function(treeNode.value)
+		inOrderTraverseTree(treeNode.rightNode, function)
+	}
+}
+
+// `func (tree *BinarySearchTree) PreOrderTraverseTree(function func(int))` is a method of the
+// `BinarySearchTree` struct that performs a pre-order traversal of the binary search tree. It takes a
+// function as an argument, which is called on each node's value in the tree. The
+// `preOrderTraverseTree` function is called with the root node of the tree and the provided function.
+// The `preOrderTraverseTree` function recursively traverses the left subtree, then the right subtree,
+// and finally calls the provided function on the current node's value. This results in the nodes being
+// visited in a pre-order traversal order.
+func (tree *BinarySearchTree) PreOrderTraverseTree(function func(int)) {
+	preOrderTraverseTree(tree.rootNode, function)
+}
+
+// The function performs a pre-order traversal of a binary tree and applies a given function to each
+// node's value.
+func preOrderTraverseTree(treeNode *TreeNode, function func(int)) {
+	if treeNode != nil {
+		function(treeNode.value)
+		preOrderTraverseTree(treeNode.leftNode, function)
+		preOrderTraverseTree(treeNode.rightNode, function)
+	}
+}
+
+// `func (tree *BinarySearchTree) PostOrderTraverseTree(function func(int))` is a method of the
+// `BinarySearchTree` struct that performs a post-order traversal of the binary search tree. It takes a
+// function as an argument, which is called on each node's value in the tree. The
+// `postOrderTraverseTree` function is called with the root node of the tree and the provided function.
+// The `postOrderTraverseTree` function recursively traverses the left subtree, then the right subtree,
+// and finally calls the provided function on the current node's value. This results in the nodes being
+// visited in a post-order traversal order.
+func (tree *BinarySearchTree) PostOrderTraverseTree(function func(int)) {
+	postOrderTraverseTree(tree.rootNode, function)
+}
+
+// This function performs a post-order traversal of a binary tree and applies a given function to each
+// node's value.
+func postOrderTraverseTree(treeNode *TreeNode, function func(int)) {
+	if treeNode != nil {
+		postOrderTraverseTree(treeNode.leftNode, function)
+		postOrderTraverseTree(treeNode.rightNode, function)
+		function(treeNode.value)
+	}
+}
+
+// `func (tree *BinarySearchTree) MinNode() *int` is a method of the `BinarySearchTree` struct that
+// returns a pointer to the minimum value node in the binary search tree. It starts at the root node of
+// the tree and traverses the left subtree until it reaches a leaf node (i.e., a node with no left
+// child). The value of this node is then returned as a pointer to an integer. If the tree is empty
+// (i.e., `rootNode` is `nil`), it returns a `nil` pointer.
+func (tree *BinarySearchTree) MinNode() *int {
+	treeNode := tree.rootNode
+	if treeNode == nil {
+		return (*int)(nil)
+	}
+	for {
+		if treeNode.leftNode == nil {
+			return &treeNode.value
+		}
+		treeNode = treeNode.leftNode
+	}
+}
+
+// `func (tree *BinarySearchTree) MaxNode() *int` is a method of the `BinarySearchTree` struct that
+// returns a pointer to the maximum value node in the binary search tree. It starts at the root node of
+// the tree and traverses the right subtree until it reaches a leaf node (i.e., a node with no right
+// child). The value of this node is then returned as a pointer to an integer. If the tree is empty
+// (i.e., `rootNode` is `nil`), it returns a `nil` pointer.
+func (tree *BinarySearchTree) MaxNode() *int {
+	treeNode := tree.rootNode
+
+	if treeNode == nil {
+		return (*int)(nil)
+	}
+	for {
+		if treeNode.rightNode == nil {
+			return &treeNode.value
+		}
+		treeNode = treeNode.rightNode
+	}
+}
+
+// `func (tree *BinarySearchTree) SearchNode(value int) bool` is a method of the `BinarySearchTree`
+// struct that searches for a node with the given `value` in the binary search tree. It starts at the
+// root node of the tree and recursively traverses the tree based on the value of the current node. If
+// the value of the current node is less than the search value, it continues the search in the right
+// subtree. If the value of the current node is greater than the search value, it continues the search
+// in the left subtree. If the value of the current node is equal to the search value, it returns
+// `true`. If the search value is not found in the tree, it returns `false`.
+func (tree *BinarySearchTree) SearchNode(value int) bool {
+	treeNode := tree.rootNode
+	if treeNode == nil {
+		return false
+	}
+	return searchNode(treeNode, value)
+}
+
+// The function searches for a node with a specific value in a binary search tree.
+func searchNode(treeNode *TreeNode, value int) bool {
+	if treeNode == nil {
+		return false
+	}
+	if value < treeNode.value {
+		return searchNode(treeNode.leftNode, value)
+	}
+	if value > treeNode.value {
+		return searchNode(treeNode.rightNode, value)
+	}
+	return true
+}
+
+// The below code is defining a method called `RemoveNode` for a binary search tree data structure in
+// the Go programming language. The method takes an integer value as input and attempts to remove the
+// node with that value from the tree. It does this by calling a recursive function called `removeNode`
+// on the root node of the tree.
+func (tree *BinarySearchTree) RemoveNode(value int) {
+	treeNode := tree.rootNode
+	removeNode(treeNode, value)
+}
+
+// The function removes a node with a given value from a binary search tree.
+func removeNode(treeNode *TreeNode, value int) *TreeNode {
+	if treeNode == nil {
+		return nil
+	}
+	if value < treeNode.value {
+		treeNode.leftNode = removeNode(treeNode.leftNode, value)
+		return treeNode
+	}
+	if value > treeNode.value {
+		treeNode.rightNode = removeNode(treeNode.rightNode, value)
+		return treeNode
+	}
+	// value == treeNode.value
+	if treeNode.leftNode == nil && treeNode.rightNode == nil {
+		treeNode = nil
+		return nil
+	}
+	if treeNode.leftNode == nil {
+		treeNode = treeNode.rightNode
+		return treeNode
+	}
+	if treeNode.rightNode == nil {
+		treeNode = treeNode.leftNode
+		return treeNode
+	}
+
+	leftmostrightNode := &TreeNode{}
+	leftmostrightNode = treeNode.rightNode
+	for {
+		// find smallest value on the right side
+		if leftmostrightNode != nil && leftmostrightNode.leftNode != nil {
+			leftmostrightNode = leftmostrightNode.leftNode
+		} else {
+			break
+		}
+	}
+	treeNode.value = leftmostrightNode.value
+	treeNode.rightNode = removeNode(treeNode.rightNode, treeNode.value)
+	return treeNode
+}
+
+// The function "PrintTraversedValue" prints an integer value with a tab separator.
+func PrintTraversedValue(value int) {
+	fmt.Printf("%d\t", value)
+}
+
 // The `String()` function is a method of the `BinarySearchTree` struct that prints out the binary
 // search tree in a readable format. It calls the `stringify()` function to traverse the tree in an
 // in-order traversal and print out each node's value. The `fmt.Println()` statements before and after
@@ -85,14 +270,4 @@ func stringify(treeNode *TreeNode, level int) {
 		fmt.Printf(format+"%d\n", treeNode.value)
 		stringify(treeNode.rightNode, level)
 	}
-}
-
-func main() {
-	tree := &BinarySearchTree{}
-	tree.InsertElement(8)
-	tree.InsertElement(3)
-	tree.InsertElement(10)
-	tree.InsertElement(1)
-	tree.InsertElement(6)
-	tree.String()
 }
