@@ -148,8 +148,8 @@
 1. To delete a node from the beginning
 
     - Fetch the last node
-    - [Move the headNode pointer to the next node](circularlist/singly_list.go#L111)
-    - [Make the last node's next pointer pointing to the head node](circularlist/singly_list.go#L112)
+    - [Move the headNode pointer to the next node](circularlist/circular_list.go#L111)
+    - [Make the last node's next pointer pointing to the head node](circularlist/circular_list.go#L112)
 
 2. To delete the last node / To delete the node from the middle
 
@@ -158,12 +158,12 @@
     - The node at position 3, becomes our `positionNode`
     - if `positionNode.nextNode.nextNode != headNode` this means we are deleting from the middle i.e. the `positionNode` is not the  last node
 
-        - [positionNodes's next pointer points to nodeToDelete.nextNode](circularlist/singly_list.go#L133)
-        - [nodeToDelete.nextNode points to nil](circularlist/singly_list.go#L134)
+        - [positionNodes's next pointer points to nodeToDelete.nextNode](circularlist/circular_list.go#L133)
+        - [nodeToDelete.nextNode points to nil](circularlist/circular_list.go#L134)
 
     - else we are deleting the last node
 
-        - [positionNode's next pointer points to nodeToDelete.nextNode](circularlist/singly_list.go#L130)
-        - [nodeToDelete.nextNode points to nil](circularlist/singly_list.go#L131)
+        - [positionNode's next pointer points to nodeToDelete.nextNode](circularlist/circular_list.go#L130)
+        - [nodeToDelete.nextNode points to nil](circularlist/circular_list.go#L131)
 
 ---
