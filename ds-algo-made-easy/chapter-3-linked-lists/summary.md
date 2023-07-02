@@ -111,3 +111,59 @@
 
         - [positionNode's next pointer points to nil](doublylist/doubly_list.go#L143)
 ---
+
+# Circular Linked List
+
+## Insert
+
+1. To insert a node in the beginning
+
+    - [Update the next pointer of the new node, to point to the current head](circularlist/circular_list.go#L70)
+    - [Update the head pointer to point to the new node](circularlist/circular_list.go#L71)
+    - [Update the head pointer's next node to point to the new node, making it circular](circularlist/circular_list.go#L72)
+
+2. To insert a node in the end
+
+    - [New node's next pointer points to the head node](circularlist/circular_list.go#L89)
+    - [Position node's next pointer points to the new node](circularlist/circular_list.go#L90)
+
+3. To insert a node in the middle
+
+    - Let us say we want to add a node at position 4
+    - Traverse the list and stop at position 3
+    - The node at position 3, becomes our `positionNode`
+    - if `positionNode.nextNode != headNode` this means we are inserting in the middle i.e. the `positionNode` is not the  last node
+    
+        - [newNode's next pointer points to positionNode's next pointer](circularlist/circular_list.go#L93)
+        - [positionNodes's next pointer points to new node](circularlist/circular_list.go#L94)
+
+    -  else we are inserting at the last node
+
+        - [To insert a node in the end](summary.md#L125)
+
+---
+
+## Delete
+
+1. To delete a node from the beginning
+
+    - Fetch the last node
+    - [Move the headNode pointer to the next node](circularlist/singly_list.go#L111)
+    - [Make the last node's next pointer pointing to the head node](circularlist/singly_list.go#L112)
+
+2. To delete the last node / To delete the node from the middle
+
+    - Let us say we want to add a node at position 4
+    - Traverse the list and stop at position 3
+    - The node at position 3, becomes our `positionNode`
+    - if `positionNode.nextNode.nextNode != headNode` this means we are deleting from the middle i.e. the `positionNode` is not the  last node
+
+        - [positionNodes's next pointer points to nodeToDelete.nextNode](circularlist/singly_list.go#L133)
+        - [nodeToDelete.nextNode points to nil](circularlist/singly_list.go#L134)
+
+    - else we are deleting the last node
+
+        - [positionNode's next pointer points to nodeToDelete.nextNode](circularlist/singly_list.go#L130)
+        - [nodeToDelete.nextNode points to nil](circularlist/singly_list.go#L131)
+
+---
