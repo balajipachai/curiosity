@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 
+	"example.com/circularlist"
 	"example.com/doublylist"
 	"example.com/singlylist"
 )
@@ -104,8 +105,52 @@ func executeDoublyLinkedListOperations() {
 	fmt.Println(colorReset)
 }
 
+func executeCircularLinkedListOperations() {
+	circularLinkedList := circularlist.CirculaLinkedList{}
+
+	fmt.Println(colorCyan + "\nInsert 200, 300, 400, 500, 600 & 250 in the list\n" + colorReset)
+
+	// Insert one after the other
+	circularLinkedList.Insert(200, 1)
+	circularLinkedList.Insert(300, 2)
+	circularLinkedList.Insert(400, 3)
+	circularLinkedList.Insert(500, 4)
+	circularLinkedList.Insert(600, 5)
+	// Insert in the middle
+	circularLinkedList.Insert(250, 2)
+
+	fmt.Println(colorCyan+"LastNode is: ", circularLinkedList.LastNode())
+	fmt.Println(colorReset)
+
+	fmt.Println(colorCyan + "\nPrint the list elements:" + colorReset)
+	fmt.Printf(colorYellow+"\nListLength: %d\t\n", circularLinkedList.ListLength())
+	fmt.Println(colorReset)
+
+	fmt.Println(colorRed + "\nDelete 200 from the list" + colorReset)
+	circularLinkedList.Delete(1)
+	fmt.Println(colorCyan + "\nPrint the list elements after delete:" + colorReset)
+	fmt.Printf(colorYellow+"\nListLength: %d\t\n", circularLinkedList.ListLength())
+	fmt.Println(colorReset)
+
+	fmt.Println(colorRed + "\nDelete 400 from the list" + colorReset)
+	circularLinkedList.Delete(3)
+	fmt.Println(colorCyan + "\nPrint the list elements after delete:" + colorReset)
+	fmt.Printf(colorYellow+"\nListLength: %d\t\n", circularLinkedList.ListLength())
+	fmt.Println(colorReset)
+
+	fmt.Println(colorRed + "\nDelete 600 from the list" + colorReset)
+	circularLinkedList.Delete(4)
+	fmt.Println(colorCyan + "\nPrint the list elements after delete:" + colorReset)
+	fmt.Printf(colorYellow+"\nListLength: %d\t\n", circularLinkedList.ListLength())
+	fmt.Println(colorReset)
+
+	fmt.Println(colorCyan+"LastNode is: ", circularLinkedList.LastNode())
+	fmt.Println(colorReset)
+}
+
 // The main function calls and executes the singly linked list operations.
 func main() {
 	executeSinglyLinkedListOperations()
 	executeDoublyLinkedListOperations()
+	executeCircularLinkedListOperations()
 }
