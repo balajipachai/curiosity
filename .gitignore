@@ -2,3 +2,71 @@
 */package-lock.json
 .vscode
 .DS_Store
+
+# Staking Project
+scaffold-eth/staking/node_modules
+
+scaffold-eth/staking/packages/subgraph/subgraph.yaml
+scaffold-eth/staking/packages/subgraph/generated
+scaffold-eth/staking/packages/subgraph/abis/*
+scaffold-eth/staking/packages/hardhat/*.txt
+scaffold-eth/staking/**/aws.json
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+scaffold-eth/**/node_modules
+
+#Hardhat
+scaffold-eth/staking/packages/hardhat/artifacts*
+scaffold-eth/staking/packages/hardhat/deployments
+scaffold-eth/staking/packages/hardhat/cache*
+
+#React-app
+scaffold-eth/staking/packages/react-app/src/contracts/*
+scaffold-eth/staking/!packages/react-app/src/contracts/external_contracts.js
+scaffold-eth/staking/packages/react-app/build
+
+scaffold-eth/staking/packages/**/data
+scaffold-eth/staking/!packages/react-app/src/contracts/contracts.js
+
+
+# ts
+scaffold-eth/packages/hardhat-ts/cache
+# secrets
+scaffold-eth/staking/.secret
+
+scaffold-eth/staking/packages/subgraph/config/config.json
+scaffold-eth/staking/tenderly.yaml
+
+# testing
+scaffold-eth/staking/packages/hardhat/coverage
+
+# production
+scaffold-eth/staking/build
+
+# yarn / eslint
+scaffold-eth/staking/.yarn/cache
+scaffold-eth/staking/.yarn/install-state.gz
+scaffold-eth/staking/.yarn/build-state.yml
+scaffold-eth/staking/.eslintcache
+
+# testing
+scaffold-eth/staking/coverage
+
+# production
+scaffold-eth/staking/build
+
+# misc
+scaffold-eth/staking/.DS_Store
+scaffold-eth/staking/.env*
+
+# debug
+scaffold-eth/staking/npm-debug.log*
+scaffold-eth/staking/yarn-debug.log*
+scaffold-eth/staking/yarn-error.log*
+
+scaffold-eth/staking/.idea
+
+# Local Netlify folder
+scaffold-eth/staking/.netlify
+scaffold-eth/staking/*.tsbuildinfo
+scaffold-eth/staking/*.stackdump
