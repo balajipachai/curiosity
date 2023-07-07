@@ -2,9 +2,11 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	"example.com/circularlist"
 	"example.com/doublylist"
+	"example.com/problemAndsolutions"
 	"example.com/singlylist"
 )
 
@@ -13,7 +15,13 @@ const (
 	colorYellow = "\033[33m"
 	colorReset  = "\033[0m"
 	colorCyan   = "\033[36m"
+	colorGreen  = "\033[32m"
+	colorBlue   = "\033[34m"
 )
+
+func printDottedLine() {
+	fmt.Println(colorBlue + "---------------------------------------------------------------------------------------------------------------------------------------------------------------" + colorReset)
+}
 
 // This function performs various operations on a singly linked list, including inserting and deleting
 // elements and printing the list length.
@@ -23,7 +31,6 @@ func executeSinglyLinkedListOperations() {
 
 	// Insert
 	singlyLinkedList.Insert(10, 1)
-	// The `LastNode` function is used to find and return the last node in a doubly linked list.
 	singlyLinkedList.Insert(20, 2)
 	singlyLinkedList.Insert(30, 3)
 	singlyLinkedList.Insert(40, 4)
@@ -148,9 +155,57 @@ func executeCircularLinkedListOperations() {
 	fmt.Println(colorReset)
 }
 
+func executeproblemAndsolutions() {
+	singlyLinkedList := singlylist.SinglyLinkedList{}
+
+	// Insert & Maintain a Hash Table
+	singlyLinkedList.InsertAndMaintainHashTable(10, 1)
+	singlyLinkedList.InsertAndMaintainHashTable(20, 2)
+	singlyLinkedList.InsertAndMaintainHashTable(30, 3)
+	singlyLinkedList.InsertAndMaintainHashTable(40, 4)
+	singlyLinkedList.InsertAndMaintainHashTable(50, 5)
+
+	startTime := time.Now()
+	fmt.Printf(colorYellow+"\tFindNthNodeFromEnd where n = 2: %v\t\n", problemAndsolutions.FindNthNodeFromEnd(&singlyLinkedList, 2))
+	fmt.Println(colorReset)
+	endTime := time.Now()
+	fmt.Println(colorGreen+"Time elapsed for FindNthNodeFromEnd where n = 2\t", endTime.Sub(startTime))
+	fmt.Println(colorReset)
+
+	startTime = time.Now()
+	fmt.Printf(colorYellow+"\tFindNthNodeFromEndUsingHashTable where n = 3: %v\t\n", problemAndsolutions.FindNthNodeFromEndUsingHashTable(&singlyLinkedList, 3))
+	fmt.Println(colorReset)
+	endTime = time.Now()
+	fmt.Println(colorGreen+"Time elapsed for FindNthNodeFromEndUsingHashTable where n = 3\t", endTime.Sub(startTime))
+	fmt.Println(colorReset)
+
+	startTime = time.Now()
+	fmt.Printf(colorYellow+"\tFindNthNodeInOneScan where n = 1: %v\t\n", problemAndsolutions.FindNthNodeInOneScan(&singlyLinkedList, 1))
+	fmt.Println(colorReset)
+	endTime = time.Now()
+	fmt.Println(colorGreen+"Time elapsed for tFindNthNodeInOneScan where n = 1\t", endTime.Sub(startTime))
+	fmt.Println(colorReset)
+
+	startTime = time.Now()
+	fmt.Printf(colorYellow+"\tFindNthNodeInOneScan where n = 7: %v\t\n", problemAndsolutions.FindNthNodeInOneScan(&singlyLinkedList, 7))
+	fmt.Println(colorReset)
+	endTime = time.Now()
+	fmt.Println(colorGreen+"Time elapsed for tFindNthNodeInOneScan where n = 7\t", endTime.Sub(startTime))
+	fmt.Println(colorReset)
+}
+
 // The main function calls and executes the singly linked list operations.
 func main() {
+	fmt.Println("SINGLY LINKED LIST")
 	executeSinglyLinkedListOperations()
+	printDottedLine()
+	fmt.Println("DOUBLY LINKED LIST")
 	executeDoublyLinkedListOperations()
+	printDottedLine()
+	fmt.Println("CIRCULAR LINKED LIST")
 	executeCircularLinkedListOperations()
+	printDottedLine()
+	fmt.Println("EXERCISE PROBLEMS")
+	executeproblemAndsolutions()
+	printDottedLine()
 }
