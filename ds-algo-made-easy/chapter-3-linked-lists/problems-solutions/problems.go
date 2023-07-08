@@ -1,6 +1,8 @@
 package problemAndsolutions
 
 import (
+	"fmt"
+
 	"example.com/singlylist"
 )
 
@@ -60,4 +62,28 @@ func FindNthNodeInOneScan(list *singlylist.SinglyLinkedList, n int) *singlylist.
 		}
 	}
 	return pNthNode
+}
+
+// TODO How do we find the end of the linked list?
+// Yet to find the answer for this
+func FindLoopInListBruteForceApproach(list *singlylist.SinglyLinkedList) bool {
+	headNode := list.HeadNode
+	currentNode := headNode
+	nodeTraversalCount := make(map[*singlylist.ListNode]int)
+	isLoop := false
+
+	for node := currentNode; node != nil; node = node.NextNode {
+		for innerNode := node.NextNode; innerNode != nil; innerNode = innerNode.NextNode {
+			nodeTraversalCount[innerNode]++
+			if nodeTraversalCount[innerNode] > 1 {
+				fmt.Println("inside first if", innerNode)
+				if node == innerNode {
+					fmt.Println("inside node == innerNode")
+					isLoop = true
+					break
+				}
+			}
+		}
+	}
+	return isLoop
 }

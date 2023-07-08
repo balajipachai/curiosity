@@ -17,7 +17,7 @@ var HashTable = make(map[int]*ListNode)
 // the list and access the data stored in each node. If the current node is the last node in the list,
 // NextNode will be set to nil to indicate the end of the list.
 type ListNode struct {
-	data     int
+	Data     int
 	NextNode *ListNode
 }
 
@@ -39,7 +39,7 @@ func (singlyLinkedList *SinglyLinkedList) ListLength() int {
 	count := 0
 	for node := HeadNode; node != nil; node = node.NextNode {
 		count++
-		fmt.Printf(colorMagenta+"\t%d\t", node.data)
+		fmt.Printf(colorMagenta+"\t%d\t", node.Data)
 	}
 	fmt.Printf("\n")
 	fmt.Println(colorReset)
@@ -52,7 +52,7 @@ func (singlyLinkedList *SinglyLinkedList) Insert(data, position int) {
 	HeadNode := singlyLinkedList.HeadNode
 
 	newNode := &ListNode{}
-	newNode.data = data
+	newNode.Data = data
 
 	if position < 1 {
 		panic("Invalid position")
@@ -87,7 +87,7 @@ func (singlyLinkedList *SinglyLinkedList) InsertAndMaintainHashTable(data, posit
 	HeadNode := singlyLinkedList.HeadNode
 
 	newNode := &ListNode{}
-	newNode.data = data
+	newNode.Data = data
 
 	if position < 1 {
 		panic("Invalid position")
@@ -160,4 +160,40 @@ func (singlyLinkedList *SinglyLinkedList) Delete(position int) {
 			positionNode.NextNode = nil
 		}
 	}
+}
+
+func CreateListWithALoop() SinglyLinkedList {
+	singlyLinkedList := SinglyLinkedList{}
+	singlyLinkedList.HeadNode = nil
+	firstNode := ListNode{
+		Data:     10,
+		NextNode: nil,
+	}
+	secondNode := &ListNode{
+		Data:     20,
+		NextNode: nil,
+	}
+	thirdNode := &ListNode{
+		Data:     30,
+		NextNode: nil,
+	}
+	fourthNode := &ListNode{
+		Data:     40,
+		NextNode: nil,
+	}
+	fifthNode := &ListNode{
+		Data:     50,
+		NextNode: nil,
+	}
+
+	// Linking
+	singlyLinkedList.HeadNode = &firstNode
+	firstNode.NextNode = secondNode
+	secondNode.NextNode = thirdNode
+	thirdNode.NextNode = fourthNode
+	fourthNode.NextNode = fifthNode
+	fifthNode.NextNode = thirdNode
+
+	return singlyLinkedList
+
 }
