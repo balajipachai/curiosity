@@ -16,7 +16,12 @@ const (
 	colorBlue   = "\033[34m"
 )
 
+func printDottedLine() {
+	fmt.Println(colorBlue + "---------------------------------------------------------------------------------------------------------------------------------------------------------------" + colorReset)
+}
+
 func executeFixedSizeStackOperations() {
+	fmt.Println("FIXED SIZE STACK")
 	stack := stacks.StackFixedArray{}
 
 	// Create a New Stack
@@ -74,8 +79,50 @@ func executeFixedSizeStackOperations() {
 	stack.Pop()
 	stack.Pop()
 
+	printDottedLine()
+}
+
+func executeDynamicStackOperations() {
+	fmt.Println("DYNAMIC STACK USING SLICES")
+	dStack := stacks.DynamicStack{}
+
+	// Create a New Stack
+	dStack.CreateNew()
+
+	startTime := time.Now()
+	// Check if Stack is empty
+	fmt.Println("\t"+colorYellow+"Initially checks if stack is empty:\t ", dStack.IsEmpty(), colorReset)
+	endTime := time.Now()
+	fmt.Println("\t"+colorCyan+"Time elapsed for stack.IsEmpty()\t", endTime.Sub(startTime))
+	fmt.Println(colorReset)
+
+	fmt.Println("\t"+colorYellow+"Push 10, 20, 30, 40, & 50 into the stack", colorReset)
+	dStack.Push(10)
+	dStack.Push(20)
+	dStack.Push(30)
+	dStack.Push(40)
+	dStack.Push(50)
+	fmt.Println("\t"+colorYellow+"Print Stack elements", colorReset)
+	dStack.Print()
+	fmt.Println("\t"+colorCyan+"Prints the top element:\t", dStack.TopElement(), colorReset)
+
+	fmt.Println("\t"+colorYellow+"Pop should remove 50 from the stack", colorReset)
+	dStack.Pop()
+	fmt.Println("\t"+colorCyan+"Prints the top element:\t", dStack.TopElement(), colorReset)
+	dStack.Print()
+
+	fmt.Println("\t"+colorYellow+"Should underflow", colorReset)
+	dStack.Pop()
+	dStack.Pop()
+	dStack.Pop()
+	dStack.Pop()
+	dStack.Pop()
+
+	printDottedLine()
+
 }
 
 func main() {
 	executeFixedSizeStackOperations()
+	executeDynamicStackOperations()
 }

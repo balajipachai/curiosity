@@ -35,7 +35,7 @@ func (stack *StackFixedArray) CreateNew() {
 // is equal to the `capacity` property, it means that the stack is full and the function returns
 // `true`. Otherwise, it returns `false`.
 func (stack *StackFixedArray) IsFull() bool {
-	return stack.top == stack.capacity
+	return stack.top == (stack.capacity - 1)
 }
 
 // The `IsEmpty()` function is checking whether the stack is empty or not. It does this by comparing
@@ -49,23 +49,23 @@ func (stack *StackFixedArray) IsEmpty() bool {
 // The `Push` function is used to add an element to the top of the stack. It takes an integer `data` as
 // a parameter.
 func (stack *StackFixedArray) Push(data int) {
-	stack.top += 1
 	if stack.IsFull() {
 		fmt.Println(colorRed + "\tOverflow: Stack is full" + colorReset)
 		return
 	}
+	stack.top += 1
 	stack.elements[stack.top] = data
 }
 
 // The `Pop()` function is used to remove and return the top element from the stack.
 func (stack *StackFixedArray) Pop() int {
-	stack.top -= 1
 	if stack.IsEmpty() {
 		fmt.Println(colorRed + "\tUndeflow: Stack is empty" + colorReset)
 		return 0
 	}
 	poppedElement := stack.elements[stack.top]
 	stack.elements[stack.top] = 0
+	stack.top -= 1
 	return poppedElement
 }
 
@@ -83,9 +83,62 @@ func (stack *StackFixedArray) Capacity() int {
 	return stack.capacity
 }
 
+// The `Print()` function is a method of the `StackFixedArray` struct. It is used to print the elements
+// of the stack in a formatted way.
 func (stack *StackFixedArray) Print() {
 	for i := range stack.elements {
 		fmt.Printf(colorMagenta+"\t%d\t", stack.elements[i])
+	}
+	fmt.Printf("\n" + colorReset)
+}
+
+// ====================================================================================================================
+
+type DynamicStack struct {
+	top      int
+	elements []int
+}
+
+func (dynamicStack *DynamicStack) CreateNew() {
+	dynamicStack.top = -1
+	dynamicStack.elements = make([]int, 0) // Assigns memory to dynamic slice
+}
+
+func (dynamicStack *DynamicStack) IsEmpty() bool {
+	return dynamicStack.top == -1
+}
+
+// The `Push` function is used to add an element to the top of the dynamicStack. It takes an integer `data` as
+// a parameter.
+func (dynamicStack *DynamicStack) Push(data int) {
+	dynamicStack.top += 1
+	dynamicStack.elements = append(dynamicStack.elements, data)
+}
+
+// The `Pop()` function is used to remove and return the top element from the dynamicStack.
+func (dynamicStack *DynamicStack) Pop() int {
+	if dynamicStack.IsEmpty() {
+		fmt.Println(colorRed + "\tUndeflow: Stack is empty" + colorReset)
+		return 0
+	}
+	poppedElement := dynamicStack.elements[dynamicStack.top]
+	dynamicStack.elements[dynamicStack.top] = 0
+	dynamicStack.top -= 1
+	return poppedElement
+}
+
+// The `TopElement()` function is returning the value of the top element in the dynamicStack without removing
+// it. It does this by accessing the `elements` array of the dynamicStack and retrieving the element at the
+// index specified by the `top` property.
+func (dynamicStack *DynamicStack) TopElement() int {
+	return dynamicStack.elements[dynamicStack.top]
+}
+
+// The `Print()` function is a method of the `StackFixedArray` struct. It is used to print the elements
+// of the stack in a formatted way.
+func (dynamicStack *DynamicStack) Print() {
+	for i := range dynamicStack.elements {
+		fmt.Printf(colorMagenta+"\t%d\t", dynamicStack.elements[i])
 	}
 	fmt.Printf("\n" + colorReset)
 }
