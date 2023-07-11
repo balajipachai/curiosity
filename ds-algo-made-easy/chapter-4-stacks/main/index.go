@@ -21,7 +21,7 @@ func printDottedLine() {
 }
 
 func executeFixedSizeStackOperations() {
-	fmt.Println("FIXED SIZE STACK")
+	fmt.Println("FIXED SIZE STACK IMPLEMENTATION")
 	stack := stacks.StackFixedArray{}
 
 	// Create a New Stack
@@ -83,7 +83,7 @@ func executeFixedSizeStackOperations() {
 }
 
 func executeDynamicStackOperations() {
-	fmt.Println("DYNAMIC STACK USING SLICES")
+	fmt.Println("DYNAMIC STACK IMPLEMENTATION")
 	dStack := stacks.DynamicStack{}
 
 	// Create a New Stack
@@ -122,7 +122,45 @@ func executeDynamicStackOperations() {
 
 }
 
+func executeLinkedListStackOperations() {
+	fmt.Println("LINKED LIST STACK IMPLEMENTATION")
+	llStack := stacks.LinkedListStack{}
+
+	startTime := time.Now()
+	// Check if Stack is empty
+	fmt.Println("\t"+colorYellow+"Initially checks if stack is empty:\t ", llStack.IsEmpty(), colorReset)
+	endTime := time.Now()
+	fmt.Println("\t"+colorCyan+"Time elapsed for stack.IsEmpty()\t", endTime.Sub(startTime))
+	fmt.Println(colorReset)
+
+	fmt.Println("\t"+colorYellow+"Push 100, 200, 300, 400, & 500 into the stack", colorReset)
+	llStack.Push(100)
+	llStack.Push(200)
+	llStack.Push(300)
+	llStack.Push(400)
+	llStack.Push(500)
+	fmt.Println("\t"+colorYellow+"Print Stack elements", colorReset)
+	llStack.Print()
+	fmt.Println("\t"+colorCyan+"Prints the top element:\t", llStack.TopElement(), colorReset)
+
+	fmt.Println("\t"+colorYellow+"Pop should remove 500 from the stack", colorReset)
+	llStack.Pop()
+	fmt.Println("\t"+colorCyan+"Prints the top element:\t", llStack.TopElement(), colorReset)
+	llStack.Print()
+
+	fmt.Println("\t"+colorYellow+"Should underflow", colorReset)
+	llStack.Pop()
+	llStack.Pop()
+	llStack.Pop()
+	llStack.Pop()
+	llStack.Pop()
+
+	printDottedLine()
+
+}
+
 func main() {
 	executeFixedSizeStackOperations()
 	executeDynamicStackOperations()
+	executeLinkedListStackOperations()
 }

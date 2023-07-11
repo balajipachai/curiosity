@@ -94,16 +94,26 @@ func (stack *StackFixedArray) Print() {
 
 // ====================================================================================================================
 
+// The DynamicStack type is a stack data structure that can dynamically resize its underlying array to
+// accommodate more elements.
+// @property {int} top - The "top" property represents the index of the top element in the stack. It
+// keeps track of the position where the next element will be added or removed from the stack.
+// @property {[]int} elements - The `elements` property is a slice of integers that represents the
+// elements stored in the dynamic stack.
 type DynamicStack struct {
 	top      int
 	elements []int
 }
 
+// The `CreateNew()` function is a method of the `DynamicStack` struct. It is used to initialize a new
+// instance of the `DynamicStack` struct.
 func (dynamicStack *DynamicStack) CreateNew() {
 	dynamicStack.top = -1
 	dynamicStack.elements = make([]int, 0) // Assigns memory to dynamic slice
 }
 
+// The `IsEmpty()` function is a method of the `DynamicStack` struct. It is used to check whether the
+// dynamic stack is empty or not.
 func (dynamicStack *DynamicStack) IsEmpty() bool {
 	return dynamicStack.top == -1
 }
@@ -141,4 +151,74 @@ func (dynamicStack *DynamicStack) Print() {
 		fmt.Printf(colorMagenta+"\t%d\t", dynamicStack.elements[i])
 	}
 	fmt.Printf("\n" + colorReset)
+}
+
+// ====================================================================================================================
+// The LinkedListStack type represents a stack implemented using a linked list.
+// @property {int} data - The "data" property represents the value stored in each node of the linked
+// list stack. It can be of any data type, but in this case, it is specified as an integer (int).
+// @property nextNode - nextNode is a pointer to the next node in the linked list. It is of type
+// *LinkedListStack, which means it points to another node of the same type.
+type LinkedListStackNode struct {
+	data     int
+	nextNode *LinkedListStackNode
+}
+
+// The LinkedListStack type represents a stack data structure implemented using a linked list.
+// @property headNode - The headNode property is a pointer to the first node in the linked list stack.
+type LinkedListStack struct {
+	headNode *LinkedListStackNode
+}
+
+// The `IsEmpty()` function is a method of the `LinkedListStack` struct. It is used to check whether
+// the linked list stack is empty or not.
+func (linkedListStack *LinkedListStack) IsEmpty() bool {
+	return linkedListStack.headNode == nil
+}
+
+// The `Push` function in the `LinkedListStack` struct is used to add an element to the top of the
+// linked list stack.
+func (linkedListStack *LinkedListStack) Push(data int) {
+	headNode := linkedListStack.headNode
+
+	newNode := &LinkedListStackNode{}
+	newNode.data = data
+
+	newNode.nextNode = headNode
+	linkedListStack.headNode = newNode
+}
+
+// The `Pop()` function in the `LinkedListStack` struct is used to remove and return the top element
+// from the linked list stack.
+func (linkedListStack *LinkedListStack) Pop() int {
+	if linkedListStack.IsEmpty() {
+		fmt.Println(colorRed + "\tUndeflow: Stack is empty" + colorReset)
+		return 0
+	}
+	headNode := linkedListStack.headNode
+	data := headNode.data
+	if headNode.nextNode != nil {
+		nextNode := headNode.nextNode
+		headNode.nextNode = nil
+		linkedListStack.headNode = nextNode
+	} else {
+		// there is only 1 node
+		linkedListStack.headNode = nil
+	}
+	return data
+}
+
+// The `Print()` function is a method of the `LinkedListStack` struct. It is used to print the elements
+// of the linked list stack in a formatted way.
+func (linkedListStack *LinkedListStack) Print() {
+	for node := linkedListStack.headNode; node != nil; node = node.nextNode {
+		fmt.Printf(colorMagenta+"\t%d\t", node.data)
+	}
+	fmt.Printf("\n" + colorReset)
+}
+
+// The `TopElement()` function is a method of the `LinkedListStack` struct. It is used to retrieve the
+// value of the top element in the linked list stack without removing it.
+func (linkedListStack *LinkedListStack) TopElement() int {
+	return linkedListStack.headNode.data
 }
