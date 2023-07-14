@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"time"
 
+	"example.com/exercises"
 	"example.com/stacks"
 )
 
@@ -103,13 +104,13 @@ func executeDynamicStackOperations() {
 	dStack.Push(40)
 	dStack.Push(50)
 	fmt.Println("\t"+colorYellow+"Print Stack elements", colorReset)
-	dStack.Print()
+	dStack.Print(false)
 	fmt.Println("\t"+colorCyan+"Prints the top element:\t", dStack.TopElement(), colorReset)
 
 	fmt.Println("\t"+colorYellow+"Pop should remove 50 from the stack", colorReset)
 	dStack.Pop()
 	fmt.Println("\t"+colorCyan+"Prints the top element:\t", dStack.TopElement(), colorReset)
-	dStack.Print()
+	dStack.Print(false)
 
 	fmt.Println("\t"+colorYellow+"Should underflow", colorReset)
 	dStack.Pop()
@@ -159,8 +160,28 @@ func executeLinkedListStackOperations() {
 
 }
 
+func usingStacksForCheckingBalancingOfSymbols(input string) {
+	dStack := stacks.DynamicStack{}
+	dStack.CreateNew()
+	fmt.Println(colorYellow + "\tInput = \t" + input + colorReset)
+	result := exercises.IsSymbolBalanced(&dStack, input)
+	if result {
+		fmt.Println(colorGreen + "\t SYMBOLS ARE BALANCED" + colorReset)
+	} else {
+		fmt.Println(colorRed + "\t SYMBOLS ARE NOT BALANCED" + colorReset)
+	}
+	printDottedLine()
+}
+
+func executeExercises() {
+	fmt.Println("STACK EXERCISES")
+	fmt.Println("Problem 1: Using stacks for checking balancing of symbols")
+	usingStacksForCheckingBalancingOfSymbols("({[]}) ()")
+	usingStacksForCheckingBalancingOfSymbols("()(()[()")
+}
 func main() {
 	executeFixedSizeStackOperations()
 	executeDynamicStackOperations()
 	executeLinkedListStackOperations()
+	executeExercises()
 }

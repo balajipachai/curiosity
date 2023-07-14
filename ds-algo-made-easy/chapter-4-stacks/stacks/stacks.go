@@ -132,7 +132,7 @@ func (dynamicStack *DynamicStack) Pop() int {
 		return 0
 	}
 	poppedElement := dynamicStack.elements[dynamicStack.top]
-	dynamicStack.elements[dynamicStack.top] = 0
+	dynamicStack.elements = dynamicStack.elements[:dynamicStack.top]
 	dynamicStack.top -= 1
 	return poppedElement
 }
@@ -146,9 +146,13 @@ func (dynamicStack *DynamicStack) TopElement() int {
 
 // The `Print()` function is a method of the `StackFixedArray` struct. It is used to print the elements
 // of the stack in a formatted way.
-func (dynamicStack *DynamicStack) Print() {
+func (dynamicStack *DynamicStack) Print(printAsChar bool) {
 	for i := range dynamicStack.elements {
-		fmt.Printf(colorMagenta+"\t%d\t", dynamicStack.elements[i])
+		if printAsChar {
+			fmt.Printf(colorMagenta+"\t%c\t", dynamicStack.elements[i])
+		} else {
+			fmt.Printf(colorMagenta+"\t%d\t", dynamicStack.elements[i])
+		}
 	}
 	fmt.Printf("\n" + colorReset)
 }
