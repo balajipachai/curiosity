@@ -161,6 +161,7 @@ func executeLinkedListStackOperations() {
 
 }
 
+// The function uses stacks to check if symbols in a given input string are balanced or not.
 func usingStacksForCheckingBalancingOfSymbols(input string) {
 	dStack := stacks.DynamicStack{}
 	dStack.CreateNew()
@@ -174,15 +175,18 @@ func usingStacksForCheckingBalancingOfSymbols(input string) {
 	printDottedLine()
 }
 
-func usingStacksForInfixToPostfixExpression(input string) {
+// The function uses stacks to convert an infix expression to a postfix expression.
+func usingStacksForInfixToPostfixExpression(input string) string {
 	dStack := stacks.DynamicStack{}
 	dStack.CreateNew()
 	fmt.Println(colorYellow + "\tInput = \t" + input + colorReset)
 	result := exercises.InfixToPostfix(&dStack, input)
 	fmt.Println(colorGreen + "\t POSTFIX EXPRESSION = \t" + strings.ReplaceAll(result, " ", "") + colorReset)
 	printDottedLine()
+	return result
 }
 
+// The function uses a stack to evaluate a postfix expression and prints the result.
 func usingStackForPostfixEvaluation(input string) {
 	dStack := stacks.DynamicStack{}
 	dStack.CreateNew()
@@ -191,6 +195,46 @@ func usingStackForPostfixEvaluation(input string) {
 	fmt.Println(colorGreen)
 	fmt.Printf("\t POSTFIX EVALUATION RESULT = %d\t", result)
 	fmt.Println(colorReset)
+	printDottedLine()
+}
+
+// The function evaluates an infix expression using a two-pass approach.
+func evaluateInfixExpressionUsingTwoPass(input string) {
+	startTime := time.Now()
+	dStack := stacks.DynamicStack{}
+	dStack.CreateNew()
+	result := usingStacksForInfixToPostfixExpression(input)
+	// ------------------------------------------------------------------- 23*59+-8+
+	fmt.Println(colorYellow)
+	fmt.Printf("\tInput = %v\t", result)
+	fmt.Println(colorReset)
+	evalResult := exercises.PostfixEvaluation(&dStack, result)
+	fmt.Println(colorGreen)
+	fmt.Printf("\t POSTFIX EVALUATION RESULT = %d\t", evalResult)
+	fmt.Println(colorReset)
+	endTime := time.Now()
+	fmt.Println("\t"+colorCyan+"Time elapsed for Infix - Postfix expression evaluation using 2 pass:\t", endTime.Sub(startTime))
+	printDottedLine()
+
+}
+
+// The function evaluates an infix expression using a one-pass algorithm and prints the result along
+// with the time taken for evaluation.
+func evaluateInfixExpressionUsingOnePass(input string) {
+	startTime := time.Now()
+	operatorStack := stacks.DynamicStack{}
+	operatorStack.CreateNew()
+
+	operandStack := stacks.DynamicStack{}
+	operandStack.CreateNew()
+
+	result := exercises.InfixEvaluationUsingOnePass(&operatorStack, &operandStack, input)
+	// ------------------------------------------------------------------- 23*59+-8+
+	fmt.Println(colorGreen)
+	fmt.Printf("\t INFIX EVALUATION RESULT = %d\t", result)
+	fmt.Println(colorReset)
+	endTime := time.Now()
+	fmt.Println("\t"+colorCyan+"Time elapsed for Infix - Postfix expression evaluation using 1 pass:\t", endTime.Sub(startTime))
 	printDottedLine()
 }
 
@@ -203,6 +247,13 @@ func executeExercises() {
 	usingStacksForInfixToPostfixExpression("A * B - (C + D) + E")
 	fmt.Println("Problem 3: Postfix evaluation using stacks")
 	usingStackForPostfixEvaluation("123*+5-")
+	fmt.Println("Problem 4: Evaluate the infix expression with stacks in one pass")
+	fmt.Println(colorCyan + "\tevaluateInfixExpressionUsing2Pass:" + colorReset)
+	evaluateInfixExpressionUsingTwoPass("2*3-(5+9)+8") // This is an infix string
+	// -----------------------------------------------------------------------
+	fmt.Println(colorCyan + "\tevaluateInfixExpressionUsing1Pass:" + colorReset)
+	evaluateInfixExpressionUsingOnePass("2*3-(5+9)+8") // This is an infix string
+
 }
 func main() {
 	// executeFixedSizeStackOperations()

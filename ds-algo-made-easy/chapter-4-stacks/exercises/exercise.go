@@ -227,3 +227,69 @@ func PostfixEvaluation(dStack *stacks.DynamicStack, input string) int {
 	}
 	return dStack.TopElement()
 }
+
+func infixEvaluationHelper(operatorStack, operandStack *stacks.DynamicStack) {
+	operator := operatorStack.TopElement()
+	operatorStack.Pop()
+	operand1 := operandStack.TopElement()
+	operandStack.Pop()
+	operand2 := operandStack.TopElement()
+	operandStack.Pop()
+	result := stackOperatorOperation(operand2, operand1, string(operator))
+	operandStack.Push(result)
+}
+
+/*
+Algorithm
+If character exists to be read:
+
+1. If character is operand push on the operand stack, if character is (, push on the operator stack.
+2. Else if character is operator
+ 1. While the top of the operator stack is not of smaller precedence than this character.
+ 2. Pop operator from operator stack.
+ 3. Pop two operands (op1 and op2) from operand stack.
+ 4. Store op1 op op2 on the operand stack back to 2.1.
+
+3. Else if character is ), do the same as 2.2 - 2.4 till you encounter (.
+
+	Else (no more character left to read):
+
+- Pop operators untill operator stack is not empty.
+- Pop top 2 operands and push op1 op op2 on the operand stack.
+return the top value from operand stack.
+
+Source: https://stackoverflow.com/questions/13421424/how-to-evaluate-an-infix-expression-in-just-one-scan-using-stacks
+*/
+func InfixEvaluationUsingOnePass(operatorStack, operandStack *stacks.DynamicStack, input string) int {
+	for _, v := range input {
+		if !isRuneASymbol(v) && !isRuneAnOperator(v) {
+			// If character is operand push on the operand stack
+			operandStack.Push(getIntFromAscii(int(v)))
+		} else if v == '(' { // if character is (, push on the operator stack
+			operatorStack.Push(int(v))
+		} else if v == ')' { // if character is ), do the same as 2.2 - 2.4 till you encounter (
+			for operatorStack.TopElement() != '(' {
+				infixEvaluationHelper(operatorStack, operandStack)
+			}
+		} else if isRuneAnOperator(v) {
+			/*
+				2. Else if character is operator
+					 1. While the top of the operator stack is not of smaller precedence than this character.
+					 2. Pop operator from operator stack.
+					 3. Pop two operands (op1 and op2) from operand stack.
+					 4. Store op1 op op2 on the operand stack back to 2.1.
+			*/
+			if !operatorStack.IsEmpty() {
+				for operatorPrecedence(string(operatorStack.TopElement())) > operatorPrecedence(string(v)) {
+					infixEvaluationHelper(operatorStack, operandStack)
+				}
+			}
+
+		}
+	}
+
+	for !operatorStack.IsEmpty() {
+		infixEvaluationHelper(operatorStack, operandStack)
+	}
+	return operandStack.TopElement()
+}
