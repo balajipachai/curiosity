@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 	"time"
 
 	"example.com/exercises"
@@ -173,11 +174,22 @@ func usingStacksForCheckingBalancingOfSymbols(input string) {
 	printDottedLine()
 }
 
+func usingStacksForInfixToPostfixExpression(input string) {
+	dStack := stacks.DynamicStack{}
+	dStack.CreateNew()
+	fmt.Println(colorYellow + "\tInput = \t" + input + colorReset)
+	result := exercises.InfixToPostfix(&dStack, input)
+	fmt.Println(colorGreen + "\t POSTFIX EXPRESSION = \t" + strings.ReplaceAll(result, " ", "") + colorReset)
+	printDottedLine()
+}
+
 func executeExercises() {
 	fmt.Println("STACK EXERCISES")
 	fmt.Println("Problem 1: Using stacks for checking balancing of symbols")
 	usingStacksForCheckingBalancingOfSymbols("({[]}) ()")
 	usingStacksForCheckingBalancingOfSymbols("()(()[()")
+	fmt.Println("Problem 2: Infix to Postfix using stack")
+	usingStacksForInfixToPostfixExpression("A * B - (C + D) + E")
 }
 func main() {
 	executeFixedSizeStackOperations()
