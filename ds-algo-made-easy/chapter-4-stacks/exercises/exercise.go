@@ -58,6 +58,7 @@ func isRuneAnOperator(c rune) bool {
 	}
 }
 
+// The function `operatorPrecedence` returns the precedence level of a given operator.
 func operatorPrecedence(operator string) int {
 	switch operator {
 	case "^":
@@ -152,4 +153,77 @@ func InfixToPostfix(dStack *stacks.DynamicStack, input string) string {
 		dStack.Pop()
 	}
 	return postfixExpression
+}
+
+// The function takes two integers and an operator as input and performs the corresponding operation on
+// the integers.
+func stackOperatorOperation(secondTopElement, topElement int, operator string) int {
+	switch operator {
+	case "*":
+		return secondTopElement * topElement
+	case "/":
+		return secondTopElement / topElement
+	case "-":
+		return secondTopElement - topElement
+	case "+":
+		return secondTopElement + topElement
+	default:
+		return 0
+	}
+}
+
+// The function `getIntFromAscii` takes an ASCII value as input and returns the corresponding integer
+// value.
+func getIntFromAscii(ascii int) int {
+	switch ascii {
+	case 48:
+		return 0
+	case 49:
+		return 1
+	case 50:
+		return 2
+	case 51:
+		return 3
+	case 52:
+		return 4
+	case 53:
+		return 5
+	case 54:
+		return 6
+	case 55:
+		return 7
+	case 56:
+		return 8
+	case 57:
+		return 9
+	default:
+		return -1
+
+	}
+}
+
+/*
+* Algorithm:
+* 1 Scan the Postfix string from left to right.
+* 2 Initialize an empty stack.
+* 3 Repeat steps 4 and 5 till all the characters are scanned.
+* 4 If the scanned character is an operand, push it onto the stack.
+* 5 If the scanned character is an operator, and if the operator is a unary operator, then
+* pop an element from the stack. If the operator is a binary operator, then pop two elements from the stack. After popping the elements, apply the * operator to those popped elements. Let the result of this operation be retVal onto the stack.
+* 6 After all characters are scanned, we will have only one element in the stack.
+* 7 Return top of the stack as result.
+ */
+func PostfixEvaluation(dStack *stacks.DynamicStack, input string) int {
+	for _, v := range input {
+		if !isRuneASymbol(v) && !isRuneAnOperator(v) {
+			element := getIntFromAscii(int(v))
+			dStack.Push(element)
+		} else if isRuneAnOperator(v) {
+			topElement := dStack.Pop()
+			secondTopElement := dStack.Pop()
+			result := stackOperatorOperation(secondTopElement, topElement, string(v))
+			dStack.Push(result)
+		}
+	}
+	return dStack.TopElement()
 }

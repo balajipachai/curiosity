@@ -183,6 +183,17 @@ func usingStacksForInfixToPostfixExpression(input string) {
 	printDottedLine()
 }
 
+func usingStackForPostfixEvaluation(input string) {
+	dStack := stacks.DynamicStack{}
+	dStack.CreateNew()
+	fmt.Println(colorYellow + "\tInput = \t" + input + colorReset)
+	result := exercises.PostfixEvaluation(&dStack, input)
+	fmt.Println(colorGreen)
+	fmt.Printf("\t POSTFIX EVALUATION RESULT = %d\t", result)
+	fmt.Println(colorReset)
+	printDottedLine()
+}
+
 func executeExercises() {
 	fmt.Println("STACK EXERCISES")
 	fmt.Println("Problem 1: Using stacks for checking balancing of symbols")
@@ -190,10 +201,12 @@ func executeExercises() {
 	usingStacksForCheckingBalancingOfSymbols("()(()[()")
 	fmt.Println("Problem 2: Infix to Postfix using stack")
 	usingStacksForInfixToPostfixExpression("A * B - (C + D) + E")
+	fmt.Println("Problem 3: Postfix evaluation using stacks")
+	usingStackForPostfixEvaluation("123*+5-")
 }
 func main() {
-	executeFixedSizeStackOperations()
-	executeDynamicStackOperations()
-	executeLinkedListStackOperations()
+	// executeFixedSizeStackOperations()
+	// executeDynamicStackOperations()
+	// executeLinkedListStackOperations()
 	executeExercises()
 }
