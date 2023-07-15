@@ -293,3 +293,30 @@ func InfixEvaluationUsingOnePass(operatorStack, operandStack *stacks.DynamicStac
 	}
 	return operandStack.TopElement()
 }
+
+/*
+Design a Stack s.t. GetMinimum() should be O(1)
+Algorithm:
+ 1. Make use of 2 stacks, elementStack & minStack
+ 2. When trying to push an element to the elementStack
+ 1. if elementStack.IsEmpty()
+ 2. currentMinimum = newElement
+ 3. elementStack.Push(newElement)
+ 4. minStack.Push(newElement)
+ 5. else findMinimum between `currentMinimum` & `newElement` & repeat 2.2 - 2.4
+ 3. To get the minimum of the stack return the top element from minStack
+*/
+func GetMinimumInBigOhOfOne(elementStack, minimumStack *stacks.DynamicStack, element int) int {
+	currentMinimum := element
+	if !minimumStack.IsEmpty() {
+		if element < minimumStack.TopElement() {
+			currentMinimum = element
+		} else {
+			currentMinimum = minimumStack.TopElement()
+		}
+	}
+
+	elementStack.Push(element)
+	minimumStack.Push(currentMinimum)
+	return minimumStack.TopElement()
+}
