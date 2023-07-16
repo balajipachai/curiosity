@@ -171,35 +171,35 @@ func executeproblemAndsolutions() {
 	endTime := time.Now()
 	fmt.Println(colorCyan+"Time elapsed for FindNthNodeFromEnd where n = 2\t", endTime.Sub(startTime))
 	fmt.Println(colorReset)
-
+	// -------------------------------------------------------------------------------------------------------------------------------------
 	startTime = time.Now()
 	fmt.Printf(colorYellow+"\tFindNthNodeFromEndUsingHashTable where n = 3: %v\t\n", problemAndsolutions.FindNthNodeFromEndUsingHashTable(&singlyLinkedList, 3))
 	fmt.Println(colorReset)
 	endTime = time.Now()
 	fmt.Println(colorCyan+"Time elapsed for FindNthNodeFromEndUsingHashTable where n = 3\t", endTime.Sub(startTime))
 	fmt.Println(colorReset)
-
+	// -------------------------------------------------------------------------------------------------------------------------------------
 	startTime = time.Now()
 	fmt.Printf(colorYellow+"\tFindNthNodeInOneScan where n = 1: %v\t\n", problemAndsolutions.FindNthNodeInOneScan(&singlyLinkedList, 1))
 	fmt.Println(colorReset)
 	endTime = time.Now()
 	fmt.Println(colorCyan+"Time elapsed for tFindNthNodeInOneScan where n = 1\t", endTime.Sub(startTime))
 	fmt.Println(colorReset)
-
+	// -------------------------------------------------------------------------------------------------------------------------------------
 	startTime = time.Now()
 	fmt.Printf(colorYellow+"\tFindNthNodeInOneScan where n = 7: %v\t\n", problemAndsolutions.FindNthNodeInOneScan(&singlyLinkedList, 7))
 	fmt.Println(colorReset)
 	endTime = time.Now()
 	fmt.Println(colorCyan+"Time elapsed for FindNthNodeInOneScan where n = 7\t", endTime.Sub(startTime))
 	fmt.Println(colorReset)
-
+	// -------------------------------------------------------------------------------------------------------------------------------------
 	startTime = time.Now()
 	fmt.Printf(colorYellow+"\tFindLoopInListBruteForceApproach (No loop) = \t%v\n", problemAndsolutions.FindLoopInListBruteForceApproach(&singlyLinkedList))
 	fmt.Println(colorReset)
 	endTime = time.Now()
 	fmt.Println(colorCyan+"Time elapsed for FindLoopInListBruteForceApproach (No loop) = ", endTime.Sub(startTime))
 	fmt.Println(colorReset)
-
+	// -------------------------------------------------------------------------------------------------------------------------------------
 	startTime = time.Now()
 	listWithLoop := singlylist.CreateListWithALoop()
 	fmt.Printf(colorYellow+"\tFindLoopInListBruteForceApproach (With loop) = \t%v\n", problemAndsolutions.FindLoopInListBruteForceApproach(&listWithLoop))
@@ -207,45 +207,77 @@ func executeproblemAndsolutions() {
 	endTime = time.Now()
 	fmt.Println(colorCyan+"Time elapsed for FindLoopInListBruteForceApproach (With loop) = ", endTime.Sub(startTime))
 	fmt.Println(colorReset)
-
+	// -------------------------------------------------------------------------------------------------------------------------------------
 	startTime = time.Now()
 	fmt.Printf(colorYellow+"\tFindLoopInListUsingFlyodAlgorithm (No loop) = \t%v\n", problemAndsolutions.FindLoopInListUsingFlyodAlgorithm(&singlyLinkedList))
 	fmt.Println(colorReset)
 	endTime = time.Now()
 	fmt.Println(colorCyan+"Time elapsed for FindLoopInListUsingFlyodAlgorithm (No loop) = ", endTime.Sub(startTime))
 	fmt.Println(colorReset)
-
+	// -------------------------------------------------------------------------------------------------------------------------------------
 	startTime = time.Now()
 	fmt.Printf(colorYellow+"\tFindLoopInListUsingFlyodAlgorithm (With loop) = %v\n", problemAndsolutions.FindLoopInListUsingFlyodAlgorithm(&listWithLoop))
 	fmt.Println(colorReset)
 	endTime = time.Now()
 	fmt.Println(colorCyan+"Time elapsed for FindLoopInListUsingFlyodAlgorithm (With loop) = ", endTime.Sub(startTime))
 	fmt.Println(colorReset)
-
+	// -------------------------------------------------------------------------------------------------------------------------------------
 	fmt.Println(colorYellow + "\tChecks if given list is a snake or snail\n" + colorReset)
 	singlyLinkedList.ListLength()
 	fmt.Println(colorCyan)
 	fmt.Printf("↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ Above list is a = %v ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑", problemAndsolutions.GivenListIsASnakeOrSnail(&singlyLinkedList))
 	fmt.Println(colorReset)
-
+	// -------------------------------------------------------------------------------------------------------------------------------------
 	problemAndsolutions.PrintListHavingLoop(&listWithLoop)
 	fmt.Println(colorCyan)
 	fmt.Printf("↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ Above loop list is a = %v ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑", problemAndsolutions.GivenListIsASnakeOrSnail(&listWithLoop))
 	fmt.Println(colorReset)
-
+	// -------------------------------------------------------------------------------------------------------------------------------------
+	fmt.Println(colorYellow + "\tChecks & Returns Loop Starting Node (No Loop)\n" + colorReset)
+	singlyLinkedList.ListLength()
+	fmt.Println(colorCyan)
+	fmt.Printf("↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ Loop starting node is = %v ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑", problemAndsolutions.FindStartingNodeOfLoopInLinkedList(&singlyLinkedList))
+	fmt.Println(colorReset)
+	// -------------------------------------------------------------------------------------------------------------------------------------
+	fmt.Println(colorYellow + "\tChecks & Returns Loop Starting Node (With Loop)\n" + colorReset)
+	problemAndsolutions.PrintListHavingLoop(&listWithLoop)
+	fmt.Println(colorCyan)
+	fmt.Printf("↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ Loop starting node is = %v ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑", problemAndsolutions.FindStartingNodeOfLoopInLinkedList(&listWithLoop))
+	fmt.Println(colorReset)
+	// -------------------------------------------------------------------------------------------------------------------------------------
+	startTime = time.Now()
+	fmt.Printf(colorYellow+"\tFindLoopInListUsingFlyodAlgorithm (No loop) = \t%v\n", problemAndsolutions.FindLoopBySteps2And3(&singlyLinkedList))
+	fmt.Println(colorReset)
+	endTime = time.Now()
+	fmt.Println(colorCyan+"Time elapsed for FindLoopBySteps2And3 (No loop) = ", endTime.Sub(startTime))
+	fmt.Println(colorReset)
+	// -------------------------------------------------------------------------------------------------------------------------------------
+	startTime = time.Now()
+	fmt.Printf(colorYellow+"\tFindLoopInListUsingFlyodAlgorithm (With loop) = %v\n", problemAndsolutions.FindLoopBySteps2And3(&listWithLoop))
+	fmt.Println(colorReset)
+	endTime = time.Now()
+	fmt.Println(colorCyan+"Time elapsed for FindLoopBySteps2And3 (With loop) = ", endTime.Sub(startTime))
+	fmt.Println(colorReset)
+	// -------------------------------------------------------------------------------------------------------------------------------------
+	fmt.Printf(colorYellow+"\tFind loop length (No loop) = \t%d\n", problemAndsolutions.LinkedListLoopLength(&singlyLinkedList))
+	fmt.Println(colorReset)
+	// -------------------------------------------------------------------------------------------------------------------------------------
+	fmt.Printf(colorYellow+"\tFind loop length (With loop) = %d\n", problemAndsolutions.LinkedListLoopLength(&listWithLoop))
+	fmt.Println(colorReset)
+	// -------------------------------------------------------------------------------------------------------------------------------------
 }
 
 // The main function calls and executes the singly linked list operations.
 func main() {
-	// fmt.Println("SINGLY LINKED LIST")
-	// executeSinglyLinkedListOperations()
-	// printDottedLine()
-	// fmt.Println("DOUBLY LINKED LIST")
-	// executeDoublyLinkedListOperations()
-	// printDottedLine()
-	// fmt.Println("CIRCULAR LINKED LIST")
-	// executeCircularLinkedListOperations()
-	// printDottedLine()
+	fmt.Println("SINGLY LINKED LIST")
+	executeSinglyLinkedListOperations()
+	printDottedLine()
+	fmt.Println("DOUBLY LINKED LIST")
+	executeDoublyLinkedListOperations()
+	printDottedLine()
+	fmt.Println("CIRCULAR LINKED LIST")
+	executeCircularLinkedListOperations()
+	printDottedLine()
 	fmt.Println("EXERCISE PROBLEMS")
 	executeproblemAndsolutions()
 	printDottedLine()

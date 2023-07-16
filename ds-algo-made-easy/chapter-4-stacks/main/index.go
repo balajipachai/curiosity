@@ -238,6 +238,8 @@ func evaluateInfixExpressionUsingOnePass(input string) {
 	printDottedLine()
 }
 
+// The function demonstrates how to use two stacks to efficiently retrieve the minimum element in O(1)
+// time complexity.
 func getStackMinimumInBigOhOfOne() {
 	elementStack := stacks.DynamicStack{}
 	elementStack.CreateNew()
@@ -254,7 +256,9 @@ func getStackMinimumInBigOhOfOne() {
 	fmt.Printf("\t GetMinimum() in O(1) = %d\t", minimumStack.TopElement())
 	fmt.Println(colorReset)
 
+	fmt.Println(colorYellow + "\tPrinting element stack" + colorReset)
 	elementStack.Print(false)
+	fmt.Println(colorYellow + "\tPrinting minimum stack" + colorReset)
 	minimumStack.Print(false)
 
 	fmt.Println(colorCyan + "Popping 2 elements from both the stacks to check minimum is correct" + colorReset)
@@ -263,7 +267,9 @@ func getStackMinimumInBigOhOfOne() {
 	minimumStack.Pop()
 	minimumStack.Pop()
 
+	fmt.Println(colorYellow + "\tPrinting element stack" + colorReset)
 	elementStack.Print(false)
+	fmt.Println(colorYellow + "\tPrinting minimum stack" + colorReset)
 	minimumStack.Print(false)
 
 	fmt.Println(colorGreen)
@@ -292,6 +298,7 @@ func executeExercises() {
 	getStackMinimumInBigOhOfOne()
 
 }
+
 func main() {
 	executeFixedSizeStackOperations()
 	executeDynamicStackOperations()

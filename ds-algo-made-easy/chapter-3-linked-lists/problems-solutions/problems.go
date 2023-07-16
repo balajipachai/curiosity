@@ -143,3 +143,74 @@ func PrintListHavingLoop(list *singlylist.SinglyLinkedList) {
 	fmt.Printf("\n")
 	fmt.Println(colorReset)
 }
+
+// The function FindStartingNodeOfLoopInLinkedList finds the starting node of a loop in a linked list
+// using the Floyd's cycle-finding algorithm.
+func FindStartingNodeOfLoopInLinkedList(list *singlylist.SinglyLinkedList) *singlylist.ListNode {
+	tortoise := list.HeadNode
+	hare := list.HeadNode
+	var loopStartNode *singlylist.ListNode
+	for hare != nil && hare.NextNode != nil {
+		tortoise = tortoise.NextNode
+		hare = hare.NextNode.NextNode
+
+		if hare == tortoise {
+			// This implies loop Exists
+			/*
+				After finding the loop in the linked list, we initialize the slowPtr to the head of the linked list. From that point onwards both slowPtr and fastPtr move only one node at a time. The point at which they meet is the start of the loop. Generally we use this method for removing the loops.
+			*/
+			tortoise := list.HeadNode
+			for tortoise != hare {
+				tortoise = tortoise.NextNode
+				hare = hare.NextNode
+			}
+			loopStartNode = tortoise
+			return loopStartNode
+		}
+	}
+	return loopStartNode
+}
+
+// In the Floyd cycle finding algorithm, does it work if we use steps 2 and 3 instead of 1 and 2
+// The function "FindLoopBySteps2And3" checks if a singly linked list contains a loop by using two
+// pointers, one moving one step at a time and the other moving two steps at a time, and returns
+// true if they meet.
+func FindLoopBySteps2And3(list *singlylist.SinglyLinkedList) bool {
+	tortoise := list.HeadNode
+	hare := list.HeadNode.NextNode.NextNode
+
+	for hare != nil && hare.NextNode != nil {
+		tortoise = tortoise.NextNode
+		hare = hare.NextNode.NextNode
+
+		if hare == tortoise {
+			return true
+		}
+	}
+	return false
+}
+
+// Check whether the given linked list is NULL-terminated. If there is a cycle, find the length of the loop.
+// The function `LinkedListLoopLength` calculates the length of a loop in a singly linked list, if a
+// loop exists.
+func LinkedListLoopLength(list *singlylist.SinglyLinkedList) int {
+	tortoise := list.HeadNode
+	hare := list.HeadNode.NextNode.NextNode
+	length := 0
+	for hare != nil && hare.NextNode != nil {
+		tortoise = tortoise.NextNode
+		hare = hare.NextNode.NextNode
+
+		if hare == tortoise {
+			fmt.Println("Loop exists")
+			// Loop Exists
+			hare = hare.NextNode
+			for hare != tortoise {
+				hare = hare.NextNode
+				length++
+			}
+			return length
+		}
+	}
+	return length
+}
