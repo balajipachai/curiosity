@@ -83,6 +83,9 @@ func (singlyLinkedList *SinglyLinkedList) Insert(data, position int) {
 	}
 }
 
+// The `InsertAndMaintainHashTable` function is a method of the `SinglyLinkedList` struct that inserts
+// a new node with a given data value at a specified position in the linked list. It also maintains a
+// hash table called `HashTable` that maps positions to the corresponding nodes in the linked list.
 func (singlyLinkedList *SinglyLinkedList) InsertAndMaintainHashTable(data, position int) {
 	HeadNode := singlyLinkedList.HeadNode
 
@@ -116,7 +119,6 @@ func (singlyLinkedList *SinglyLinkedList) InsertAndMaintainHashTable(data, posit
 			positionNode.NextNode = newNode
 		}
 		HashTable[position] = newNode
-
 	}
 }
 
@@ -162,6 +164,7 @@ func (singlyLinkedList *SinglyLinkedList) Delete(position int) {
 	}
 }
 
+// The function creates a singly linked list with five nodes and links them together in a loop.
 func CreateListWithALoop() SinglyLinkedList {
 	singlyLinkedList := SinglyLinkedList{}
 	singlyLinkedList.HeadNode = nil
@@ -195,5 +198,4 @@ func CreateListWithALoop() SinglyLinkedList {
 	fifthNode.NextNode = thirdNode
 
 	return singlyLinkedList
-
 }
