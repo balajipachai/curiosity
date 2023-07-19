@@ -279,6 +279,34 @@ func getStackMinimumInBigOhOfOne() {
 	printDottedLine()
 }
 
+func getStackMinimumInBigOhOfOneImprovedSpaceComplexity() {
+	elementStack := stacks.DynamicStack{}
+	elementStack.CreateNew()
+
+	minimumStack := stacks.DynamicStack{}
+	minimumStack.CreateNew()
+
+	exercises.GetMinimumInBigOhOfOneImprovedSpaceComplexity(&elementStack, &minimumStack, 2)
+	exercises.GetMinimumInBigOhOfOneImprovedSpaceComplexity(&elementStack, &minimumStack, 6)
+	exercises.GetMinimumInBigOhOfOneImprovedSpaceComplexity(&elementStack, &minimumStack, 4)
+	exercises.GetMinimumInBigOhOfOneImprovedSpaceComplexity(&elementStack, &minimumStack, 1)
+	exercises.GetMinimumInBigOhOfOneImprovedSpaceComplexity(&elementStack, &minimumStack, 5)
+	fmt.Println(colorGreen)
+	fmt.Printf("\t GetMinimum() in O(1) = %d\t", minimumStack.TopElement())
+	fmt.Println(colorReset)
+
+	fmt.Println(colorYellow + "\tPrinting element stack" + colorReset)
+	elementStack.Print(false)
+	fmt.Println(colorYellow + "\tPrinting minimum stack" + colorReset)
+	minimumStack.Print(false)
+
+	fmt.Println(colorGreen)
+	fmt.Printf("\t GetMinimum() in O(1) = %d\t", minimumStack.TopElement())
+	fmt.Println(colorReset)
+
+	printDottedLine()
+}
+
 func executeExercises() {
 	fmt.Println("STACK EXERCISES")
 	fmt.Println("Problem 1: Using stacks for checking balancing of symbols")
@@ -296,6 +324,8 @@ func executeExercises() {
 	evaluateInfixExpressionUsingOnePass("2*3-(5+9)+8") // This is an infix string
 	fmt.Println("Problem 5: Design a Stack such that GetMinimum() should be O(1)")
 	getStackMinimumInBigOhOfOne()
+	fmt.Println("Problem 6: Improve the space complexity of Problem 5")
+	getStackMinimumInBigOhOfOneImprovedSpaceComplexity()
 
 }
 
