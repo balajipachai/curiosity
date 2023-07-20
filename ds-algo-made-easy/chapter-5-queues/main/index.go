@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"time"
 
+	"example.com/exercises"
 	"example.com/queue"
 )
 
@@ -173,8 +174,63 @@ func executeLinkedListQueueOperations() {
 
 }
 
+func problemOne() {
+	dQueue := &queue.QueueDynamicArray{}
+	// Create a New Queue
+	dQueue.CreateNew()
+	fmt.Println("\t"+colorYellow+"EnQueue 1, 2, 3, 4, & 5 into the dQueue", colorReset)
+	dQueue.EnQueue(1)
+	dQueue.EnQueue(2)
+	dQueue.EnQueue(3)
+	dQueue.EnQueue(4)
+	dQueue.EnQueue(5)
+	fmt.Println("\t"+colorYellow+"Print Queue elements", colorReset)
+	dQueue.Print()
+	fmt.Println("\t"+colorYellow+"Reverse Queue elements", colorReset)
+	exercises.ReverseQueue(dQueue)
+	fmt.Println("\t"+colorYellow+"Print Queue after reverse", colorReset)
+	dQueue.Print()
+
+	printDottedLine()
+}
+
+func problemTwo() {
+	fmt.Println("\t"+colorYellow+"EnQueue 1, 2, 3, 4, & 5 into the dQueue using Stacks S1 & S2", colorReset)
+	elements := []int{1, 2, 3, 4, 5}
+	fmt.Println("\t"+colorYellow+"Print the Queue elements:", colorReset)
+	exercises.QueueImplementationUsingStack(elements)
+	printDottedLine()
+}
+
+func problemFive() {
+	dQueue := &queue.QueueDynamicArray{}
+	// Create a New Queue
+	dQueue.CreateNew()
+	fmt.Println("\t"+colorYellow+"EnQueue 1, 2, 3, 4, & 5 into the dQueue using Stacks S1 & S2", colorReset)
+	dQueue.EnQueue(1)
+	dQueue.EnQueue(2)
+	dQueue.EnQueue(3)
+	dQueue.EnQueue(4)
+	dQueue.EnQueue(5)
+	fmt.Println("\t"+colorYellow+"Print Queue elements", colorReset)
+	dQueue.Print()
+	exercises.TransferQElementsToStackPreservingOrder(dQueue)
+	printDottedLine()
+}
+
+func executeExercises() {
+	fmt.Println("QUEUE EXERCISES")
+	fmt.Println("Problem 1: Give an algorithm for reversing a queue Q. To access the queue, we are only allowed to use the methods of queue ADT.")
+	problemOne()
+	fmt.Println("Problem 2: How can you implement a queue using two stacks?")
+	problemTwo()
+	fmt.Println("Problem 5: Transfer Q items to a Stack, preserving the order of elements in the Q")
+	problemFive()
+}
+
 func main() {
 	executeFixedSizeQueueOperations()
 	executeDynamicSizeQueueOperations()
 	executeLinkedListQueueOperations()
+	executeExercises()
 }
