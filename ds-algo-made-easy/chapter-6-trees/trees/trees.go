@@ -105,6 +105,65 @@ func (queue *Queue) EmptyQueue() {
 	}
 }
 
+// -----------------------------------------------------------------------------------
+
+// The Stack type is a data structure that stores BinaryTreeNode elements and keeps track of the top
+// element.
+// @property {int} top - The "top" property represents the index of the top element in the stack. It
+// keeps track of the position of the last element that was added to the stack.
+// @property {[]*BinaryTreeNode} elements - The `elements` property is a slice of pointers to
+// `BinaryTreeNode` objects.
+type Stack struct {
+	top      int
+	elements []*BinaryTreeNode
+}
+
+// The above code is defining a method called "CreateNew" for a struct type called "Stack" in the Go
+// programming language. This method initializes a new stack by setting the top index to -1 and
+// creating an empty dynamic slice to store elements of type "*BinaryTreeNode".
+func (stack *Stack) CreateNew() {
+	stack.top = -1
+	stack.elements = make([]*BinaryTreeNode, 0) // Assigns memory to dynamic slice
+}
+
+// The above code is defining a method called `IsEmpty()` for a struct type `Stack`. This method checks
+// if the `top` field of the `Stack` struct is equal to -1, indicating that the stack is empty. It
+// returns a boolean value indicating whether the stack is empty or not.
+func (stack *Stack) IsEmpty() bool {
+	return stack.top == -1
+}
+
+// The above code is defining a method called "Push" for a stack data structure in the Go programming
+// language. This method takes a pointer to a BinaryTreeNode as a parameter and adds it to the stack.
+// It does this by incrementing the "top" variable of the stack and appending the node to the
+// "elements" slice of the stack.
+func (stack *Stack) Push(node *BinaryTreeNode) {
+	stack.top += 1
+	stack.elements = append(stack.elements, node)
+}
+
+// The above code is implementing the Pop() function for a stack data structure in the Go programming
+// language.
+func (stack *Stack) Pop() *BinaryTreeNode {
+	if stack.IsEmpty() {
+		fmt.Println(colorRed + "\tUndeflow: Stack is empty" + colorReset)
+		return nil
+	}
+	poppedElement := stack.elements[stack.top]
+	stack.elements = stack.elements[:stack.top]
+	stack.top -= 1
+	return poppedElement
+}
+
+// The above code is defining a method called "TopElement" for a struct type called "Stack" in the Go
+// programming language. This method returns the top element of the stack, which is stored in the
+// "elements" slice at the index specified by the "top" variable.
+func (stack *Stack) TopElement() *BinaryTreeNode {
+	return stack.elements[stack.top]
+}
+
+// -----------------------------------------------------------------------------------
+
 // The `LevelOrderTraversal()` function is a method of the `BinaryTree` struct. It performs a
 // level-order traversal of the binary tree, which means it visits each node in the tree level by
 // level, from left to right.
@@ -257,4 +316,256 @@ func printTreeWithIndent(node *BinaryTreeNode, level int, prefix string) {
 func (binaryTree *BinaryTree) PrintTree() {
 	printTreeWithIndent(binaryTree.root, 0, "")
 
+}
+
+// The function recursively finds the maximum element in a binary tree.
+func maxElementHelper(treeNode *BinaryTreeNode) int {
+	var max int
+	if treeNode != nil {
+		rootVal := treeNode.data
+		left := maxElementHelper(treeNode.left)
+		right := maxElementHelper(treeNode.right)
+
+		if left > right {
+			max = left
+		} else {
+			max = right
+		}
+
+		if rootVal > max {
+			max = rootVal
+		}
+
+		return max
+	}
+	return max
+}
+
+// The `FindMaxElementUsingRecursion()` method of the `BinaryTree` struct is used to find the maximum element in the
+// binary tree.
+func (binaryTree *BinaryTree) FindMaxElementUsingRecursion() int {
+	if binaryTree.root != nil {
+		return maxElementHelper(binaryTree.root)
+	}
+	return 0
+}
+
+// The `FindMaxElementUsingLevelOrder()` method of the `BinaryTree` struct is used to find the maximum
+// element in the binary tree using a level-order traversal.
+func (binaryTree *BinaryTree) FindMaxElementUsingLevelOrder() int {
+
+	max := 0
+
+	queue := &Queue{}
+	queue.CreateNew()
+
+	if binaryTree.root != nil {
+		queue.EnQueue(binaryTree.root)
+
+		for !queue.IsEmpty() {
+			node := queue.DeQueue()
+
+			if node.data > max {
+				max = node.data
+			}
+
+			if node.left != nil {
+				queue.EnQueue(node.left)
+			}
+
+			if node.right != nil {
+				queue.EnQueue(node.right)
+			}
+		}
+		return max
+	}
+	return max
+}
+
+// The searchElementHelper function recursively searches for an element in a binary tree.
+func searchElementHelper(treeNode *BinaryTreeNode, element int) bool {
+	if treeNode != nil {
+		data := treeNode.data
+		if data == element {
+			return true
+		} else {
+			isFound := searchElementHelper(treeNode.left, element)
+			if isFound {
+				return true
+			} else {
+				return searchElementHelper(treeNode.right, element)
+			}
+		}
+	}
+	return false
+}
+
+// The `SearchElement` method of the `BinaryTree` struct is used to search for a specific element in
+// the binary tree.
+func (binaryTree *BinaryTree) SearchElement(element int) bool {
+	if binaryTree.root != nil {
+		return searchElementHelper(binaryTree.root, element)
+	}
+	return false
+}
+
+// The `SearchElementUsingLevelOrder` method of the `BinaryTree` struct is used to search for a
+// specific element in the binary tree using a level-order traversal.
+func (binaryTree *BinaryTree) SearchElementUsingLevelOrder(element int) bool {
+	queue := &Queue{}
+	queue.CreateNew()
+
+	if binaryTree.root != nil {
+		queue.EnQueue(binaryTree.root)
+
+		for !queue.IsEmpty() {
+			node := queue.DeQueue()
+			if node.data == element {
+				return true
+			}
+			if node.left != nil {
+				queue.EnQueue(node.left)
+			}
+			if node.right != nil {
+				queue.EnQueue(node.right)
+			}
+		}
+	}
+	return false
+}
+
+// The function calculates the size of a binary tree by recursively counting the number of nodes in the
+// left and right subtrees.
+func sizeOfBTHelper(node *BinaryTreeNode) int {
+	if node != nil {
+		return sizeOfBTHelper(node.left) + 1 + sizeOfBTHelper(node.right)
+	}
+	return 0
+}
+
+// The `SizeOfBinaryTree()` method of the `BinaryTree` struct is used to calculate the size of the
+// binary tree. It calls the `sizeOfBTHelper()` function, passing the root node of the binary tree as
+// an argument.
+func (binaryTree *BinaryTree) SizeOfBinaryTree() int {
+	if binaryTree.root != nil {
+		return sizeOfBTHelper(binaryTree.root)
+	}
+	return 0
+}
+
+// The above code is implementing a method called `SizeOfBinaryTreeUsingLevelOrder()` for a binary tree
+// data structure. This method calculates the size of the binary tree using a level order traversal
+// approach.
+func (binaryTree *BinaryTree) SizeOfBinaryTreeUsingLevelOrder() int {
+	if binaryTree.root != nil {
+		size := 0
+		queue := &Queue{}
+		queue.CreateNew()
+
+		queue.EnQueue(binaryTree.root)
+
+		for !queue.IsEmpty() {
+			node := queue.DeQueue()
+			size++
+			if node.left != nil {
+				queue.EnQueue(node.left)
+			}
+			if node.right != nil {
+				queue.EnQueue(node.right)
+			}
+		}
+		return size
+	}
+	return 0
+}
+
+// The above code is implementing a method called `LevelOrderInReverse()` for a binary tree data
+// structure. This method performs a level order traversal of the binary tree and prints the nodes in
+// reverse order.
+func (binaryTree *BinaryTree) LevelOrderInReverse() {
+	if binaryTree.root != nil {
+		stack := &Stack{}
+		stack.CreateNew()
+
+		queue := &Queue{}
+		queue.CreateNew()
+
+		queue.EnQueue(binaryTree.root)
+
+		for !queue.IsEmpty() {
+			node := queue.DeQueue()
+			stack.Push(node)
+
+			if node.left != nil {
+				queue.EnQueue(node.left)
+			}
+
+			if node.right != nil {
+				queue.EnQueue(node.right)
+			}
+		}
+
+		// Start Printing the LevelOrder in Reverse
+		for !stack.IsEmpty() {
+			poppedNode := stack.Pop()
+			fmt.Printf(colorMagenta+"\t%d\t", poppedNode.data)
+		}
+		fmt.Println(colorReset)
+	}
+}
+
+// The deleteTreeHelper function recursively deletes all nodes in a binary tree.
+func deleteTreeHelper(treeNode *BinaryTreeNode) {
+	if treeNode != nil {
+		deleteTreeHelper(treeNode.left)
+		deleteTreeHelper(treeNode.right)
+		fmt.Println("\t"+colorRed+"Deleting node...", treeNode, colorReset)
+		treeNode = nil
+	}
+}
+
+// The above code is defining a method called `DeleteTree` for a `BinaryTree` struct in the Go
+// programming language. This method is used to delete the entire binary tree. It first checks if the
+// root of the binary tree is not nil, and if it is not, it calls a helper function called
+// `deleteTreeHelper` to delete the tree.
+func (binaryTree *BinaryTree) DeleteTree() {
+	if binaryTree.root != nil {
+		deleteTreeHelper(binaryTree.root)
+	}
+}
+
+// The function calculates the height of a binary tree by recursively traversing the tree and counting
+// the number of levels.
+func heightOfBTHelper(treeNode *BinaryTreeNode) int {
+	var leftHeight, rightHeight int
+	if treeNode != nil {
+		leftHeight = heightOfBTHelper(treeNode.left)
+		rightHeight = heightOfBTHelper(treeNode.right)
+
+		fmt.Println(leftHeight, "\t", rightHeight)
+
+		if leftHeight > rightHeight {
+			return leftHeight + 1
+		} else {
+			return rightHeight + 1
+		}
+
+	}
+
+	return 0
+}
+
+// The above code is implementing a method called "HeightOfBinaryTree" for a binary tree data
+// structure. This method calculates the height of the binary tree by recursively calculating the
+// height of the left and right subtrees of each node and assigning the height to the node as the
+// maximum of the heights of its two children plus 1. If the binary tree is empty (root is nil), the
+// method returns 0.
+func (binaryTree *BinaryTree) HeithtOfBinaryTree() int {
+	/*
+		Recursively calculate height of left and right subtrees of a node and assign height to the node as max of the heights of two children plus 1. This is similar to PreOrder tree traversal (and DFS of Graph algorithms).
+	*/
+	if binaryTree.root != nil {
+		return heightOfBTHelper(binaryTree.root)
+	}
+	return 0
 }
