@@ -118,7 +118,7 @@ type Stack struct {
 	elements []*BinaryTreeNode
 }
 
-// The above code is defining a method called "CreateNew" for a struct type called "Stack" in the Go
+// The below code is defining a method called "CreateNew" for a struct type called "Stack" in the Go
 // programming language. This method initializes a new stack by setting the top index to -1 and
 // creating an empty dynamic slice to store elements of type "*BinaryTreeNode".
 func (stack *Stack) CreateNew() {
@@ -126,14 +126,14 @@ func (stack *Stack) CreateNew() {
 	stack.elements = make([]*BinaryTreeNode, 0) // Assigns memory to dynamic slice
 }
 
-// The above code is defining a method called `IsEmpty()` for a struct type `Stack`. This method checks
+// The below code is defining a method called `IsEmpty()` for a struct type `Stack`. This method checks
 // if the `top` field of the `Stack` struct is equal to -1, indicating that the stack is empty. It
 // returns a boolean value indicating whether the stack is empty or not.
 func (stack *Stack) IsEmpty() bool {
 	return stack.top == -1
 }
 
-// The above code is defining a method called "Push" for a stack data structure in the Go programming
+// The below code is defining a method called "Push" for a stack data structure in the Go programming
 // language. This method takes a pointer to a BinaryTreeNode as a parameter and adds it to the stack.
 // It does this by incrementing the "top" variable of the stack and appending the node to the
 // "elements" slice of the stack.
@@ -142,7 +142,7 @@ func (stack *Stack) Push(node *BinaryTreeNode) {
 	stack.elements = append(stack.elements, node)
 }
 
-// The above code is implementing the Pop() function for a stack data structure in the Go programming
+// The below code is implementing the Pop() function for a stack data structure in the Go programming
 // language.
 func (stack *Stack) Pop() *BinaryTreeNode {
 	if stack.IsEmpty() {
@@ -155,7 +155,7 @@ func (stack *Stack) Pop() *BinaryTreeNode {
 	return poppedElement
 }
 
-// The above code is defining a method called "TopElement" for a struct type called "Stack" in the Go
+// The below code is defining a method called "TopElement" for a struct type called "Stack" in the Go
 // programming language. This method returns the top element of the stack, which is stored in the
 // "elements" slice at the index specified by the "top" variable.
 func (stack *Stack) TopElement() *BinaryTreeNode {
@@ -453,7 +453,7 @@ func (binaryTree *BinaryTree) SizeOfBinaryTree() int {
 	return 0
 }
 
-// The above code is implementing a method called `SizeOfBinaryTreeUsingLevelOrder()` for a binary tree
+// The below code is implementing a method called `SizeOfBinaryTreeUsingLevelOrder()` for a binary tree
 // data structure. This method calculates the size of the binary tree using a level order traversal
 // approach.
 func (binaryTree *BinaryTree) SizeOfBinaryTreeUsingLevelOrder() int {
@@ -479,7 +479,7 @@ func (binaryTree *BinaryTree) SizeOfBinaryTreeUsingLevelOrder() int {
 	return 0
 }
 
-// The above code is implementing a method called `LevelOrderInReverse()` for a binary tree data
+// The below code is implementing a method called `LevelOrderInReverse()` for a binary tree data
 // structure. This method performs a level order traversal of the binary tree and prints the nodes in
 // reverse order.
 func (binaryTree *BinaryTree) LevelOrderInReverse() {
@@ -524,7 +524,7 @@ func deleteTreeHelper(treeNode *BinaryTreeNode) {
 	}
 }
 
-// The above code is defining a method called `DeleteTree` for a `BinaryTree` struct in the Go
+// The below code is defining a method called `DeleteTree` for a `BinaryTree` struct in the Go
 // programming language. This method is used to delete the entire binary tree. It first checks if the
 // root of the binary tree is not nil, and if it is not, it calls a helper function called
 // `deleteTreeHelper` to delete the tree.
@@ -554,7 +554,7 @@ func heightOfBTHelper(treeNode *BinaryTreeNode) int {
 	return 1 + max(leftHeight, rightHeight)
 }
 
-// The above code is implementing a method called "HeightOfBinaryTree" for a binary tree data
+// The below code is implementing a method called "HeightOfBinaryTree" for a binary tree data
 // structure. This method calculates the height of the binary tree by recursively calculating the
 // height of the left and right subtrees of each node and assigning the height to the node as the
 // maximum of the heights of its two children plus 1. If the binary tree is empty (root is nil), the
@@ -584,7 +584,7 @@ func height(node *BinaryTreeNode, isLeft bool) int {
 	return count
 }
 
-// The above code is implementing a non-recursive method to calculate the height of a binary tree. It
+// The below code is implementing a non-recursive method to calculate the height of a binary tree. It
 // first checks if the root of the binary tree is not nil. If it is not nil, it calculates the height
 // of the left subtree and the height of the right subtree using the `height` function. The `height`
 // function takes a node and a boolean flag indicating whether it is calculating the height of the left
@@ -600,4 +600,127 @@ func (binaryTree *BinaryTree) HeightOfBinaryTreeNonRecursive() int {
 		return 1 + max(leftHeight, rightHeight)
 	}
 	return 0
+}
+
+// The below code is calculating the height of a binary tree using the level order traversal algorithm.
+// It uses a queue to perform the traversal and keeps track of the current level. The height of the
+// binary tree is determined by the number of levels traversed.
+func (binaryTree *BinaryTree) HeightOfBTUsingLevelOrder() int {
+	queue := &Queue{}
+	queue.CreateNew()
+	level := 0
+	if binaryTree.root != nil {
+		queue.EnQueue(binaryTree.root)
+		queue.EnQueue(nil) // Completion of root level
+
+		for !queue.IsEmpty() {
+			root := queue.DeQueue()
+
+			if root == nil {
+				if !queue.IsEmpty() {
+					queue.EnQueue(nil)
+				}
+				level++
+			} else {
+				if root.left != nil {
+					queue.EnQueue(root.left)
+				}
+				if root.right != nil {
+					queue.EnQueue(root.right)
+				}
+			}
+		}
+	}
+	return level
+}
+
+// The above code is implementing a method called `DeepestNodeUsingLevelOrder()` for a binary tree data
+// structure. This method finds and returns the deepest node in the binary tree using a level order
+// traversal approach.
+func (binaryTree *BinaryTree) DeepestNodeUsingLevelOrder() *BinaryTreeNode {
+	queue := &Queue{}
+	queue.CreateNew()
+
+	nodeToReturn := &BinaryTreeNode{}
+
+	if binaryTree.root != nil {
+		queue.EnQueue(binaryTree.root)
+
+		for !queue.IsEmpty() {
+			node := queue.DeQueue()
+
+			if node.left != nil {
+				queue.EnQueue(node.left)
+			}
+
+			if node.right != nil {
+				queue.EnQueue(node.right)
+			}
+
+			nodeToReturn = node
+		}
+	}
+	return nodeToReturn
+}
+
+// The above code is implementing a method called `NumberOfLeafNodesUsingLevelOrder()` for a binary
+// tree data structure. This method calculates and returns the number of leaf nodes in the binary tree
+// using a level order traversal approach.
+func (binaryTree *BinaryTree) NumberOfLeafNodesUsingLevelOrder() int {
+	queue := &Queue{}
+	queue.CreateNew()
+
+	count := 0
+
+	if binaryTree.root != nil {
+		queue.EnQueue(binaryTree.root)
+
+		for !queue.IsEmpty() {
+			node := queue.DeQueue()
+
+			if node.left == nil && node.right == nil {
+				count++
+			}
+
+			if node.left != nil {
+				queue.EnQueue(node.left)
+			}
+
+			if node.right != nil {
+				queue.EnQueue(node.right)
+			}
+		}
+	}
+	return count
+}
+
+// The above code is implementing a method called NumberOfFullNodesUsingLevelOrder() for a binary tree
+// data structure. This method calculates and returns the number of full nodes in the binary tree using
+// a level order traversal approach.
+func (binaryTree *BinaryTree) NumberOfFullNodesUsingLevelOrder() int {
+	queue := &Queue{}
+	queue.CreateNew()
+
+	count := 0
+
+	if binaryTree.root != nil {
+		queue.EnQueue(binaryTree.root)
+
+		for !queue.IsEmpty() {
+			node := queue.DeQueue()
+
+			if node.left != nil && node.right != nil {
+				count++
+			}
+
+			if node.left != nil {
+				queue.EnQueue(node.left)
+			}
+
+			if node.right != nil {
+				queue.EnQueue(node.right)
+			}
+		}
+	}
+	return count
 }

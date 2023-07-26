@@ -185,8 +185,6 @@ func problemTen() {
 	binaryTree.PrintTree()
 	fmt.Println("\t" + colorYellow + "Print height of the tree (BOTH LEFT & RIGHT AT SAME LEVEL) [Recursive]" + colorReset)
 	fmt.Println(colorCyan, "\tTree height is = ", binaryTree.HeithtOfBinaryTree(), colorReset)
-	fmt.Println("\t" + colorYellow + "Print height of the tree (BOTH LEFT & RIGHT AT SAME LEVEL) [Non-Recursive]" + colorReset)
-	fmt.Println(colorCyan, "\tTree height is = ", binaryTree.HeightOfBinaryTreeNonRecursive(), colorReset)
 	printDottedLine()
 
 	// Second Tree
@@ -196,10 +194,76 @@ func problemTen() {
 	newTree.PrintTree()
 	fmt.Println("\t" + colorYellow + "Print height of the tree (LEFT SUBTREE HEIGHT > RIGHT SUBTREE HEIGHT) [Recursive]" + colorReset)
 	fmt.Println(colorCyan, "\tTree height is = ", newTree.HeithtOfBinaryTree(), colorReset)
-	fmt.Println("\t" + colorYellow + "Print height of the tree (LEFT SUBTREE HEIGHT > RIGHT SUBTREE HEIGHT) [Non-Recursive]" + colorReset)
-	fmt.Println(colorCyan, "\tTree height is = ", newTree.HeightOfBinaryTreeNonRecursive(), colorReset)
 	printDottedLine()
 
+}
+
+func problemEleven() {
+	fmt.Println("\t"+colorYellow+"Add 1, 2, 3, 4, 5, 6 & 7 into the Tree", colorReset)
+	// First Tree
+	binaryTree := getATree([]int{1, 2, 3, 4, 5, 6, 7})
+	binaryTree.LevelOrderTraversal()
+	fmt.Println("\t"+colorYellow+"Printing the Tree", colorReset)
+	binaryTree.PrintTree()
+	fmt.Println("\t" + colorYellow + "Print height of the tree (BOTH LEFT & RIGHT AT SAME LEVEL) [Non-Recursive]" + colorReset)
+	fmt.Println(colorCyan, "\tTree height is = ", binaryTree.HeightOfBinaryTreeNonRecursive(), colorReset)
+
+	fmt.Println("\t" + colorYellow + "Print height of the tree (BOTH LEFT & RIGHT AT SAME LEVEL) [LevelOrder]" + colorReset)
+	fmt.Println(colorCyan, "\tTree height is = ", binaryTree.HeightOfBTUsingLevelOrder(), colorReset)
+	printDottedLine()
+
+	// Second Tree
+	newTree := getATree([]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11})
+	newTree.LevelOrderTraversal()
+	fmt.Println("\t"+colorYellow+"Printing the Tree", colorReset)
+	newTree.PrintTree()
+	fmt.Println("\t" + colorYellow + "Print height of the tree (LEFT SUBTREE HEIGHT > RIGHT SUBTREE HEIGHT) [Non-Recursive]" + colorReset)
+	fmt.Println(colorCyan, "\tTree height is = ", newTree.HeightOfBinaryTreeNonRecursive(), colorReset)
+
+	fmt.Println("\t" + colorYellow + "Print height of the tree (LEFT SUBTREE HEIGHT > RIGHT SUBTREE HEIGHT) [LevelOrder]" + colorReset)
+	fmt.Println(colorCyan, "\tTree height is = ", newTree.HeightOfBTUsingLevelOrder(), colorReset)
+	printDottedLine()
+}
+
+func problemTwelve() {
+	newTree := getATree([]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11})
+	newTree.LevelOrderTraversal()
+	fmt.Println("\t"+colorYellow+"Printing the Tree", colorReset)
+	newTree.PrintTree()
+	fmt.Println("\t" + colorYellow + "Finding deepest node using (LevelOrder)" + colorReset)
+	fmt.Println(colorCyan, "\tDeepest node is = ", newTree.DeepestNodeUsingLevelOrder(), colorReset)
+	printDottedLine()
+}
+
+// TODO WIP
+func problemThirteen() {
+	newTree := getATree([]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11})
+	newTree.LevelOrderTraversal()
+	fmt.Println("\t"+colorYellow+"Printing the Tree", colorReset)
+	newTree.PrintTree()
+	fmt.Println("\t" + colorYellow + "Finding deepest node using (LevelOrder)" + colorReset)
+	fmt.Println(colorCyan, "\tDeepest node is = ", newTree.DeepestNodeUsingLevelOrder(), colorReset)
+	printDottedLine()
+}
+
+func problemFourteen() {
+	newTree := getATree([]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11})
+	newTree.LevelOrderTraversal()
+	fmt.Println("\t"+colorYellow+"Printing the Tree", colorReset)
+	newTree.PrintTree()
+	fmt.Println("\t" + colorYellow + "Finding number of leaf nodes using (LevelOrder)" + colorReset)
+	fmt.Println(colorCyan, "\tDeepest node is = ", newTree.NumberOfLeafNodesUsingLevelOrder(), colorReset)
+	printDottedLine()
+}
+
+func problemFifteen() {
+	newTree := getATree([]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11})
+	newTree.LevelOrderTraversal()
+	fmt.Println("\t"+colorYellow+"Printing the Tree", colorReset)
+	newTree.PrintTree()
+	fmt.Println("\t" + colorYellow + "Finding number of full nodes using (LevelOrder)" + colorReset)
+	fmt.Println(colorCyan, "\tDeepest node is = ", newTree.NumberOfFullNodesUsingLevelOrder(), colorReset)
+	printDottedLine()
 }
 
 func executeExercises() {
@@ -226,6 +290,16 @@ func executeExercises() {
 	problemNine()
 	fmt.Println("Problem 10: Give an algorithm for finding the height (or depth) of the binary tree.")
 	problemTen()
+	fmt.Println("Problem 11: Can we solve Problem-10 without recursion?")
+	problemEleven()
+	fmt.Println("Problem 12: Give an algorithm for finding the deepest node of the binary tree.")
+	problemTwelve()
+	// fmt.Println("Problem 13: Give an algorithm for deleting an element (assuming data is given) from binary tree.")
+	// problemThirteen()
+	fmt.Println("Problem 14: Give an algorithm for finding the number of leaves in the binary tree without using recursion.")
+	problemFourteen()
+	fmt.Println("Problem 15: Give an algorithm for finding the number of full nodes in the binary tree without using recursion.")
+	problemFifteen()
 }
 
 func main() {
