@@ -178,20 +178,28 @@ func problemNine() {
 
 func problemTen() {
 	fmt.Println("\t"+colorYellow+"Add 1, 2, 3, 4, 5, 6 & 7 into the Tree", colorReset)
+	// First Tree
 	binaryTree := getATree([]int{1, 2, 3, 4, 5, 6, 7})
+	binaryTree.LevelOrderTraversal()
 	fmt.Println("\t"+colorYellow+"Printing the Tree", colorReset)
 	binaryTree.PrintTree()
-	fmt.Println("\t" + colorYellow + "Print height of the tree (BOTH LEFT & RIGHT AT SAME LEVEL)" + colorReset)
-	fmt.Println(colorCyan, "\t", binaryTree.HeithtOfBinaryTree(), colorReset)
+	fmt.Println("\t" + colorYellow + "Print height of the tree (BOTH LEFT & RIGHT AT SAME LEVEL) [Recursive]" + colorReset)
+	fmt.Println(colorCyan, "\tTree height is = ", binaryTree.HeithtOfBinaryTree(), colorReset)
+	fmt.Println("\t" + colorYellow + "Print height of the tree (BOTH LEFT & RIGHT AT SAME LEVEL) [Non-Recursive]" + colorReset)
+	fmt.Println(colorCyan, "\tTree height is = ", binaryTree.HeightOfBinaryTreeNonRecursive(), colorReset)
 	printDottedLine()
 
-	newTree := getATree([]int{1, 2, 3, 4, 5, 6, 7, 8, 9})
+	// Second Tree
+	newTree := getATree([]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11})
+	newTree.LevelOrderTraversal()
 	fmt.Println("\t"+colorYellow+"Printing the Tree", colorReset)
 	newTree.PrintTree()
-	fmt.Println("\t" + colorYellow + "Print height of the tree (LEFT SUBTREE HEIGHT > RIGHT SUBTREE)" + colorReset)
-	fmt.Println(colorCyan, "\t", binaryTree.HeithtOfBinaryTree(), colorReset)
-
+	fmt.Println("\t" + colorYellow + "Print height of the tree (LEFT SUBTREE HEIGHT > RIGHT SUBTREE HEIGHT) [Recursive]" + colorReset)
+	fmt.Println(colorCyan, "\tTree height is = ", newTree.HeithtOfBinaryTree(), colorReset)
+	fmt.Println("\t" + colorYellow + "Print height of the tree (LEFT SUBTREE HEIGHT > RIGHT SUBTREE HEIGHT) [Non-Recursive]" + colorReset)
+	fmt.Println(colorCyan, "\tTree height is = ", newTree.HeightOfBinaryTreeNonRecursive(), colorReset)
 	printDottedLine()
+
 }
 
 func executeExercises() {

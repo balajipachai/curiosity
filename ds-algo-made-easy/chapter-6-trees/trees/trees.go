@@ -534,25 +534,24 @@ func (binaryTree *BinaryTree) DeleteTree() {
 	}
 }
 
+// The max function returns the larger of two integers.
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
+}
+
 // The function calculates the height of a binary tree by recursively traversing the tree and counting
 // the number of levels.
 func heightOfBTHelper(treeNode *BinaryTreeNode) int {
 	var leftHeight, rightHeight int
-	if treeNode != nil {
-		leftHeight = heightOfBTHelper(treeNode.left)
-		rightHeight = heightOfBTHelper(treeNode.right)
-
-		fmt.Println(leftHeight, "\t", rightHeight)
-
-		if leftHeight > rightHeight {
-			return leftHeight + 1
-		} else {
-			return rightHeight + 1
-		}
-
+	if treeNode == nil {
+		return 0
 	}
-
-	return 0
+	leftHeight = heightOfBTHelper(treeNode.left)
+	rightHeight = heightOfBTHelper(treeNode.right)
+	return 1 + max(leftHeight, rightHeight)
 }
 
 // The above code is implementing a method called "HeightOfBinaryTree" for a binary tree data
@@ -566,6 +565,39 @@ func (binaryTree *BinaryTree) HeithtOfBinaryTree() int {
 	*/
 	if binaryTree.root != nil {
 		return heightOfBTHelper(binaryTree.root)
+	}
+	return 0
+}
+
+// The function calculates the height of a binary tree node by counting the number of levels from the
+// given node to the bottom of the tree.
+func height(node *BinaryTreeNode, isLeft bool) int {
+	count := 0
+	for node != nil {
+		count++
+		if isLeft {
+			node = node.left
+		} else {
+			node = node.right
+		}
+	}
+	return count
+}
+
+// The above code is implementing a non-recursive method to calculate the height of a binary tree. It
+// first checks if the root of the binary tree is not nil. If it is not nil, it calculates the height
+// of the left subtree and the height of the right subtree using the `height` function. The `height`
+// function takes a node and a boolean flag indicating whether it is calculating the height of the left
+// subtree or the right subtree. It recursively calculates the height by traversing the subtree and
+// counting the number of levels. Finally, it returns the maximum height between the left and right
+// subtrees
+func (binaryTree *BinaryTree) HeightOfBinaryTreeNonRecursive() int {
+	root := binaryTree.root
+
+	if root != nil {
+		leftHeight := height(root.left, true)
+		rightHeight := height(root.right, false)
+		return 1 + max(leftHeight, rightHeight)
 	}
 	return 0
 }
