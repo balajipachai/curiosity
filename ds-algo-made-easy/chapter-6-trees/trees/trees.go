@@ -97,6 +97,13 @@ func (queue *Queue) FrontElement() *BinaryTreeNode {
 	return queue.elements[queue.front]
 }
 
+// The below code is defining a method called "RearElement" for a struct type "Queue". This method
+// returns the rear element of the queue, which is stored in the "elements" slice at the index
+// specified by the "rear" variable.
+func (queue *Queue) RearElement() *BinaryTreeNode {
+	return queue.elements[queue.rear]
+}
+
 // The `EmptyQueue()` function is a method of the `Queue` struct. It is used to remove all elements
 // from the queue until it becomes empty.
 func (queue *Queue) EmptyQueue() {
@@ -755,4 +762,120 @@ func (binaryTree *BinaryTree) NumberOfHalfNodesUsingLevelOrder() int {
 		}
 	}
 	return count
+}
+
+// The below code is implementing a method called `AreStructurallyIdentical` for a binary tree data
+// structure in the Go programming language. This method checks if two binary trees are structurally
+// identical, meaning they have the same structure (same number of nodes and same arrangement of nodes)
+// regardless of the data stored in the nodes.
+func (firstTree *BinaryTree) AreStructurallyIdentical(secondTree *BinaryTree) bool {
+	/*
+		Algorithm:
+		- If both trees are NULL then return true.
+		- If both trees are not NULL, then compare data and recursively check left and right subtree structures.
+	*/
+
+	areEqual := true
+
+	if firstTree.root == nil && secondTree.root == nil {
+		areEqual = true
+	}
+
+	queue := &Queue{}
+
+	firstQueue := &Queue{}
+	firstQueue.CreateNew()
+
+	secondQueue := &Queue{}
+	secondQueue.CreateNew()
+
+	if firstTree.root != nil {
+		queue.EnQueue(firstTree.root)
+
+		for !queue.IsEmpty() {
+			element := queue.DeQueue()
+			firstQueue.EnQueue(element)
+			if element.left != nil {
+				queue.EnQueue(element.left)
+			}
+
+			if element.right != nil {
+				queue.EnQueue(element.right)
+			}
+		}
+	}
+
+	if secondTree.root != nil {
+		queue.EnQueue(secondTree.root)
+
+		for !queue.IsEmpty() {
+			element := queue.DeQueue()
+			secondQueue.EnQueue(element)
+			if element.left != nil {
+				queue.EnQueue(element.left)
+			}
+
+			if element.right != nil {
+				queue.EnQueue(element.right)
+			}
+		}
+	}
+
+	if firstQueue.IsEmpty() && !secondQueue.IsEmpty() || secondQueue.IsEmpty() && !firstQueue.IsEmpty() {
+		areEqual = false
+	}
+
+	fmt.Println(colorMagenta)
+	// Check the Elements
+	for !firstQueue.IsEmpty() && !secondQueue.IsEmpty() {
+		firstNode := firstQueue.DeQueue()
+		secondNode := secondQueue.DeQueue()
+
+		if firstQueue.IsEmpty() && !secondQueue.IsEmpty() || secondQueue.IsEmpty() && !firstQueue.IsEmpty() {
+			areEqual = false
+		}
+
+		fmt.Printf("\t%v\t%v\n", firstNode, secondNode)
+
+		if firstNode.data != secondNode.data {
+			areEqual = false
+			break
+		}
+	}
+	fmt.Println(colorReset)
+
+	// Print the last element in case of non-empty trees being non-equal
+	if !firstQueue.IsEmpty() {
+		fmt.Println("\tFirst queue is non-empty")
+		fmt.Println("\t", colorMagenta, firstQueue.DeQueue(), colorReset)
+	}
+
+	if !secondQueue.IsEmpty() {
+		fmt.Println("\tSecond queue is non-empty")
+		fmt.Println("\t", colorMagenta, secondQueue.DeQueue(), colorReset)
+	}
+
+	return areEqual
+}
+
+// The function checks if two binary trees are structurally identical by recursively comparing their
+// nodes.
+func areStructurallyIdenticalRecursiveHelper(root1, root2 *BinaryTreeNode) bool {
+	if root1 == nil && root2 == nil {
+		return true
+	}
+
+	if root1 == nil || root2 == nil {
+		return false
+	}
+
+	// else traverse both right and left tree recursively
+	return (root1.data == root2.data && areStructurallyIdenticalRecursiveHelper(root1.left, root2.left) && areStructurallyIdenticalRecursiveHelper(root1.right, root2.right))
+}
+
+// The above code is defining a method called "AreStructurallyIdenticalRecursive" for a BinaryTree
+// struct in the Go programming language. This method takes another BinaryTree as a parameter and
+// returns a boolean value indicating whether the two binary trees are structurally identical.
+func (firstTree *BinaryTree) AreStructurallyIdenticalRecursive(secondTree *BinaryTree) bool {
+	return areStructurallyIdenticalRecursiveHelper(firstTree.root, secondTree.root)
 }

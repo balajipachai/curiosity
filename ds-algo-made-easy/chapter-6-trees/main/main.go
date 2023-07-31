@@ -280,9 +280,78 @@ func problemSixteen() {
 	printDottedLine()
 }
 
+func problemSeventeen() {
+	fmt.Println("\t" + colorRed + "******************CHECK USING LEVEL ORDER******************" + colorReset)
+	firstTree := getATree([]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11})
+	fmt.Println("\t"+colorYellow+"Printing the first Tree", colorReset)
+	firstTree.PrintTree()
+	secondTree := getATree([]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11})
+	fmt.Println("\t"+colorYellow+"Printing the second Tree", colorReset)
+	secondTree.PrintTree()
+	fmt.Println("\t" + colorYellow + "Are 1st & 2nd trees structurally identical using (LevelOrder)" + colorReset)
+	fmt.Println(colorCyan, "\tAre equal = ", firstTree.AreStructurallyIdentical(secondTree), colorReset)
+
+	fmt.Println("\t" + colorYellow + "Are 2 empty trees structurally identical using (LevelOrder)" + colorReset)
+	firstEmptyTree := getATree([]int{})
+	secondEmptyTree := getATree([]int{})
+	fmt.Println(colorCyan, "\tAre equal = ", firstEmptyTree.AreStructurallyIdentical(secondEmptyTree), colorReset)
+
+	fmt.Println("\t" + colorYellow + "Are 1st (Non-Empty) & 2nd (Empty) trees structurally identical using (LevelOrder)" + colorReset)
+	fmt.Println("\t"+colorYellow+"Printing the first Tree", colorReset)
+	firstTree.PrintTree()
+	fmt.Println(colorCyan, "\tAre equal = ", firstTree.AreStructurallyIdentical(secondEmptyTree), colorReset)
+
+	fmt.Println("\t" + colorYellow + "Are 1st (Non-Empty) & 2nd (Non-Empty) trees structurally identical using (LevelOrder)" + colorReset)
+	fmt.Println("\t"+colorYellow+"Printing the first Tree", colorReset)
+	firstTree.PrintTree()
+	thirdTree := getATree([]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10})
+	fmt.Println("\t"+colorYellow+"Printing the second Tree", colorReset)
+	thirdTree.PrintTree()
+	fmt.Println(colorCyan, "\tAre equal = ", firstTree.AreStructurallyIdentical(thirdTree), colorReset)
+
+	fmt.Println("\t" + colorYellow + "Are 1st (Non-Empty) & 2nd (Non-Empty) trees structurally identical using (LevelOrder)" + colorReset)
+	fmt.Println("\t"+colorYellow+"Printing the first Tree", colorReset)
+	firstTree.PrintTree()
+	fourthTree := getATree([]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12})
+	fmt.Println("\t"+colorYellow+"Printing the second Tree", colorReset)
+	fourthTree.PrintTree()
+	fmt.Println(colorCyan, "\tAre equal = ", firstTree.AreStructurallyIdentical(fourthTree), colorReset)
+	printDottedLine()
+	fmt.Println("\t" + colorRed + "******************CHECK USING RECURSIVE APPROACH******************" + colorReset)
+	fmt.Println("\t"+colorYellow+"Printing the first Tree", colorReset)
+	firstTree.PrintTree()
+	fmt.Println("\t"+colorYellow+"Printing the second Tree", colorReset)
+	secondTree.PrintTree()
+	fmt.Println("\t" + colorYellow + "Are 1st & 2nd trees structurally identical using (Recursive Approach)" + colorReset)
+	fmt.Println(colorCyan, "\tAre equal = ", firstTree.AreStructurallyIdenticalRecursive(secondTree), colorReset)
+
+	fmt.Println("\t" + colorYellow + "Are 2 empty trees structurally identical using (Recursive Approach)" + colorReset)
+	fmt.Println(colorCyan, "\tAre equal = ", firstEmptyTree.AreStructurallyIdenticalRecursive(secondEmptyTree), colorReset)
+
+	fmt.Println("\t" + colorYellow + "Are 1st (Non-Empty) & 2nd (Empty) trees structurally identical using (Recursive Approach)" + colorReset)
+	fmt.Println("\t"+colorYellow+"Printing the first Tree", colorReset)
+	firstTree.PrintTree()
+	fmt.Println(colorCyan, "\tAre equal = ", firstTree.AreStructurallyIdenticalRecursive(secondEmptyTree), colorReset)
+
+	fmt.Println("\t" + colorYellow + "Are 1st (Non-Empty) & 2nd (Non-Empty) trees structurally identical using (Recursive Approach)" + colorReset)
+	fmt.Println("\t"+colorYellow+"Printing the first Tree", colorReset)
+	firstTree.PrintTree()
+	fmt.Println("\t"+colorYellow+"Printing the second Tree", colorReset)
+	thirdTree.PrintTree()
+	fmt.Println(colorCyan, "\tAre equal = ", firstTree.AreStructurallyIdenticalRecursive(thirdTree), colorReset)
+
+	fmt.Println("\t" + colorYellow + "Are 1st (Non-Empty) & 2nd (Non-Empty) trees structurally identical using (Recursive Approach)" + colorReset)
+	fmt.Println("\t"+colorYellow+"Printing the first Tree", colorReset)
+	firstTree.PrintTree()
+	fmt.Println("\t"+colorYellow+"Printing the second Tree", colorReset)
+	fourthTree.PrintTree()
+	fmt.Println(colorCyan, "\tAre equal = ", firstTree.AreStructurallyIdenticalRecursive(fourthTree), colorReset)
+	printDottedLine()
+}
+
 func executeExercises() {
 	fmt.Println("TREE EXERCISES")
-	/*fmt.Println("Tree Traversals: PreOrder | InOrder | PostOrder")
+	fmt.Println("Tree Traversals: PreOrder | InOrder | PostOrder")
 	treeTraversals()
 	fmt.Println("Problem 1: Give an algorithm for finding maximum element in binary tree.")
 	problemOne()
@@ -314,9 +383,11 @@ func executeExercises() {
 	problemFourteen()
 	fmt.Println("Problem 15: Give an algorithm for finding the number of full nodes in the binary tree without using recursion.")
 	problemFifteen()
-	*/
+
 	fmt.Println("Problem 16: Give an algorithm for finding the number of half nodes (nodes with only one child) in the binary tree without using recursion.")
 	problemSixteen()
+	fmt.Println("Problem 17: Given two binary trees, return true if they are structurally identical.")
+	problemSeventeen()
 }
 
 func main() {
