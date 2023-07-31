@@ -724,3 +724,35 @@ func (binaryTree *BinaryTree) NumberOfFullNodesUsingLevelOrder() int {
 	}
 	return count
 }
+
+// The above code is implementing a method called `NumberOfHalfNodesUsingLevelOrder()` for a binary
+// tree data structure. This method calculates and returns the number of half nodes in the binary tree
+// using a level order traversal approach.
+func (binaryTree *BinaryTree) NumberOfHalfNodesUsingLevelOrder() int {
+	count := 0
+	if binaryTree.root != nil {
+		queue := &Queue{}
+		queue.CreateNew()
+
+		queue.EnQueue(binaryTree.root)
+
+		for !queue.IsEmpty() {
+			node := queue.DeQueue()
+
+			if node.left == nil || node.right == nil {
+				if node.left != nil || node.right != nil {
+					count++
+				}
+			}
+
+			if node.left != nil {
+				queue.EnQueue(node.left)
+			}
+
+			if node.right != nil {
+				queue.EnQueue(node.right)
+			}
+		}
+	}
+	return count
+}

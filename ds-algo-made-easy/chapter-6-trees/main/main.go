@@ -262,13 +262,27 @@ func problemFifteen() {
 	fmt.Println("\t"+colorYellow+"Printing the Tree", colorReset)
 	newTree.PrintTree()
 	fmt.Println("\t" + colorYellow + "Finding number of full nodes using (LevelOrder)" + colorReset)
-	fmt.Println(colorCyan, "\tDeepest node is = ", newTree.NumberOfFullNodesUsingLevelOrder(), colorReset)
+	fmt.Println(colorCyan, "\tNumber of Full Nodes is = ", newTree.NumberOfFullNodesUsingLevelOrder(), colorReset)
+	printDottedLine()
+}
+
+func problemSixteen() {
+	newTree := getATree([]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11})
+	fmt.Println("\t"+colorYellow+"Printing the Tree", colorReset)
+	newTree.PrintTree()
+	fmt.Println("\t" + colorYellow + "Finding number of half nodes using (LevelOrder)" + colorReset)
+	fmt.Println(colorCyan, "\tNumber of Half Nodes is = ", newTree.NumberOfHalfNodesUsingLevelOrder(), colorReset)
+
+	newTree = getATree([]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10})
+	fmt.Println("\t"+colorYellow+"Printing the Tree", colorReset)
+	newTree.PrintTree()
+	fmt.Println(colorCyan, "\tNumber of Half Nodes is = ", newTree.NumberOfHalfNodesUsingLevelOrder(), colorReset)
 	printDottedLine()
 }
 
 func executeExercises() {
 	fmt.Println("TREE EXERCISES")
-	fmt.Println("Tree Traversals: PreOrder | InOrder | PostOrder")
+	/*fmt.Println("Tree Traversals: PreOrder | InOrder | PostOrder")
 	treeTraversals()
 	fmt.Println("Problem 1: Give an algorithm for finding maximum element in binary tree.")
 	problemOne()
@@ -300,6 +314,9 @@ func executeExercises() {
 	problemFourteen()
 	fmt.Println("Problem 15: Give an algorithm for finding the number of full nodes in the binary tree without using recursion.")
 	problemFifteen()
+	*/
+	fmt.Println("Problem 16: Give an algorithm for finding the number of half nodes (nodes with only one child) in the binary tree without using recursion.")
+	problemSixteen()
 }
 
 func main() {
