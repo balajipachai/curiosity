@@ -641,7 +641,7 @@ func (binaryTree *BinaryTree) HeightOfBTUsingLevelOrder() int {
 	return level
 }
 
-// The above code is implementing a method called `DeepestNodeUsingLevelOrder()` for a binary tree data
+// The below code is implementing a method called `DeepestNodeUsingLevelOrder()` for a binary tree data
 // structure. This method finds and returns the deepest node in the binary tree using a level order
 // traversal approach.
 func (binaryTree *BinaryTree) DeepestNodeUsingLevelOrder() *BinaryTreeNode {
@@ -670,7 +670,7 @@ func (binaryTree *BinaryTree) DeepestNodeUsingLevelOrder() *BinaryTreeNode {
 	return nodeToReturn
 }
 
-// The above code is implementing a method called `NumberOfLeafNodesUsingLevelOrder()` for a binary
+// The below code is implementing a method called `NumberOfLeafNodesUsingLevelOrder()` for a binary
 // tree data structure. This method calculates and returns the number of leaf nodes in the binary tree
 // using a level order traversal approach.
 func (binaryTree *BinaryTree) NumberOfLeafNodesUsingLevelOrder() int {
@@ -701,7 +701,7 @@ func (binaryTree *BinaryTree) NumberOfLeafNodesUsingLevelOrder() int {
 	return count
 }
 
-// The above code is implementing a method called NumberOfFullNodesUsingLevelOrder() for a binary tree
+// The below code is implementing a method called NumberOfFullNodesUsingLevelOrder() for a binary tree
 // data structure. This method calculates and returns the number of full nodes in the binary tree using
 // a level order traversal approach.
 func (binaryTree *BinaryTree) NumberOfFullNodesUsingLevelOrder() int {
@@ -732,7 +732,7 @@ func (binaryTree *BinaryTree) NumberOfFullNodesUsingLevelOrder() int {
 	return count
 }
 
-// The above code is implementing a method called `NumberOfHalfNodesUsingLevelOrder()` for a binary
+// The below code is implementing a method called `NumberOfHalfNodesUsingLevelOrder()` for a binary
 // tree data structure. This method calculates and returns the number of half nodes in the binary tree
 // using a level order traversal approach.
 func (binaryTree *BinaryTree) NumberOfHalfNodesUsingLevelOrder() int {
@@ -873,9 +873,275 @@ func areStructurallyIdenticalRecursiveHelper(root1, root2 *BinaryTreeNode) bool 
 	return (root1.data == root2.data && areStructurallyIdenticalRecursiveHelper(root1.left, root2.left) && areStructurallyIdenticalRecursiveHelper(root1.right, root2.right))
 }
 
-// The above code is defining a method called "AreStructurallyIdenticalRecursive" for a BinaryTree
+// The below code is defining a method called "AreStructurallyIdenticalRecursive" for a BinaryTree
 // struct in the Go programming language. This method takes another BinaryTree as a parameter and
 // returns a boolean value indicating whether the two binary trees are structurally identical.
 func (firstTree *BinaryTree) AreStructurallyIdenticalRecursive(secondTree *BinaryTree) bool {
 	return areStructurallyIdenticalRecursiveHelper(firstTree.root, secondTree.root)
+}
+
+// The function `diameterHelper` calculates the diameter of a binary tree and updates the maximum diameter found so far.
+func diameterHelper(root *BinaryTreeNode, ptr *int) int {
+	if root == nil {
+		return 0
+	}
+	left := diameterHelper(root.left, ptr)
+	right := diameterHelper(root.right, ptr)
+
+	if left+right > *ptr {
+		*ptr = left + right
+	}
+	return max(left, right) + 1
+}
+
+// The function calculates the height of a binary tree recursively.
+func heightRecursive(root *BinaryTreeNode) int {
+	if root == nil {
+		return 0
+	}
+	return 1 + max(heightRecursive(root.left), heightRecursive(root.right))
+}
+
+// The function `diameterRecursive` calculates the diameter of a binary tree using a recursive
+// approach.
+func diameterRecursive(root *BinaryTreeNode) int {
+	if root == nil {
+		return 0
+	}
+	return max(diameterRecursive(root.left), diameterRecursive(root.right))
+}
+
+// The below code is implementing a method called "Diameter" for a binary tree data structure.
+// The method calculates the diameter of the binary tree, which is defined as the number of nodes on the longest path between any two leaf nodes in the tree.
+func (binaryTree *BinaryTree) Diameter() int {
+	/*
+		Algorithm:
+		1. Calculate diameter of left subtree and right subtree recursively.
+		2. Among these two values, send maximum value along with current level (+1)
+	*/
+	d := 0
+	maxOf := max(heightRecursive(binaryTree.root), diameterRecursive(binaryTree.root))
+	fmt.Println(colorMagenta, "\tDiameter using alternate approach = : ", maxOf, colorReset)
+	return diameterHelper(binaryTree.root, &d)
+}
+
+// The below code is implementing a method called `LevelWithMaximumSumUsingLevelOrder()` for a binary
+// tree data structure. This method calculates the level in the binary tree that has the maximum sum of
+// node values. It uses the level order traversal technique to visit each node in the tree level by
+// level. It keeps track of the current sum of node values for each level and updates the maximum sum
+// if a higher sum is found. Finally, it returns the maximum sum.
+func (binaryTree *BinaryTree) LevelWithMaximumSumUsingLevelOrder() (int, int) {
+	if binaryTree.root == nil {
+		return 0, 0
+	}
+	level := 0
+	currentSum := 0
+	maxSum := 0
+
+	queue := &Queue{}
+	queue.CreateNew()
+
+	queue.EnQueue(binaryTree.root)
+	queue.EnQueue(nil) // Marking the end of level
+
+	for !queue.IsEmpty() {
+		root := queue.DeQueue()
+		// Level logic
+		if root == nil {
+			if !queue.IsEmpty() {
+				queue.EnQueue(nil)
+			}
+			if currentSum > maxSum {
+				maxSum = currentSum
+			}
+			level++
+			currentSum = 0
+		} else {
+			currentSum += root.data
+			if root.left != nil {
+				queue.EnQueue(root.left)
+			}
+
+			if root.right != nil {
+				queue.EnQueue(root.right)
+			}
+		}
+	}
+	return maxSum, level
+}
+
+// The function recursively prints all root-to-leaf paths in a binary tree.
+func allRootToLeafPathsHelper(root *BinaryTreeNode, paths []int) {
+	if root == nil {
+		return
+	}
+	paths = append(paths, root.data)
+	// Below condition implies we have hit the leaf node
+	if root.left == nil && root.right == nil {
+		// Print the paths array
+		fmt.Println(colorMagenta)
+		for i, v := range paths {
+			if i != len(paths)-1 {
+				fmt.Printf("\t%d\t->", v)
+			} else {
+				fmt.Printf("\t%d", v)
+			}
+		}
+		fmt.Println(colorReset)
+	} else {
+		allRootToLeafPathsHelper(root.left, paths)
+		allRootToLeafPathsHelper(root.right, paths)
+	}
+}
+
+/*
+Algorithm: To print out all root-to-leaf-paths
+If we have a binary tree having nodes: 1, 2, 3, 4, 5, 6 & 7
+
+	     1
+	   /   \
+	  2     3
+	 / \   / \
+	4   5 6   7
+
+then all root-to-leaf-paths are:
+
+	> 1 - 2 - 4
+	> 1 - 2 - 5
+	> 1 - 3 - 6
+	> 1 - 3 - 7
+
+How we accomplish this? We will use a recursive approach.
+Base Condition:
+
+	If root == nil then return
+	If root.left == nil && root.right == nil, we have hit the end of path, print the path
+	If root.left != nil & root.right != nil, solve them recursively
+*/
+// The below code is defining a method called "AllRootToLeafPaths" for a binary tree data structure.
+// This method is used to find all the paths from the root to the leaf nodes of the binary tree. It
+// initializes an empty slice called "paths" to store the paths. Then, it calls a helper function
+// called "allRootToLeafPathsHelper" passing the root node of the binary tree and the empty "paths"
+// slice as arguments.
+func (binaryTree *BinaryTree) AllRootToLeafPaths() {
+	paths := make([]int, 0)
+	allRootToLeafPathsHelper(binaryTree.root, paths)
+}
+
+// The function checks if there exists a path in a binary tree from root to leaf nodes that adds up to
+// a given sum.
+func existenceOfPathWithGivenSumHelper(root *BinaryTreeNode, sum int) bool {
+	if root == nil {
+		return sum == 0
+	} else {
+		remainingSum := sum - root.data
+		if (root.left != nil && root.right != nil) || (root.left == nil && root.right == nil) {
+			return existenceOfPathWithGivenSumHelper(root.left, remainingSum) || existenceOfPathWithGivenSumHelper(root.right, remainingSum)
+		} else if root.left != nil {
+			return existenceOfPathWithGivenSumHelper(root.left, remainingSum)
+		} else {
+			return existenceOfPathWithGivenSumHelper(root.right, remainingSum)
+		}
+	}
+}
+
+// The below code is defining a method called "ExistenceOfPathWithGivenSum" for a binary tree data
+// structure. This method takes an integer parameter called "sum" and returns a boolean value.
+func (binaryTree *BinaryTree) ExistenceOfPathWithGivenSum(sum int) bool {
+	return existenceOfPathWithGivenSumHelper(binaryTree.root, sum)
+}
+
+// The addHelper function recursively calculates the sum of all the nodes in a binary tree.
+func addHelper(root *BinaryTreeNode) int {
+	if root == nil {
+		return 0
+	} else {
+		return (root.data + addHelper(root.left) + addHelper(root.right))
+	}
+}
+
+// The below code is defining a method called "Add" for a binary tree data structure. This method takes
+// no arguments and returns an integer. It calls a helper function called "addHelper" passing in the
+// root node of the binary tree. The purpose of this method is to add up the values of all nodes in the
+// binary tree and return the sum.
+func (binaryTree *BinaryTree) Add() int {
+	return addHelper(binaryTree.root)
+}
+
+// The below code is implementing a method called `AddUsingLevelOrder` for a binary tree. This method
+// calculates the sum of all the nodes in the binary tree using a level order traversal. It uses a
+// queue data structure to perform the traversal. The method starts by checking if the root of the
+// binary tree is nil, and if so, it returns 0. Otherwise, it creates a new queue and enqueues the root
+// node. It then initializes a variable `sum` to 0.
+func (binaryTree *BinaryTree) AddUsingLevelOrder() int {
+	root := binaryTree.root
+
+	if root == nil {
+		return 0
+	}
+
+	queue := &Queue{}
+	queue.CreateNew()
+
+	queue.EnQueue(root)
+
+	sum := 0
+
+	for !queue.IsEmpty() {
+		node := queue.DeQueue()
+		sum += node.data
+		if node.left != nil {
+			queue.EnQueue(node.left)
+		}
+		if node.right != nil {
+			queue.EnQueue(node.right)
+		}
+	}
+	return sum
+}
+
+// The mirrorHelper function recursively swaps the left and right child of each node in a binary tree.
+func mirrorHelper(root *BinaryTreeNode) *BinaryTreeNode {
+	if root == nil {
+		return nil
+	}
+	mirrorHelper(root.left)
+	mirrorHelper(root.right)
+	// Swap the right and left child
+	root.right, root.left = root.left, root.right
+	return root
+}
+
+// The below code is defining a method called "Mirror" for a binary tree data structure. This method
+// returns a pointer to a BinaryTreeNode, which represents the root of the mirrored binary tree. The
+// method calls a helper function called "mirrorHelper" and passes the root of the original binary tree
+// as an argument. The "mirrorHelper" function recursively mirrors the binary tree by swapping the left
+// and right child nodes of each node in the tree.
+func (binaryTree *BinaryTree) Mirror() *BinaryTreeNode {
+	return mirrorHelper(binaryTree.root)
+}
+
+// The function checks if two binary trees are mirrors of each other.
+func areMirrorsHelper(root1, root2 *BinaryTreeNode) bool {
+	if root1 == nil && root2 == nil {
+		return true
+	}
+
+	if root1 == nil || root2 == nil {
+		return false
+	}
+
+	if root1.data != root2.data {
+		return false
+	}
+
+	return areMirrorsHelper(root1.left, root2.right) && areMirrorsHelper(root1.right, root2.left)
+}
+
+// The below code is defining a method called "AreMirrors" for a struct type "BinaryTree" in the Go
+// programming language. This method takes another BinaryTree as input and returns a boolean value. It
+// calls a helper function called "areMirrorsHelper" with the root nodes of the two BinaryTrees as
+// arguments to check if the two trees are mirrors of each other.
+func (firstTree *BinaryTree) AreMirrors(secondTree *BinaryTree) bool {
+	return areMirrorsHelper(firstTree.root, secondTree.root)
 }

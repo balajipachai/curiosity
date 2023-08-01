@@ -28,6 +28,7 @@ func getATree(elements []int) *trees.BinaryTree {
 	return binaryTree
 }
 
+// The function `treeTraversals` creates a binary tree and performs various traversals on it.
 func treeTraversals() {
 	fmt.Println("\t"+colorYellow+"Add 1, 2, 3, 4, 5, 6, 7, 8 & 9 into the Tree", colorReset)
 	binaryTree := getATree([]int{1, 2, 3, 4, 5, 6, 7, 8, 9})
@@ -48,6 +49,8 @@ func treeTraversals() {
 	printDottedLine()
 }
 
+// The function problemOne creates a binary tree and prints its elements, then finds and prints the
+// maximum element using recursion.
 func problemOne() {
 	fmt.Println("\t"+colorYellow+"Add 1, 2, 3, 4, 5, 6 & 7 into the Tree", colorReset)
 	binaryTree := getATree([]int{1, 2, 3, 4, 5, 6, 7})
@@ -62,6 +65,8 @@ func problemOne() {
 	printDottedLine()
 }
 
+// The function problemTwo creates a binary tree and prints its elements, then finds and prints the
+// maximum element using level order traversal.
 func problemTwo() {
 	fmt.Println("\t"+colorYellow+"Add 1, 2, 3, 4, 5, 6 & 7 into the Tree", colorReset)
 	binaryTree := getATree([]int{1, 2, 3, 4, 5, 6, 7})
@@ -76,6 +81,8 @@ func problemTwo() {
 	printDottedLine()
 }
 
+// The function problemThree creates a binary tree, prints the tree, and searches for specific elements
+// in the tree.
 func problemThree() {
 	fmt.Println("\t"+colorYellow+"Add 1, 2, 3, 4, 5, 6 & 7 into the Tree", colorReset)
 	binaryTree := getATree([]int{1, 2, 3, 4, 5, 6, 7})
@@ -92,6 +99,8 @@ func problemThree() {
 	printDottedLine()
 }
 
+// The function problemFour creates a binary tree, prints the tree, and searches for elements using
+// level order traversal.
 func problemFour() {
 	fmt.Println("\t"+colorYellow+"Add 1, 2, 3, 4, 5, 6 & 7 into the Tree", colorReset)
 	binaryTree := getATree([]int{1, 2, 3, 4, 5, 6, 7})
@@ -108,6 +117,8 @@ func problemFour() {
 	printDottedLine()
 }
 
+// The function problemFive creates a binary tree and performs various operations on it, such as
+// printing the tree and performing level order traversal.
 func problemFive() {
 	fmt.Println("\t"+colorYellow+"Add 1, 2, 3, 4, 5, 6 & 7 into the Tree", colorReset)
 	binaryTree := getATree([]int{1, 2, 3, 4, 5, 6, 7})
@@ -119,6 +130,10 @@ func problemFive() {
 	printDottedLine()
 }
 
+// The function problemSix creates a binary tree, prints the tree, and then finds the size (number of
+// nodes) of the binary tree recursively.
+// The function problemSix creates a binary tree, prints the tree, and then finds the size (number of
+// nodes) of the binary tree recursively.
 func problemSix() {
 	fmt.Println("\t"+colorYellow+"Add 1, 2, 3, 4, 5, 6 & 7 into the Tree", colorReset)
 	binaryTree := getATree([]int{1, 2, 3, 4, 5, 6, 7})
@@ -133,6 +148,8 @@ func problemSix() {
 	printDottedLine()
 }
 
+// The function problemSeven creates a binary tree with values 1, 2, 3, 4, 5, 6, and 7, prints the
+// tree, and then finds the size (number of nodes) of the tree using level order traversal.
 func problemSeven() {
 	fmt.Println("\t"+colorYellow+"Add 1, 2, 3, 4, 5, 6 & 7 into the Tree", colorReset)
 	binaryTree := getATree([]int{1, 2, 3, 4, 5, 6, 7})
@@ -147,6 +164,8 @@ func problemSeven() {
 	printDottedLine()
 }
 
+// The function problemEight creates a binary tree and prints its elements in reverse order using level
+// order traversal.
 func problemEight() {
 	fmt.Println("\t"+colorYellow+"Add 1, 2, 3, 4, 5, 6 & 7 into the Tree", colorReset)
 	binaryTree := getATree([]int{1, 2, 3, 4, 5, 6, 7})
@@ -162,6 +181,8 @@ func problemEight() {
 	printDottedLine()
 }
 
+// The function problemNine creates a binary tree, prints the tree before deleting it, deletes the
+// tree, and then prints the tree after deletion.
 func problemNine() {
 	fmt.Println("\t"+colorYellow+"Add 1, 2, 3, 4, 5, 6 & 7 into the Tree", colorReset)
 	binaryTree := getATree([]int{1, 2, 3, 4, 5, 6, 7})
@@ -176,6 +197,8 @@ func problemNine() {
 	printDottedLine()
 }
 
+// The function problemTen creates two binary trees and performs various operations on them, including
+// adding elements, printing the tree, and calculating the height of the tree.
 func problemTen() {
 	fmt.Println("\t"+colorYellow+"Add 1, 2, 3, 4, 5, 6 & 7 into the Tree", colorReset)
 	// First Tree
@@ -198,6 +221,8 @@ func problemTen() {
 
 }
 
+// The function problemEleven creates two binary trees and prints their level order traversal, tree
+// structure, and height using both non-recursive and level order methods.
 func problemEleven() {
 	fmt.Println("\t"+colorYellow+"Add 1, 2, 3, 4, 5, 6 & 7 into the Tree", colorReset)
 	// First Tree
@@ -225,6 +250,8 @@ func problemEleven() {
 	printDottedLine()
 }
 
+// The function problemTwelve creates a binary tree, performs a level order traversal, prints the tree,
+// and finds the deepest node using level order traversal.
 func problemTwelve() {
 	newTree := getATree([]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11})
 	newTree.LevelOrderTraversal()
@@ -246,6 +273,8 @@ func problemThirteen() {
 	printDottedLine()
 }
 
+// The function problemFourteen creates a binary tree, performs a level order traversal, prints the
+// tree, and finds the number of leaf nodes using level order traversal.
 func problemFourteen() {
 	newTree := getATree([]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11})
 	newTree.LevelOrderTraversal()
@@ -256,6 +285,8 @@ func problemFourteen() {
 	printDottedLine()
 }
 
+// The function problemFifteen creates a binary tree, performs a level order traversal, prints the
+// tree, and then finds the number of full nodes in the tree using level order traversal.
 func problemFifteen() {
 	newTree := getATree([]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11})
 	newTree.LevelOrderTraversal()
@@ -266,6 +297,8 @@ func problemFifteen() {
 	printDottedLine()
 }
 
+// The function problemSixteen creates a binary tree, prints the tree, and then calculates and prints
+// the number of half nodes in the tree using level order traversal.
 func problemSixteen() {
 	newTree := getATree([]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11})
 	fmt.Println("\t"+colorYellow+"Printing the Tree", colorReset)
@@ -280,6 +313,8 @@ func problemSixteen() {
 	printDottedLine()
 }
 
+// The function problemSeventeen checks if two trees are structurally identical using both a level
+// order approach and a recursive approach.
 func problemSeventeen() {
 	fmt.Println("\t" + colorRed + "******************CHECK USING LEVEL ORDER******************" + colorReset)
 	firstTree := getATree([]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11})
@@ -349,8 +384,98 @@ func problemSeventeen() {
 	printDottedLine()
 }
 
+// The function "eighteen" creates a binary tree, prints the tree, and calculates the diameter of the
+// tree recursively.
+func eighteen() {
+	newTree := getATree([]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15})
+	fmt.Println("\t"+colorYellow+"Printing the Tree", colorReset)
+	newTree.PrintTree()
+	fmt.Println("\t" + colorYellow + "Finding Diameter of the binary tree(Recursively)" + colorReset)
+	fmt.Println(colorCyan, "\tDiameter of the tree is = ", newTree.Diameter(), colorReset)
+	printDottedLine()
+}
+
+// The function "nineteen" creates a binary tree, prints the tree, and finds the level with the maximum
+// sum using level order traversal.
+func nineteen() {
+	newTree := getATree([]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15})
+	fmt.Println("\t"+colorYellow+"Printing the Tree", colorReset)
+	newTree.PrintTree()
+	fmt.Println("\t" + colorYellow + "Finding Level with maximum sum in the binary tree(LevelOrder)" + colorReset)
+	maxSum, level := newTree.LevelWithMaximumSumUsingLevelOrder()
+	fmt.Println(colorCyan, "\tLevel = ", level, " has maximum sum = ", maxSum, colorReset)
+	printDottedLine()
+}
+
+// The function "twenty" creates a binary tree, prints the tree, and then prints all root-to-leaf paths
+// recursively.
+func twenty() {
+	newTree := getATree([]int{1, 2, 3, 4, 5, 6, 7})
+	fmt.Println("\t"+colorYellow+"Printing the Tree", colorReset)
+	newTree.PrintTree()
+	fmt.Println("\t" + colorYellow + "Printing all root-to-leaf-paths(Recursively)" + colorReset)
+	newTree.AllRootToLeafPaths()
+	printDottedLine()
+}
+
+// The function "twentyOne" creates a binary tree, prints the tree, prints all root-to-leaf paths, and
+// checks if a path exists with a given sum.
+func twentyOne() {
+	newTree := getATree([]int{1, 2, 3, 4, 5, 6, 7})
+	fmt.Println("\t"+colorYellow+"Printing the Tree", colorReset)
+	newTree.PrintTree()
+	fmt.Println("\t" + colorYellow + "Printing all root-to-leaf-paths(Recursively)" + colorReset)
+	newTree.AllRootToLeafPaths()
+	fmt.Println("\t" + colorYellow + "Checks if a path exists in Binary Tree with sum = 18 (Recursively)" + colorReset)
+	fmt.Println(colorCyan, "\tDoes a path exists with sum = 18 ===> ", newTree.ExistenceOfPathWithGivenSum(18), colorReset)
+	fmt.Println(colorCyan, "\tDoes a path exists with sum = 7 ===> ", newTree.ExistenceOfPathWithGivenSum(7), colorReset)
+	printDottedLine()
+}
+
+// The function `twentyTwoAndTwentyThree` prints a binary tree, and then calculates the sum of all
+// elements in the tree using both recursive and level order algorithms.
+func twentyTwoAndTwentyThree() {
+	newTree := getATree([]int{1, 2, 3, 4, 5, 6, 7})
+	fmt.Println("\t"+colorYellow+"Printing the Tree", colorReset)
+	newTree.PrintTree()
+	fmt.Println("\t" + colorYellow + "Give an algorithm for finding the sum of all elements in binary tree (Recursively)" + colorReset)
+	fmt.Println(colorCyan, "\tSum\t=\t ", newTree.Add(), colorReset)
+	fmt.Println("\t" + colorYellow + "Give an algorithm for finding the sum of all elements in binary tree (LevelOrder)" + colorReset)
+	fmt.Println(colorCyan, "\tSum\t=\t ", newTree.AddUsingLevelOrder(), colorReset)
+}
+
+// The function `twentyFour` creates a binary tree, prints it, mirrors it, and then prints the mirrored
+// tree.
+func twentyFour() {
+	newTree := getATree([]int{1, 2, 3, 4, 5})
+	fmt.Println("\t"+colorYellow+"Printing the Tree", colorReset)
+	newTree.PrintTree()
+	fmt.Println(colorCyan, "\tMirroring the tree", colorReset)
+	newTree.Mirror()
+	newTree.PrintTree()
+	printDottedLine()
+}
+
+// The function `twentyFive` creates two binary trees, mirrors one of them, and then checks if the
+// original tree and the mirrored tree are mirrors of each other.
+func twentyFive() {
+	newTree := getATree([]int{1, 2, 3, 4, 5})
+	originalTree := getATree([]int{1, 2, 3, 4, 5})
+
+	newTree.Mirror()
+	fmt.Println("\t"+colorYellow+"Printing Original Tree", colorReset)
+	originalTree.PrintTree()
+	mirroTree := newTree
+	fmt.Println("\t"+colorYellow+"Printing the Mirrored Tree", colorReset)
+	mirroTree.PrintTree()
+	fmt.Println(colorCyan, "\tAre mirrors: (OriginalTree & MirroredTree)\t", originalTree.AreMirrors(mirroTree), colorReset)
+	fmt.Println(colorCyan, "\tAre mirrors: (OriginalTree & OriginalTree)\t", originalTree.AreMirrors(originalTree), colorReset)
+	printDottedLine()
+}
+
+// The function "executeExercises" executes a series of tree-related exercises and prints the results.
 func executeExercises() {
-	fmt.Println("TREE EXERCISES")
+	fmt.Println("BINARY TREE EXERCISES")
 	fmt.Println("Tree Traversals: PreOrder | InOrder | PostOrder")
 	treeTraversals()
 	fmt.Println("Problem 1: Give an algorithm for finding maximum element in binary tree.")
@@ -388,6 +513,20 @@ func executeExercises() {
 	problemSixteen()
 	fmt.Println("Problem 17: Given two binary trees, return true if they are structurally identical.")
 	problemSeventeen()
+	fmt.Println("Problem 18: Give an algorithm for finding the diameter of the binary tree. The diameter of a tree (sometimes called the width) is the number of nodes on the longest path between two leaves in the tree.")
+	eighteen()
+	fmt.Println("Problem 19: Give an algorithm for finding the level that has the maximum sum in the binary tree.")
+	nineteen()
+	fmt.Println("Problem 20: Given a binary tree, print out all its root-to-leaf paths.")
+	twenty()
+	fmt.Println("Problem 21: Give an algorithm for checking the existence of path with given sum. That means, given a sum, check whether there exists a path from root to any of the nodes.")
+	twentyOne()
+	fmt.Println("Problem 22: Give an algorithm for finding the sum of all elements in binary tree. \nProblem 23: Can we solve Problem-22 without recursion?")
+	twentyTwoAndTwentyThree()
+	fmt.Println("Problem 24: Give an algorithm for converting a tree to its mirror. Mirror of a tree is another tree with left and right children of all non-leaf nodes interchanged. The trees below are mirrors to each other.")
+	twentyFour()
+	fmt.Println("Problem 25: Given two trees, give an algorithm for checking whether they are mirrors of each other.")
+	twentyFive()
 }
 
 func main() {
