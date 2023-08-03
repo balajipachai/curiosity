@@ -390,30 +390,30 @@ func (binaryTree *BinaryTree) FindMaxElementUsingLevelOrder() int {
 }
 
 // The searchElementHelper function recursively searches for an element in a binary tree.
-func searchElementHelper(treeNode *BinaryTreeNode, element int) bool {
+func searchElementHelper(treeNode *BinaryTreeNode, element int) *BinaryTreeNode {
 	if treeNode != nil {
 		data := treeNode.data
 		if data == element {
-			return true
+			return treeNode
 		} else {
 			isFound := searchElementHelper(treeNode.left, element)
-			if isFound {
-				return true
+			if isFound != nil {
+				return isFound
 			} else {
 				return searchElementHelper(treeNode.right, element)
 			}
 		}
 	}
-	return false
+	return nil
 }
 
 // The `SearchElement` method of the `BinaryTree` struct is used to search for a specific element in
 // the binary tree.
-func (binaryTree *BinaryTree) SearchElement(element int) bool {
+func (binaryTree *BinaryTree) SearchElement(element int) *BinaryTreeNode {
 	if binaryTree.root != nil {
 		return searchElementHelper(binaryTree.root, element)
 	}
-	return false
+	return nil
 }
 
 // The `SearchElementUsingLevelOrder` method of the `BinaryTree` struct is used to search for a
@@ -1138,10 +1138,78 @@ func areMirrorsHelper(root1, root2 *BinaryTreeNode) bool {
 	return areMirrorsHelper(root1.left, root2.right) && areMirrorsHelper(root1.right, root2.left)
 }
 
-// The below code is defining a method called "AreMirrors" for a struct type "BinaryTree" in the Go
-// programming language. This method takes another BinaryTree as input and returns a boolean value. It
-// calls a helper function called "areMirrorsHelper" with the root nodes of the two BinaryTrees as
-// arguments to check if the two trees are mirrors of each other.
+// The below code is defining a method called "AreMirrors"
+// This method takes another BinaryTree as input and returns a boolean value.
+// It calls a helper function called "areMirrorsHelper" with the root nodes of the two BinaryTrees as arguments to check if the two trees are mirrors of each other.
 func (firstTree *BinaryTree) AreMirrors(secondTree *BinaryTree) bool {
 	return areMirrorsHelper(firstTree.root, secondTree.root)
+}
+
+// The function lcaHelper finds the lowest common ancestor of two nodes in a binary tree.
+func lcaHelper(root, node1, node2 *BinaryTreeNode) *BinaryTreeNode {
+	if root == nil || root == node1 || root == node2 {
+		return root
+	}
+	left := lcaHelper(root.left, node1, node2)
+	right := lcaHelper(root.right, node1, node2)
+
+	if left != nil && right != nil {
+		return root
+	}
+
+	if left != nil {
+		return left
+	} else {
+		return right
+	}
+
+}
+
+// The below code is defining a method called LCA (Lowest Common Ancestor) for a BinaryTree.
+// This method takes in two BinaryTreeNode pointers, node1 and node2, and returns a pointer
+// to the lowest common ancestor of these two nodes in the binary tree.
+// The method calls a helper function called lcaHelper, passing in the root of the binary tree and the two nodes.
+func (binaryTree *BinaryTree) LCA(node1, node2 *BinaryTreeNode) *BinaryTreeNode {
+	return lcaHelper(binaryTree.root, node1, node2)
+}
+
+// The function builds a binary tree using pre-order and in-order traversal arrays.
+func buildBinaryTreeHelper(preOrder, inOrder []int, inOrderStart, inOrderEnd int) *BinaryTreeNode {
+	preOrderIndex := 0
+	newNode := &BinaryTreeNode{}
+
+	if inOrderStart > inOrderEnd {
+		return nil
+	}
+
+	newNode.data = preOrder[preOrderIndex]
+	preOrderIndex++
+
+	if inOrderStart == inOrderEnd {
+		fmt.Println(newNode)
+		return newNode
+	}
+
+	var inOrderIndex int
+
+	for i, v := range inOrder {
+		if newNode.data == v {
+			inOrderIndex = i
+			break
+		}
+	}
+
+	newNode.left = buildBinaryTreeHelper(preOrder, inOrder, inOrderStart, inOrderIndex-1)
+	newNode.right = buildBinaryTreeHelper(preOrder, inOrder, inOrderIndex+1, inOrderEnd)
+
+	fmt.Println(newNode)
+	return newNode
+}
+
+// The below code is defining a method called "BuildBinaryTree"
+// This method takes in two slices of integers, "preOrder" and "inOrder",
+// as well as two integers "preOrderIndex" and "inOrderIndex".
+// It then calls a helper function called "buildBinaryTreeHelper" with these parameters and returns the result.
+func (binaryTree *BinaryTree) BuildBinaryTree(preOrder, inOrder []int, preOrderIndex, inOrderIndex int) *BinaryTreeNode {
+	return buildBinaryTreeHelper(preOrder, inOrder, preOrderIndex, inOrderIndex)
 }

@@ -473,6 +473,33 @@ func twentyFive() {
 	printDottedLine()
 }
 
+// The function "twentySix" creates a binary search tree, searches for specific nodes,
+// prints the tree, and finds the lowest common ancestor of two nodes.
+func twentySix() {
+	newTree := getATree([]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10})
+	node1 := newTree.SearchElement(6)
+	node2 := newTree.SearchElement(7)
+	node3 := newTree.SearchElement(10)
+	fmt.Println("\t"+colorYellow+"Printing the Tree", colorReset)
+	newTree.PrintTree()
+	fmt.Println(colorCyan, "\tLCA of node1 & node2 (Same Subtree):\t", newTree.LCA(node1, node2), colorReset)
+	fmt.Println(colorCyan, "\tLCA of node1 & node3 (Different Subtree):\t", newTree.LCA(node1, node3), colorReset)
+	printDottedLine()
+}
+
+// TODO Doesn't work as expected, will fix this
+func twentySeven() {
+	newTree := getATree([]int{})
+	fmt.Println("\t"+colorYellow+"Printing the Tree before building", colorReset)
+	newTree.PrintTree()
+	fmt.Println("\t"+colorYellow+"Building the Tree", colorReset)
+	inOrder := []int{4, 2, 5, 1, 6, 3}
+	preOrder := []int{1, 2, 4, 5, 3, 6}
+	newTree.BuildBinaryTree(preOrder, inOrder, 0, 0)
+	fmt.Println("\t"+colorYellow+"Printing the Tree after building", colorReset)
+	newTree.PrintTree()
+}
+
 // The function "executeExercises" executes a series of tree-related exercises and prints the results.
 func executeExercises() {
 	fmt.Println("BINARY TREE EXERCISES")
@@ -527,6 +554,10 @@ func executeExercises() {
 	twentyFour()
 	fmt.Println("Problem 25: Given two trees, give an algorithm for checking whether they are mirrors of each other.")
 	twentyFive()
+	fmt.Println("Problem 26: Give an algorithm for finding LCA (Least Common Ancestor) of two nodes in a Binary Tree.")
+	twentySix()
+	fmt.Println("Problem 27: Give an algorithm for constructing binary tree from given Inorder and Preorder traversals.")
+	twentySeven()
 }
 
 func main() {
