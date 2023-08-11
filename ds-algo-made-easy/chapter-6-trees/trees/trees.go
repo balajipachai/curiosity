@@ -1213,3 +1213,20 @@ func buildBinaryTreeHelper(preOrder, inOrder []int, inOrderStart, inOrderEnd int
 func (binaryTree *BinaryTree) BuildBinaryTree(preOrder, inOrder []int, preOrderIndex, inOrderIndex int) *BinaryTreeNode {
 	return buildBinaryTreeHelper(preOrder, inOrder, preOrderIndex, inOrderIndex)
 }
+
+// The function calculates the vertical sum of a binary tree by recursively traversing the tree and
+// updating a hash table with the sum of nodes at each horizontal distance.
+func verticalSumInBinaryTreeHelper(root *BinaryTreeNode, horizontalDistance int, hashTable map[int]int) {
+	if root == nil {
+		return
+	}
+	verticalSumInBinaryTreeHelper(root.left, horizontalDistance-1, hashTable)
+	hashTable[horizontalDistance] += root.data
+	verticalSumInBinaryTreeHelper(root.right, horizontalDistance+1, hashTable)
+}
+
+// The below code is defining a method called "VerticalSumInBinaryTree"
+// This method takes two parameters: "horizontalDistance" of type int and "hashTable" of type map[int]int.
+func (binaryTree *BinaryTree) VerticalSumInBinaryTree(horizontalDistance int, hashTable map[int]int) {
+	verticalSumInBinaryTreeHelper(binaryTree.root, horizontalDistance, hashTable)
+}

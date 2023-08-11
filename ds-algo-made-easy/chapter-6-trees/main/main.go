@@ -500,6 +500,20 @@ func twentySeven() {
 	newTree.PrintTree()
 }
 
+func thirtyOne() {
+	newTree := getATree([]int{1, 2, 3, 4, 5, 6, 7})
+	fmt.Println("\t"+colorYellow+"Printing the Tree", colorReset)
+	newTree.PrintTree()
+	hashTable := make(map[int]int)
+	fmt.Println(colorCyan, "\tGetting the Vertical Sum:\t")
+	newTree.VerticalSumInBinaryTree(0, hashTable)
+	for _, value := range hashTable {
+		fmt.Printf("\tSum = %d\n", value)
+	}
+	fmt.Println(colorReset)
+	printDottedLine()
+}
+
 // The function "executeExercises" executes a series of tree-related exercises and prints the results.
 func executeExercises() {
 	fmt.Println("BINARY TREE EXERCISES")
@@ -558,6 +572,9 @@ func executeExercises() {
 	twentySix()
 	fmt.Println("Problem 27: Give an algorithm for constructing binary tree from given Inorder and Preorder traversals.")
 	twentySeven()
+	// Randomly Picking Up Problems
+	fmt.Println("Problem 31: Give an algorithm for finding the vertical sum of a binary tree.")
+	thirtyOne()
 }
 
 func main() {
