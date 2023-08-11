@@ -1230,3 +1230,153 @@ func verticalSumInBinaryTreeHelper(root *BinaryTreeNode, horizontalDistance int,
 func (binaryTree *BinaryTree) VerticalSumInBinaryTree(horizontalDistance int, hashTable map[int]int) {
 	verticalSumInBinaryTreeHelper(binaryTree.root, horizontalDistance, hashTable)
 }
+
+/* GENERIC TREES (N-ary Trees)
+
+A generic tree can be represented as a binary tree using the below representation
+
+type struct NaryTreeNode {
+	data int
+	firstChild *NaryTreeNode
+	nextSibling *NaryTreeNode
+}
+
+During construction we need to specify whether the node has firstChild or nextSibling or both and then the rest operations of binary tree
+are applicable on `NaryTree` imagine left => firstChild & right => nextSibling
+*/
+
+// Given a parent array P, where P[i] indicates the parent of ith node in the tree (assume parent of root node is indicated with –1).
+// Give an algorithm for finding the height or depth of the tree.
+func GenericTreeDepth(parentArray []int) int {
+	currentDepth := -1
+	maxDepth := -1
+	for i := range parentArray {
+		currentDepth = 0
+		j := i
+
+		for parentArray[j] != -1 {
+			currentDepth++
+			j = parentArray[j]
+		}
+
+		if currentDepth > maxDepth {
+			maxDepth = currentDepth
+		}
+	}
+	return maxDepth
+}
+
+// The IsIsomorphicHelper function checks if two binary trees are isomorphic by recursively comparing
+// their left and right subtrees.
+func IsIsomorphicHelper(root1, root2 *BinaryTreeNode) bool {
+	// Return true for Empty Tree
+	if root1 == nil && root2 == nil {
+		return true
+	}
+
+	// Return false when either of the node is nil
+	if (root1 == nil && root2 != nil) || (root1 != nil && root2 == nil) {
+		return false
+	}
+	return IsIsomorphicHelper(root1.left, root2.left) && IsIsomorphicHelper(root1.right, root2.right)
+}
+
+// Two binary trees root1 and root2 are isomorphic if they have the same structure.
+// The values of the nodes does not affect whether two trees are isomorphic or not.
+func (tree1 *BinaryTree) IsIsomorphic(tree2 *BinaryTree) bool {
+	return IsIsomorphicHelper(tree1.root, tree2.root)
+}
+
+// The function isQuasiIsomorphicHelper checks if two binary trees are quasi-isomorphic, meaning that
+// they have the same structure but the values of the nodes can be different.
+func isQuasiIsomorphicHelper(root1, root2 *BinaryTreeNode) bool {
+	// Return true for Empty Tree
+	if root1 == nil && root2 == nil {
+		return true
+	}
+
+	// Return false when either of the node is nil
+	if (root1 == nil && root2 != nil) || (root1 != nil && root2 == nil) {
+		return false
+	}
+
+	return ((isQuasiIsomorphicHelper(root1.left, root2.left)) && (isQuasiIsomorphicHelper(root1.right, root2.right))) || ((isQuasiIsomorphicHelper(root1.left, root2.right)) && (isQuasiIsomorphicHelper(root1.right, root2.left)))
+
+}
+
+// Two trees root1 and root2 are quasi-isomorphic if root1 can be transformed into root2
+// by swapping the left and right children of some of the nodes of root1.
+// Data in the nodes are not important in determining quasi-isomorphism; only the shape is important.
+func (tree1 *BinaryTree) IsQuasiIsomorphic(tree2 *BinaryTree) bool {
+	return isQuasiIsomorphicHelper(tree1.root, tree2.root)
+}
+
+// The function CheckQuasiIsomorphism checks if two binary trees are quasi-isomorphic.
+func CheckQuasiIsomorphism() bool {
+	t1Node1 := &BinaryTreeNode{
+		data: 1,
+	}
+	t1Node2 := &BinaryTreeNode{
+		data: 2,
+	}
+	t1Node3 := &BinaryTreeNode{
+		data: 3,
+	}
+	t1Node4 := &BinaryTreeNode{
+		data: 4,
+	}
+	t1Node5 := &BinaryTreeNode{
+		data: 5,
+	}
+
+	/*
+				Tree1
+		        1
+			   / \
+			  3   2
+			   \   \
+			    5   4
+
+	*/
+	// Link the above nodes and create a tree
+	t1Node1.left = t1Node2
+	t1Node1.right = t1Node3
+	t1Node3.right = t1Node4
+	t1Node2.right = t1Node5
+
+	t2Node1 := &BinaryTreeNode{
+		data: 6,
+	}
+	t2Node2 := &BinaryTreeNode{
+		data: 7,
+	}
+	t2Node3 := &BinaryTreeNode{
+		data: 8,
+	}
+	t2Node4 := &BinaryTreeNode{
+		data: 9,
+	}
+	t2Node5 := &BinaryTreeNode{
+		data: 10,
+	}
+
+	/*
+			Tree2
+		    6
+		   / \
+		  7   8
+		 /     \
+		9       10
+
+	*/
+	t2Node1.left = t2Node2
+	t2Node1.right = t2Node3
+	t2Node2.left = t2Node4
+	t2Node3.right = t2Node5
+
+	printTreeWithIndent(t1Node1, 0, "")
+	printTreeWithIndent(t2Node1, 0, "")
+
+	return isQuasiIsomorphicHelper(t1Node1, t2Node1)
+
+}

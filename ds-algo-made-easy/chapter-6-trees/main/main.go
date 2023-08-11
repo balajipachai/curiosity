@@ -500,6 +500,8 @@ func twentySeven() {
 	newTree.PrintTree()
 }
 
+// The function "thirtyOne" creates a binary tree, prints the tree, calculates the vertical sum of the
+// tree, and prints the sum.
 func thirtyOne() {
 	newTree := getATree([]int{1, 2, 3, 4, 5, 6, 7})
 	fmt.Println("\t"+colorYellow+"Printing the Tree", colorReset)
@@ -510,6 +512,50 @@ func thirtyOne() {
 	for _, value := range hashTable {
 		fmt.Printf("\tSum = %d\n", value)
 	}
+	fmt.Println(colorReset)
+	printDottedLine()
+}
+
+// The function calculates the depth of a generic tree.
+func thirtyNine() {
+	parentArray := []int{-1, 0, 1, 6, 6, 0, 0, 2, 7}
+	fmt.Println("\t"+colorYellow+"Calculating depth of generic tree", colorReset)
+	fmt.Println(colorCyan, "\tGeneric depth:\t", trees.GenericTreeDepth(parentArray), colorReset)
+	printDottedLine()
+}
+
+// The function `fortyTwo` creates three trees and checks if they are isomorphic.
+func fortyTwo() {
+	tree1 := getATree([]int{1, 2, 3, 4, 5})
+	fmt.Println("\t"+colorYellow+"Printing the Tree (Tree1)", colorReset)
+	tree1.PrintTree()
+	tree2 := getATree([]int{6, 7, 8, 9, 10})
+	fmt.Println("\t"+colorYellow+"Printing the Tree (Tree2)", colorReset)
+	tree2.PrintTree()
+	fmt.Println("\t"+colorYellow+"Printing the Tree (Tree3)", colorReset)
+	tree3 := getATree([]int{10, 11, 12, 13, 14, 14})
+	tree3.PrintTree()
+
+	fmt.Println("\t"+colorCyan+"To check if Tree1 & Tree2 are Isomorphic:\t", tree1.IsIsomorphic(tree2))
+	fmt.Println("\t"+colorCyan+"To check if Tree1 & Tree3 are Isomorphic:\t", tree1.IsIsomorphic(tree3))
+	fmt.Println(colorReset)
+	printDottedLine()
+}
+
+func fortyThree() {
+	tree1 := getATree([]int{1, 2, 3, 4, 5})
+	fmt.Println("\t"+colorYellow+"Printing the Tree (Tree1)", colorReset)
+	tree1.PrintTree()
+	tree2 := getATree([]int{6, 7, 8, 9, 10})
+	fmt.Println("\t"+colorYellow+"Printing the Tree (Tree2)", colorReset)
+	tree2.PrintTree()
+	fmt.Println("\t"+colorYellow+"Printing the Tree (Tree3)", colorReset)
+	tree3 := getATree([]int{10, 11, 12, 13, 14, 14})
+	tree3.PrintTree()
+
+	fmt.Println("\t"+colorCyan+"To check if Tree1 & Tree2 are QuasiIsomorphic:\t", tree1.IsQuasiIsomorphic(tree2))
+	fmt.Println("\t"+colorCyan+"To check if Tree1 & Tree3 are QuasiIsomorphic:\t", tree1.IsQuasiIsomorphic(tree3))
+	fmt.Println("\t"+colorCyan+"To check if Custom Trees added via code are QuasiIsomorphic:\t", trees.CheckQuasiIsomorphism())
 	fmt.Println(colorReset)
 	printDottedLine()
 }
@@ -575,6 +621,12 @@ func executeExercises() {
 	// Randomly Picking Up Problems
 	fmt.Println("Problem 31: Give an algorithm for finding the vertical sum of a binary tree.")
 	thirtyOne()
+	fmt.Println("Problem 39: Given a parent array P, where P[i] indicates the parent of ith node in the tree (assume parent of root node is indicated with –1). Give an algorithm for finding the height or depth of the tree.")
+	thirtyNine()
+	fmt.Println("Problem 42: Given two trees how do we check whether the trees are isomorphic to each other or not?")
+	fortyTwo()
+	fmt.Println("Problem 43: Given two trees how do we check whether they are quasi-isomorphic to each other or not?")
+	fortyThree()
 }
 
 func main() {
