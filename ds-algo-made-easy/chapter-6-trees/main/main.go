@@ -560,6 +560,33 @@ func fortyThree() {
 	printDottedLine()
 }
 
+// The function "getATree" creates and returns a binary search tree based on the given elements.
+func getABSTree(elements []int) *trees.BinaryTree {
+	binaryTree := &trees.BinaryTree{}
+	for _, v := range elements {
+		binaryTree.InsertBST(v)
+	}
+	return binaryTree
+}
+
+// The function performs various operations on a binary search tree (BST) including printing the tree,
+// finding elements in the tree, finding the minimum and maximum elements, and deleting elements from
+// the tree.
+func BSTOperations() {
+	bst := getABSTree([]int{7, 4, 9, 2, 5})
+	fmt.Println("\t"+colorYellow+"Printing the BST", colorReset)
+	bst.PrintTree()
+	fmt.Println("\t"+colorCyan+"Does 10 Exists in the BST:\t", bst.FindInBST(10))
+	fmt.Println("\tDoes 5 Exists in the BST:\t", bst.FindInBST(5))
+	fmt.Println("\tMinimum element in the given BST is:\t", bst.FindMinimum())
+	fmt.Println("\tMaximum element in the given BST is:\t", bst.FindMaximum())
+	fmt.Println(colorRed, "\tDelete 4 from BST:\t", bst.FindMaximum(), colorReset)
+	bst.Delete(4)
+	fmt.Println("\t"+colorYellow+"Printing the BST", colorReset)
+	bst.PrintTree()
+	printDottedLine()
+}
+
 // The function "executeExercises" executes a series of tree-related exercises and prints the results.
 func executeExercises() {
 	fmt.Println("BINARY TREE EXERCISES")
@@ -627,6 +654,8 @@ func executeExercises() {
 	fortyTwo()
 	fmt.Println("Problem 43: Given two trees how do we check whether they are quasi-isomorphic to each other or not?")
 	fortyThree()
+	fmt.Println(colorGreen, "******************************************BINARY SEARCH TREE PROBLEMS******************************************")
+	BSTOperations()
 }
 
 func main() {

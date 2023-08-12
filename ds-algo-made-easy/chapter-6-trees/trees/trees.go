@@ -1380,3 +1380,131 @@ func CheckQuasiIsomorphism() bool {
 	return isQuasiIsomorphicHelper(t1Node1, t2Node1)
 
 }
+
+// BINARY SEARCH TREE
+/*
+In binary search trees, all the left subtree elements should be less than root data and all the right subtree elements should be greater than root data. This is called binary search tree property. Note that, this property should be satisfied at every node in the tree.
+• The left subtree of a node contains only nodes with keys less than the nodes key.
+• The right subtree of a node contains only nodes with keys greater than the nodes key.
+• Both the left and right subtrees must also be binary search trees.
+*/
+
+func insertBSTHelper(root, newNode *BinaryTreeNode) {
+	// Insert in left subtree
+	if newNode.data < root.data {
+		if root.left == nil {
+			root.left = newNode
+		} else {
+			insertBSTHelper(root.left, newNode)
+		}
+	}
+
+	// Insert in right subtree
+	if newNode.data > root.data {
+		if root.right == nil {
+			root.right = newNode
+		} else {
+			insertBSTHelper(root.right, newNode)
+		}
+	}
+}
+
+// The below code is defining a method called "InsertBST" for a binary tree data structure.
+// This method takes an integer value as input and inserts a new node with that value into the binary search tree.
+func (binarySearchTree *BinaryTree) InsertBST(data int) {
+	newNode := &BinaryTreeNode{data: data, left: nil, right: nil}
+	if binarySearchTree.root == nil {
+		binarySearchTree.root = newNode
+	} else {
+		insertBSTHelper(binarySearchTree.root, newNode)
+	}
+}
+
+// The function recursively searches for a given data value in a binary search tree.
+func findInBSTHelper(node *BinaryTreeNode, data int) *BinaryTreeNode {
+	if node == nil {
+		return nil
+	}
+	// Search in Left Subtree
+	if data < node.data {
+		return findInBSTHelper(node.left, data)
+	} else if data > node.data {
+		// Search in Right Subtree
+		return findInBSTHelper(node.right, data)
+	}
+	return node
+}
+
+// The below code is defining a method called "FindInBST" for a binary tree data structure.
+// This method takes an integer parameter called "data" and returns a pointer to a binary tree node.
+func (binarySearchTree *BinaryTree) FindInBST(data int) *BinaryTreeNode {
+	return findInBSTHelper(binarySearchTree.root, data)
+}
+
+// The function recursively finds the minimum value in a binary search tree.
+func findMinimumHelper(root *BinaryTreeNode) *BinaryTreeNode {
+	if root == nil {
+		return nil
+	} else if root.left == nil {
+		return root
+	} else {
+		return findMinimumHelper(root.left)
+	}
+}
+
+// The below code is defining a method called `FindMinimum` for a binary search tree.
+// This method is used to find the minimum value in the binary search tree.
+func (binarySearchTree *BinaryTree) FindMinimum() *BinaryTreeNode {
+	return findMinimumHelper(binarySearchTree.root)
+}
+
+// The function recursively finds the minimum value in a binary search tree.
+func findMaximumHelper(root *BinaryTreeNode) *BinaryTreeNode {
+	if root == nil {
+		return nil
+	} else if root.right == nil {
+		return root
+	} else {
+		return findMinimumHelper(root.right)
+	}
+}
+
+// The below code is defining a method called `FindMaximum` for a binary search tree.
+// This method is used to find the maximum value in the binary search tree.
+func (binarySearchTree *BinaryTree) FindMaximum() *BinaryTreeNode {
+	return findMaximumHelper(binarySearchTree.root)
+}
+
+// The deleteHelper function is used to delete a node from a binary search tree, handling cases where
+// the node has 0, 1, or 2 children.
+func deleteHelper(root *BinaryTreeNode, data int) *BinaryTreeNode {
+	if root == nil {
+		return nil
+	} else if data < root.data {
+		root.left = deleteHelper(root.left, data)
+	} else if data > root.data {
+		root.right = deleteHelper(root.right, data)
+	} else {
+		// Found the node
+		// There are two cases it has 2 childrens or it has 1 children
+		if root.left != nil && root.right != nil {
+			temp := findMaximumHelper(root.left)
+			root.data = temp.data
+			root.left = deleteHelper(root.left, root.data)
+		} else {
+			// The node has 1 Child
+			if root.left == nil {
+				root = root.right
+			} else if root.right == nil {
+				root = root.left
+			}
+		}
+	}
+	return root
+}
+
+// The belo code is defining a method called "Delete" for a binary tree data structure.
+// This method takes an integer parameter called "data" and returns a pointer to a BinaryTreeNode.
+func (bst *BinaryTree) Delete(data int) *BinaryTreeNode {
+	return deleteHelper(bst.root, data)
+}
