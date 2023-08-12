@@ -90,3 +90,43 @@ func PercolateDown(h *Heap, location int) {
 	}
 	PercolateDown(h, max)
 }
+
+// The Delete function removes the maximum element from a heap and returns it.
+func Delete(h *Heap) int {
+	if h.count == 0 {
+		return -1
+	}
+
+	max := h.elements[0]
+	h.elements[0] = h.elements[h.count-1]
+	h.elements = h.elements[:h.count-1]
+	h.count -= 1
+	PercolateDown(h, 0)
+	return max
+}
+
+// The Resize function doubles the capacity of a heap by creating a new array and copying the elements
+// from the old array.
+func Resize(h *Heap) {
+	oldArray := h.elements
+	h.elements = make([]int, h.capacity*2)
+	copy(h.elements, oldArray)
+}
+
+// The Insert function inserts a new element into a heap and ensures that the heap property is
+// maintained.
+func Insert(h *Heap, data int) {
+	if h.count == h.capacity {
+		Resize(h)
+	}
+
+	h.count += 1
+	i := h.count - 1
+
+	// Percolate up
+	for i >= 0 && data > h.elements[(i-1)/2] {
+		h.elements[i] = h.elements[(i-1)/2]
+		i = (i - 1) / 2
+	}
+	h.elements[i] = data
+}
