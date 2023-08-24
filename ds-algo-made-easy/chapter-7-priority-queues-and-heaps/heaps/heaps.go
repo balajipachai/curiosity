@@ -220,13 +220,46 @@ func (heap *Heap) DeleteArbitrary(data int) int {
 	return element
 }
 
-// The function recursively prints all elements in a heap that are less than a given value.
-func AllElementsLessThanK(heap *Heap, k, i int) {
-	if i != -1 && heap.elements[i] < k {
-		fmt.Print(colorMagenta)
-		fmt.Printf("\t%d", heap.elements[i])
-		fmt.Print(colorReset)
-		AllElementsLessThanK(heap, k, LeftChildOfNode(heap, i))
-		AllElementsLessThanK(heap, k, RightChildOfNode(heap, i))
+// The function `AllElementsLessThanK` takes a heap and a value `k` as input, and returns a list of all
+// elements in the heap that are less than `k`.
+func AllElementsLessThanK(heap *Heap, k int) []int {
+	result := []int{}
+	var traverse func(index int)
+
+	traverse = func(index int) {
+		if index >= len(heap.elements) || index < 0 {
+			return
+		}
+
+		if index >= 0 && heap.elements[index] < k {
+			result = append(result, heap.elements[index])
+		}
+
+		traverse(LeftChildOfNode(heap, index))
+		traverse(RightChildOfNode(heap, index))
 	}
+	traverse(0) // Start traversal from root
+	return result
+}
+
+// The function `AllElementsGreaterThanK` takes a heap and an integer `k` as input and returns a slice
+// containing all elements in the heap that are greater than `k`.
+func AllElementsGreaterThanK(heap *Heap, k int) []int {
+	result := []int{}
+	var traverse func(index int)
+
+	traverse = func(index int) {
+		if index >= len(heap.elements) || index < 0 {
+			return
+		}
+
+		if index >= 0 && heap.elements[index] > k {
+			result = append(result, heap.elements[index])
+		}
+
+		traverse(LeftChildOfNode(heap, index))
+		traverse(RightChildOfNode(heap, index))
+	}
+	traverse(0) // Start traversal from root
+	return result
 }

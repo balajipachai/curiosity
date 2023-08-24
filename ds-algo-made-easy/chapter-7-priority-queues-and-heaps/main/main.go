@@ -57,8 +57,17 @@ func eleven() {
 	heap := getHeap()
 	fmt.Println("\t"+colorYellow+"Printing the heap elements", colorReset)
 	heap.Print()
-	fmt.Println("\t"+colorYellow+"All elements less than 5", colorReset)
-	heaps.AllElementsLessThanK(heap, 5, 0)
+	fmt.Println("\t"+colorYellow+"All elements < 5", colorReset)
+	fmt.Println("\t"+colorCyan, heaps.AllElementsLessThanK(heap, 5), colorReset)
+	fmt.Println("\n\t"+colorYellow+"All elements < 1", colorReset)
+	fmt.Println("\n\t"+colorCyan, heaps.AllElementsLessThanK(heap, 1), colorReset)
+	fmt.Println("\n\t"+colorYellow+"All elements < 7", colorReset)
+	fmt.Println("\n\t"+colorCyan, heaps.AllElementsLessThanK(heap, 7), colorReset)
+
+	fmt.Println("\n\t"+colorYellow+"All elements > 7", colorReset)
+	fmt.Println("\n\t"+colorCyan, heaps.AllElementsGreaterThanK(heap, 7), colorReset)
+	fmt.Println("\n\t"+colorYellow+"All elements > 1", colorReset)
+	fmt.Println("\n\t"+colorCyan, heaps.AllElementsGreaterThanK(heap, 1), colorReset)
 }
 
 func executeExercises() {
