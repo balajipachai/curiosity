@@ -63,11 +63,56 @@ func eleven() {
 	fmt.Println("\n\t"+colorCyan, heaps.AllElementsLessThanK(heap, 1), colorReset)
 	fmt.Println("\n\t"+colorYellow+"All elements < 7", colorReset)
 	fmt.Println("\n\t"+colorCyan, heaps.AllElementsLessThanK(heap, 7), colorReset)
+	fmt.Println(colorYellow + "\tRECURSIVE: Elements < 7" + colorReset)
+	heaps.RecursiveAllElementsLessThanK(heap, 7, 0)
 
 	fmt.Println("\n\t"+colorYellow+"All elements > 7", colorReset)
 	fmt.Println("\n\t"+colorCyan, heaps.AllElementsGreaterThanK(heap, 7), colorReset)
 	fmt.Println("\n\t"+colorYellow+"All elements > 1", colorReset)
 	fmt.Println("\n\t"+colorCyan, heaps.AllElementsGreaterThanK(heap, 1), colorReset)
+	fmt.Println(colorYellow + "\tRECURSIVE: Elements > 1" + colorReset)
+	heaps.RecursiveAllElementsGreaterThanK(heap, 1, 0)
+	fmt.Println()
+	printDottedLine()
+}
+
+// TODO WIP
+func twelve() {
+
+	emptySlice := []int{}
+
+	h1 := &heaps.Heap{}
+	h1.Create(emptySlice, 7, 1)
+
+	heaps.Insert(h1, 1)
+	heaps.Insert(h1, 2)
+	heaps.Insert(h1, 5)
+	heaps.Insert(h1, 3)
+	heaps.Insert(h1, 4)
+	heaps.Insert(h1, 6)
+	heaps.Insert(h1, 7)
+
+	h1.Print()
+
+	h2 := &heaps.Heap{}
+	h2.Create(emptySlice, 7, 1)
+
+	heaps.Insert(h2, 15)
+	heaps.Insert(h2, 13)
+	heaps.Insert(h2, 14)
+	heaps.Insert(h2, 9)
+	heaps.Insert(h2, 10)
+	heaps.Insert(h2, 11)
+	heaps.Insert(h2, 12)
+
+	h2.Print()
+
+	fmt.Println(colorYellow + "\tMerge h1 with h2 and then heapify the array" + colorReset)
+	heaps.MergeMaxHeaps(h1, h2)
+	h1.Print()
+
+	printDottedLine()
+
 }
 
 func executeExercises() {
@@ -80,6 +125,8 @@ func executeExercises() {
 	fmt.Println("\t" + colorCyan + "SAME AS SOLUTION OF PROBLEM 8" + colorReset)
 	fmt.Println("Problem 11: Give an algorithm to find all elements less than some value of k in a binary heap.")
 	eleven()
+	fmt.Println("Problem 12: Give an algorithm for merging two binary max-heaps. Let us assume that the size of the first heap is m + n and the size of the second heap is n.")
+	twelve()
 }
 
 func main() {

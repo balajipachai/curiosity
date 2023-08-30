@@ -164,11 +164,12 @@ func Insert(h *Heap, data int) {
 	// Max-Heap
 	if h.heapType == 1 {
 		// Percolate up
-		for i >= 0 && data > h.elements[(i-1)/2] {
+		for i > 0 && data > h.elements[(i-1)/2] {
 			h.elements[i] = h.elements[(i-1)/2]
 			i = (i - 1) / 2
 		}
 		h.elements[i] = data
+
 	} else {
 		// Min-Heap
 		// Percolate up
@@ -177,6 +178,28 @@ func Insert(h *Heap, data int) {
 			i = (i - 1) / 2
 		}
 		h.elements[i] = data
+	}
+}
+
+// The BuildHeap function builds a heap by assigning elements from an array to the heap and then
+// percolating down from the first leaf node.
+func BuildHeap(heap *Heap, array []int, n int) {
+	/*
+		Algorithm:
+		1. When n > heap capacity, resize the heap
+		2. Assign heap[i] = array[i]
+		3. Start percolating down from the first leaf node
+	*/
+	if n > heap.capacity {
+		Resize(heap)
+	}
+
+	fmt.Println("len of heap.elements: ", len(heap.elements))
+	heap.elements = append(heap.elements, array...)
+	fmt.Println("len of heap.elements: ", len(heap.elements))
+	heap.count = n
+	for j := (n - 1) / 2; j >= 0; j-- {
+		PercolateDown(heap, j)
 	}
 }
 
@@ -262,4 +285,43 @@ func AllElementsGreaterThanK(heap *Heap, k int) []int {
 	}
 	traverse(0) // Start traversal from root
 	return result
+}
+
+// The RecursiveAllElementsLessThanK function recursively prints all elements in a heap that are less
+// than a given value.
+func RecursiveAllElementsLessThanK(heap *Heap, k, index int) {
+	if index >= len(heap.elements) || index < 0 {
+		return
+	}
+	fmt.Print(colorMagenta)
+	if index >= 0 && heap.elements[index] < k {
+		fmt.Printf("\t%d", heap.elements[index])
+	}
+	fmt.Print(colorReset)
+	RecursiveAllElementsLessThanK(heap, k, LeftChildOfNode(heap, index))
+	RecursiveAllElementsLessThanK(heap, k, RightChildOfNode(heap, index))
+}
+
+// The RecursiveAllElementsGreaterThanK function recursively prints all elements in a heap that are
+// greater than a given value.
+func RecursiveAllElementsGreaterThanK(heap *Heap, k, index int) {
+	if index >= len(heap.elements) || index < 0 {
+		return
+	}
+
+	fmt.Print(colorMagenta)
+	if index >= 0 && heap.elements[index] > k {
+		fmt.Printf("\t%d", heap.elements[index])
+	}
+	fmt.Print(colorReset)
+	RecursiveAllElementsGreaterThanK(heap, k, LeftChildOfNode(heap, index))
+	RecursiveAllElementsGreaterThanK(heap, k, RightChildOfNode(heap, index))
+}
+
+func MergeMaxHeaps(h1, h2 *Heap) {
+	h2.elements = append(h2.elements, h1.elements...)
+	h2.Print()
+	length := len(h2.elements)
+	fmt.Println((length - 1) / 2)
+	PercolateDown(h2, (length-1)/2)
 }
