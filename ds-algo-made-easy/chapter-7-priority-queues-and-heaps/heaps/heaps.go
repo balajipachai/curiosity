@@ -119,6 +119,11 @@ func PercolateDown(h *Heap, location int) {
 	}
 }
 
+// The IsEmpty function checks if a heap is empty.
+func IsEmpty(h *Heap) bool {
+	return h.count == 0
+}
+
 // The Delete function removes the maximum element from a heap and returns it.
 func Delete(h *Heap) int {
 	if h.count == 0 {

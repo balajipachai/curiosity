@@ -2,6 +2,8 @@ package graphs
 
 import (
 	"fmt"
+
+	"example.com/heaps"
 )
 
 const (
@@ -18,6 +20,7 @@ const (
 type Graph struct {
 	vertices int
 	adjList  map[int][]int
+	weight   [][]int
 }
 
 // The `NewGraph` function is a method of the `Graph` struct. It is used to create a new instance of
@@ -25,6 +28,7 @@ type Graph struct {
 func (g *Graph) NewGraph(numVertices int) *Graph {
 	g.vertices = numVertices
 	g.adjList = make(map[int][]int)
+	g.weight = make([][]int, numVertices)
 	return g
 }
 
@@ -33,6 +37,11 @@ func (g *Graph) NewGraph(numVertices int) *Graph {
 func (g *Graph) AddEdge(v1, v2 int) {
 	g.adjList[v1] = append(g.adjList[v1], v2)
 	g.adjList[v2] = append(g.adjList[v2], v1)
+}
+
+func (g *Graph) AddEdgeWithWeight(v1, v2, weight int) {
+	g.AddEdge(v1, v2)
+	g.weight[v1]
 }
 
 // The `AddDirectedEdge` function is a method of the `Graph` struct. It is used to add a directed edge
@@ -164,4 +173,40 @@ func (g *Graph) UnweightedShortestPath(s int) {
 	// 	// fmt.Printf("\t\tVertex = %d\tPath = %d\n", i, p)
 	// 	fmt.Printf("\t\tVertex name through which we get shortest distance: %d\n", p)
 	// }
+}
+
+/*
+Dijkstra's Shortest Path Algorithm using PriorityQueue (Heap)
+ 1. Initialize distances of all vertices as infinite.
+ 2. Create an empty priority_queue pq.  Every item of pq is a pair (weight, vertex).
+    Weight (or distance) is used  as first item  of pair, as first item is by default used to compare two pairs.
+ 3. Insert source vertex into pq and make its distance as 0.
+ 4. While either pq doesn’t become empty
+    ======> 1. Extract minimum distance vertex from pq.
+    Let the extracted vertex be u.
+    ======> 2. Loop through all adjacent of u and do the following for every vertex v.
+    ======> 3. If there is a shorter path to v through u.
+    ===========> 1.Update distance of v, i.e., do dist[v] = dist[u] + weight(u, v)
+    ===========> 2. Insert v into the pq (Even if v is already there)
+ 5. Print distance array dist[] to print all shortest paths.
+*/
+func (g *Graph) Dijkstra(s int) {
+	pq := &heaps.Heap{}
+	// Min-Heap
+	pq.Create([]int{}, g.vertices, 0)
+	distance := make([]int, g.vertices)
+	heaps.Insert(pq, s)
+	for i := 0; i < g.vertices; i++ {
+		distance[i] = -1
+	}
+	distance[s] = 0
+	// While PriorityQueue is not empty
+	for !heaps.IsEmpty(pq) 
+		u := heaps.Delete(pq)
+		neighbours := g.adjList[u]
+		for _, v := range neighbours {
+
+		}
+	}
+
 }
