@@ -104,12 +104,24 @@ func mergeSort() {
 	printDottedLine()
 }
 
+func quickSort() {
+	fmt.Println(colorCyan + "\t************QUICK SORT************" + colorReset)
+	array := []int{12, 34, 54, 2, 3, 1, 58, 87, 45, 8}
+	fmt.Println(colorYellow + "\tPrinting the unsorted array:" + colorReset)
+	sorting.PrintArray(array)
+	sorting.QuickSort(array, 0, 9)
+	fmt.Println(colorYellow + "\tPrinting the sorted array:" + colorReset)
+	sorting.PrintArray(array)
+	printDottedLine()
+}
+
 func sortingBasics() {
 	bubbleSort()
 	selectionSort()
 	insertionSort()
 	shellSort()
 	mergeSort()
+	quickSort()
 }
 
 func main() {

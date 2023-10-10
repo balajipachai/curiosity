@@ -123,6 +123,8 @@ func ShellSort(array []int) {
 	}
 }
 
+// The merge function takes in an array, a temporary array, and three indices (left, mid, right) and
+// merges the two subarrays within the given indices in a sorted manner.
 func merge(array []int, temp []int, left, mid, right int) {
 	leftEnd := mid - 1
 	tempPos := left
@@ -165,6 +167,8 @@ func merge(array []int, temp []int, left, mid, right int) {
 	}
 }
 
+// The MergeSort function recursively divides an array into smaller subarrays, sorts them, and then
+// merges them back together.
 func MergeSort(array []int, temp []int, left, right int) {
 	var mid int
 
@@ -173,5 +177,36 @@ func MergeSort(array []int, temp []int, left, right int) {
 		MergeSort(array, temp, left, mid)
 		MergeSort(array, temp, mid+1, right)
 		merge(array, temp, left, mid+1, right)
+	}
+}
+
+// The partition function takes an array, selects a pivot element, and rearranges the elements such
+// that all elements smaller than the pivot are placed before it, and all elements greater than the
+// pivot are placed after it.
+func partition(array []int, low, high int) int {
+	pivot := array[high]
+
+	i := low - 1
+
+	for j := low; j <= high-1; j++ {
+		if array[j] < pivot {
+			i++
+			// swap array[i] with array[j]
+			array[i], array[j] = array[j], array[i]
+		}
+	}
+	array[i+1], array[high] = array[high], array[i+1]
+	fmt.Println(colorMagenta, "\tPivot:\t", pivot, colorReset)
+	return i + 1
+}
+
+// The QuickSort function recursively sorts an array of integers using the QuickSort algorithm.
+func QuickSort(array []int, low, high int) {
+	var pivot int
+
+	if high > low {
+		pivot = partition(array, low, high)
+		QuickSort(array, low, pivot-1)
+		QuickSort(array, pivot+1, high)
 	}
 }
