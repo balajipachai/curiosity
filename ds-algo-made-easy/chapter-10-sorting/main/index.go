@@ -92,11 +92,24 @@ func shellSort() {
 	printDottedLine()
 }
 
+func mergeSort() {
+	fmt.Println(colorCyan + "\t************MERGE SORT************" + colorReset)
+	array := []int{12, 34, 54, 2, 3, 1, 58, 87, 45, 8}
+	temp := []int{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1}
+	fmt.Println(colorYellow + "\tPrinting the unsorted array:" + colorReset)
+	sorting.PrintArray(array)
+	sorting.MergeSort(array, temp, 0, 9)
+	fmt.Println(colorYellow + "\tPrinting the sorted array:" + colorReset)
+	sorting.PrintArray(array)
+	printDottedLine()
+}
+
 func sortingBasics() {
 	bubbleSort()
 	selectionSort()
 	insertionSort()
 	shellSort()
+	mergeSort()
 }
 
 func main() {

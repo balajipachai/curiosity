@@ -122,3 +122,56 @@ func ShellSort(array []int) {
 		}
 	}
 }
+
+func merge(array []int, temp []int, left, mid, right int) {
+	leftEnd := mid - 1
+	tempPos := left
+	size := right - left + 1
+
+	// iske andar merge k 3 conditions hai
+	// pehla, jaha pe left, leftEnd se chhota hai & mid, right se chhota hai
+	for (left <= leftEnd) && (mid <= right) {
+		// iske andar do conditions hai
+		// pehla, array[left] <= array[mid]
+		// dusra, array[mid] <= array[left]
+		if array[left] <= array[mid] {
+			temp[tempPos] = array[left]
+			tempPos += 1
+			left += 1
+		} else {
+			temp[tempPos] = array[mid]
+			tempPos += 1
+			mid += 1
+		}
+	}
+	// dusra condition jaha pe sirf left jo hai wo leftEnd se chhota hai
+	for left <= leftEnd {
+		temp[tempPos] = array[left]
+		tempPos += 1
+		left += 1
+	}
+
+	// teesra condition jaha pe sirft mid jo hai wo right se chhota hai
+	for mid <= right {
+		temp[tempPos] = array[mid]
+		tempPos += 1
+		mid += 1
+	}
+
+	// elements ko apne sahi jagah pe daalo resultant array mai
+	for i := 0; i < size; i++ {
+		array[right] = temp[right]
+		right -= 1
+	}
+}
+
+func MergeSort(array []int, temp []int, left, right int) {
+	var mid int
+
+	if right > left {
+		mid = (right + left) / 2
+		MergeSort(array, temp, left, mid)
+		MergeSort(array, temp, mid+1, right)
+		merge(array, temp, left, mid+1, right)
+	}
+}
