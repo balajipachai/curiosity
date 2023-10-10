@@ -58,9 +58,45 @@ func selectionSort() {
 	printDottedLine()
 }
 
+/*
+Notes:
+- Important part in insertion sort is the logic behind shifting of the elements in place.
+- A bit tricky, but it is the beginning and I am going to conquer it.
+*/
+// The function performs insertion sort on two different arrays and prints the sorted arrays.
+func insertionSort() {
+	fmt.Println(colorCyan + "\t************INSERTION SORT************" + colorReset)
+	array := []int{6, 8, 1, 4, 5, 3, 7, 2}
+	fmt.Println(colorYellow + "\tPrinting the unsorted array:" + colorReset)
+	sorting.PrintArray(array)
+	sorting.InsertionSort(array)
+	fmt.Println(colorYellow + "\tPrinting the sorted array:" + colorReset)
+	sorting.PrintArray(array)
+	printDottedLine()
+	array = []int{12, 11, 13, 5, 6}
+	fmt.Println(colorYellow + "\tPrinting the unsorted array:" + colorReset)
+	sorting.PrintArray(array)
+	sorting.InsertionSort(array)
+	fmt.Println(colorYellow + "\tPrinting the sorted array:" + colorReset)
+	sorting.PrintArray(array)
+}
+
+func shellSort() {
+	fmt.Println(colorCyan + "\t************SHELL SORT************" + colorReset)
+	array := []int{12, 34, 54, 2, 3}
+	fmt.Println(colorYellow + "\tPrinting the unsorted array:" + colorReset)
+	sorting.PrintArray(array)
+	sorting.ShellSort(array)
+	fmt.Println(colorYellow + "\tPrinting the sorted array:" + colorReset)
+	sorting.PrintArray(array)
+	printDottedLine()
+}
+
 func sortingBasics() {
 	bubbleSort()
 	selectionSort()
+	insertionSort()
+	shellSort()
 }
 
 func main() {

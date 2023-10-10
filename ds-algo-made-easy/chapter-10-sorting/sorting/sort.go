@@ -85,3 +85,40 @@ func SelectionSort(array []int, sortInAscending bool) {
 		}
 	}
 }
+
+// The InsertionSort function sorts an array of integers using the insertion sort algorithm and prints
+// the number of shifts made during the sorting process.
+func InsertionSort(array []int) {
+	numberOfElements := len(array)
+	shifts := 0
+	fmt.Println(colorMagenta, "\tPRINTING SHIFTS", colorReset)
+	for i := 1; i <= numberOfElements-1; i++ {
+		v := array[i]
+		j := i
+		// Shifting elements to the right side of the smallest element
+		for j >= 1 && (array[j-1] > v) {
+			array[j] = array[j-1]
+			j--
+			shifts++
+		}
+		array[j] = v
+		PrintArray(array)
+	}
+	fmt.Println(colorMagenta+"\tTotal Shifts: ", shifts, colorReset)
+}
+
+func ShellSort(array []int) {
+	numberOfElements := len(array)
+	fmt.Println(colorMagenta, "\tPRINTING SHIFTS", colorReset)
+	for gap := numberOfElements / 2; gap > 0; gap /= 2 {
+		for i := gap; i < numberOfElements; i++ {
+			temp := array[i]
+			var j int
+			for j = i; j >= gap && array[j-gap] > temp; j -= gap {
+				array[j] = array[j-gap]
+			}
+			array[j] = temp
+			PrintArray(array)
+		}
+	}
+}
