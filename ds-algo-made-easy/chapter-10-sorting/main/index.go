@@ -115,6 +115,26 @@ func quickSort() {
 	printDottedLine()
 }
 
+func treeSort() {
+	fmt.Println(colorCyan + "\t************TREE SORT************" + colorReset)
+	array := []int{12, 34, 54, 2, 3, 1, 58, 87, 45, 8}
+	fmt.Println(colorYellow + "\tPrinting the unsorted array:" + colorReset)
+	sorting.PrintArray(array)
+	sorting.TreeSort(array)
+	fmt.Println(colorYellow + "\tPrinting the sorted array:" + colorReset)
+	printDottedLine()
+}
+
+func countingSort() {
+	fmt.Println(colorCyan + "\t************COUNTING SORT************" + colorReset)
+	array := []int{2, 5, 3, 0, 2, 3, 0, 3}
+	fmt.Println(colorYellow + "\tPrinting the unsorted array:" + colorReset)
+	sorting.PrintArray(array)
+	sorting.CountingSort(array)
+	fmt.Println(colorYellow + "\tPrinting the sorted array:" + colorReset)
+	printDottedLine()
+}
+
 func sortingBasics() {
 	bubbleSort()
 	selectionSort()
@@ -122,6 +142,8 @@ func sortingBasics() {
 	shellSort()
 	mergeSort()
 	quickSort()
+	treeSort()
+	countingSort()
 }
 
 func main() {

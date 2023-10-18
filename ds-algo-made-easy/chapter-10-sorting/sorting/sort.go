@@ -1,6 +1,10 @@
 package sorting
 
-import "fmt"
+import (
+	"fmt"
+
+	"example.com/trees"
+)
 
 const (
 	colorMagenta = "\033[35m"
@@ -209,4 +213,51 @@ func QuickSort(array []int, low, high int) {
 		QuickSort(array, low, pivot-1)
 		QuickSort(array, pivot+1, high)
 	}
+}
+
+// The TreeSort function uses a Binary Search Tree to sort an array of integers.
+func TreeSort(array []int) {
+	// Create a Binary Search Tree (BST) using the array elements
+	bst := &trees.BinaryTree{}
+	for _, v := range array {
+		bst.InsertBST(v)
+	}
+	// Traverse the BST using inorder, thus resulting in a sorted array
+	bst.InOrder()
+}
+
+// The CountingSort function sorts an array of integers in ascending order using the counting sort
+// algorithm.
+func CountingSort(array []int) {
+	outputArray := make([]int, len(array))
+	max := array[0]
+	// Find Max element in array
+	for _, v := range array {
+		if v > max {
+			max = v
+		}
+	}
+
+	// Create countArray with size max+1
+	countArray := make([]int, max+1)
+
+	// Count all the distinct elements from input array and store them in countArray
+	// For example, let us assume the inputArray = array := []int{2, 5, 3, 0, 2, 3, 0, 3}
+	// Thus, count of 5 = 1, hence countArray[5] = 1, similary countArray[2] = 2
+	for i := 0; i < len(array); i++ {
+		countArray[array[i]]++
+	}
+
+	// Calculate Prefix Sum of countArray
+	for i := 1; i <= max; i++ {
+		countArray[i] += countArray[i-1]
+	}
+
+	// Creating outputArray from countArray
+	for i := len(array) - 1; i >= 0; i-- {
+		outputArray[countArray[array[i]]-1] = array[i]
+		countArray[array[i]]--
+	}
+
+	PrintArray(outputArray)
 }
