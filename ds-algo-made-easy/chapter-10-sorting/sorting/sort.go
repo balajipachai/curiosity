@@ -2,6 +2,7 @@ package sorting
 
 import (
 	"fmt"
+	"math"
 
 	"example.com/trees"
 )
@@ -10,6 +11,7 @@ const (
 	colorMagenta = "\033[35m"
 	colorReset   = "\033[0m"
 	colorRed     = "\033[31m"
+	colorYellow  = "\033[33m"
 )
 
 // The PrintArray function prints each element of an integer array in a formatted manner.
@@ -228,11 +230,11 @@ func TreeSort(array []int) {
 
 // The CountingSort function sorts an array of integers in ascending order using the counting sort
 // algorithm.
-func CountingSort(array []int) {
-	outputArray := make([]int, len(array))
-	max := array[0]
-	// Find Max element in array
-	for _, v := range array {
+func CountingSort(inputArray []int, shouldPrint bool) []int {
+	outputArray := make([]int, len(inputArray))
+	max := inputArray[0]
+	// Find Max element in inputArray
+	for _, v := range inputArray {
 		if v > max {
 			max = v
 		}
@@ -241,11 +243,11 @@ func CountingSort(array []int) {
 	// Create countArray with size max+1
 	countArray := make([]int, max+1)
 
-	// Count all the distinct elements from input array and store them in countArray
-	// For example, let us assume the inputArray = array := []int{2, 5, 3, 0, 2, 3, 0, 3}
+	// Count all the distinct elements from input inputArray and store them in countArray
+	// For example, let us assume the inputArray = inputArray := []int{2, 5, 3, 0, 2, 3, 0, 3}
 	// Thus, count of 5 = 1, hence countArray[5] = 1, similary countArray[2] = 2
-	for i := 0; i < len(array); i++ {
-		countArray[array[i]]++
+	for i := 0; i < len(inputArray); i++ {
+		countArray[inputArray[i]]++
 	}
 
 	// Calculate Prefix Sum of countArray
@@ -254,10 +256,106 @@ func CountingSort(array []int) {
 	}
 
 	// Creating outputArray from countArray
-	for i := len(array) - 1; i >= 0; i-- {
-		outputArray[countArray[array[i]]-1] = array[i]
-		countArray[array[i]]--
+	for i := len(inputArray) - 1; i >= 0; i-- {
+		outputArray[countArray[inputArray[i]]-1] = inputArray[i]
+		countArray[inputArray[i]]--
 	}
 
-	PrintArray(outputArray)
+	if shouldPrint {
+		fmt.Println(colorYellow + "\tPrinting the sorted array:" + colorReset)
+		PrintArray(outputArray)
+	}
+
+	return outputArray
+}
+
+// The BucketSort function sorts an array of integers using the bucket sort algorithm.
+func BucketSort(array []int) {
+	n := len(array)
+	// Create buckets of size len(array)
+	buckets := make([][]int, n)
+	// Initialize buckets
+	for i := range buckets {
+		buckets[i] = make([]int, 0)
+	}
+
+	/*
+	 Put array elements in different buckets
+	 Here, we divide the array element by n which gives us the bucketIndex
+	 For example:
+	 If n = 10, and array has: 64, 61, 63
+	 For the above element, the index will always be 6 and
+	 buckets[6] is an array i.e. buckets[6] = [] which will then contain 64, 61, 63
+	 Then bucket[6] is sorted using SelectionSort
+	 This process is repeated for all other buckets.
+	 At the end all the buckets are merged, thus, resulting in a sorted array.
+	*/
+	for i := 0; i < n; i++ {
+		bucketIndex := array[i] / n
+		// Push element into the bucket
+		buckets[bucketIndex] = append(buckets[bucketIndex], array[i])
+	}
+
+	fmt.Println(colorMagenta, "\tCreated buckets are:")
+	for i := 0; i < n && len(buckets[i]) > 0; i++ {
+		fmt.Println(colorYellow, "\t\t", buckets[i])
+	}
+
+	fmt.Println(colorMagenta, "\tSorted Individual buckets using SelectionSort")
+	// Sort individual buckets
+	for i := 0; i < n && len(buckets[i]) > 0; i++ {
+		SelectionSort(buckets[i], true)
+		fmt.Println(colorYellow, "\t\t", buckets[i])
+	}
+	fmt.Println(colorReset)
+
+	// Concatenate all the buckets
+	index := 0
+	for i := 0; i < n; i++ {
+		for j := 0; j < len(buckets[i]) && index < n; j++ {
+			array[index] = buckets[i][j]
+			index++
+		}
+	}
+}
+
+func RadixSort(array []int) {
+	n := len(array)
+	max := 0
+
+	outputArray := make([]int, n)
+
+	// Find the maximum number in the array
+	for i := 0; i < n; i++ {
+		if array[i] > max {
+			max = array[i]
+		}
+	}
+
+	numberOfDigits := 0
+	// Find the number of digits in the maximum number
+	for max > 0 {
+		max /= 10
+		numberOfDigits++
+	}
+
+	for i := 0; i < numberOfDigits; i++ {
+		lastDigit := make([]int, n)
+		for j := 0; j < n; j++ {
+			lastDigit[j] = int(float64(array[j])/math.Pow10(i)) % 10
+		}
+		sortedByDigits := CountingSort(lastDigit, false)
+		// Update array as per the unit digits sorted
+		for k1, v1 := range lastDigit {
+			for k2, v2 := range sortedByDigits {
+				if v1 == v2 {
+					outputArray[k2] = array[k1]
+					sortedByDigits[k2] = -1
+					break
+				}
+			}
+		}
+		// Assign outputArray to original array
+		copy(array, outputArray)
+	}
 }

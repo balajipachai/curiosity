@@ -130,8 +130,29 @@ func countingSort() {
 	array := []int{2, 5, 3, 0, 2, 3, 0, 3}
 	fmt.Println(colorYellow + "\tPrinting the unsorted array:" + colorReset)
 	sorting.PrintArray(array)
-	sorting.CountingSort(array)
+	sorting.CountingSort(array, true)
+	printDottedLine()
+}
+
+func bucketSort() {
+	fmt.Println(colorCyan + "\t************BUCKET SORT************" + colorReset)
+	array := []int{12, 35, 34, 54, 28, 24, 29, 2, 3, 1, 65, 61, 60, 71, 75, 70, 58, 87, 45, 8}
+	fmt.Println(colorYellow + "\tPrinting the unsorted array:" + colorReset)
+	sorting.PrintArray(array)
+	sorting.BucketSort(array)
 	fmt.Println(colorYellow + "\tPrinting the sorted array:" + colorReset)
+	sorting.PrintArray(array)
+	printDottedLine()
+}
+
+func radixSort() {
+	fmt.Println(colorCyan + "\t************RADIX SORT************" + colorReset)
+	array := []int{170, 45, 75, 90, 802, 24, 2, 66}
+	fmt.Println(colorYellow + "\tPrinting the unsorted array:" + colorReset)
+	sorting.PrintArray(array)
+	sorting.RadixSort(array)
+	fmt.Println(colorYellow + "\tPrinting the sorted array:" + colorReset)
+	sorting.PrintArray(array)
 	printDottedLine()
 }
 
@@ -144,6 +165,8 @@ func sortingBasics() {
 	quickSort()
 	treeSort()
 	countingSort()
+	bucketSort()
+	radixSort()
 }
 
 func main() {
