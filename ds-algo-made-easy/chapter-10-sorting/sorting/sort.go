@@ -94,10 +94,13 @@ func SelectionSort(array []int, sortInAscending bool) {
 
 // The InsertionSort function sorts an array of integers using the insertion sort algorithm and prints
 // the number of shifts made during the sorting process.
-func InsertionSort(array []int) {
+func InsertionSort(array []int, shouldPrint bool) {
 	numberOfElements := len(array)
 	shifts := 0
-	fmt.Println(colorMagenta, "\tPRINTING SHIFTS", colorReset)
+	if shouldPrint {
+		fmt.Println(colorMagenta, "\tPRINTING SHIFTS", colorReset)
+	}
+
 	for i := 1; i <= numberOfElements-1; i++ {
 		v := array[i]
 		j := i
@@ -108,9 +111,13 @@ func InsertionSort(array []int) {
 			shifts++
 		}
 		array[j] = v
-		PrintArray(array)
+		if shouldPrint {
+			PrintArray(array)
+		}
 	}
-	fmt.Println(colorMagenta+"\tTotal Shifts: ", shifts, colorReset)
+	if shouldPrint {
+		fmt.Println(colorMagenta+"\tTotal Shifts: ", shifts, colorReset)
+	}
 }
 
 func ShellSort(array []int) {

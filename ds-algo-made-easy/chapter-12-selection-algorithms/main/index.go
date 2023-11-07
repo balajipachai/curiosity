@@ -77,12 +77,26 @@ func kthSmallestUsingPartition() {
 	printDottedLine()
 }
 
+func kthSmallestElementUsingMedianOfMedians() {
+	fmt.Println(colorCyan + "\t************K-th SMALLEST ELEMENT USING MEDIAN  OF MEDIANS************" + colorReset)
+	array := []int{3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5}
+	k := 4
+	fmt.Println(colorYellow + "\tPrinting the array:" + colorReset)
+	selectionalgorithms.PrintArray(array)
+	fmt.Println(colorYellow, "\tK = ", k, colorReset)
+	kthSmallestElement := selectionalgorithms.KthSmallestElementUsingMedianOfMedians(array, k)
+	fmt.Println(colorCyan, "\tKth smallest element = ", kthSmallestElement, colorReset)
+	fmt.Println(colorGreen, "\tTIME COMPLEXITY: O(n)", colorReset)
+	printDottedLine()
+}
+
 func selectionAlgorithmFundamentals() {
 	maxMinUsingSorting()
 	maxMinUsingLinearSearch()
 	maxMinUsingTournamentMethod()
 	maxMinByComparingPairs()
 	kthSmallestUsingPartition()
+	kthSmallestElementUsingMedianOfMedians()
 }
 
 func main() {

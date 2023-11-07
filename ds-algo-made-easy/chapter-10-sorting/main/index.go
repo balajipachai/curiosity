@@ -69,14 +69,14 @@ func insertionSort() {
 	array := []int{6, 8, 1, 4, 5, 3, 7, 2}
 	fmt.Println(colorYellow + "\tPrinting the unsorted array:" + colorReset)
 	sorting.PrintArray(array)
-	sorting.InsertionSort(array)
+	sorting.InsertionSort(array, true)
 	fmt.Println(colorYellow + "\tPrinting the sorted array:" + colorReset)
 	sorting.PrintArray(array)
 	printDottedLine()
 	array = []int{12, 11, 13, 5, 6}
 	fmt.Println(colorYellow + "\tPrinting the unsorted array:" + colorReset)
 	sorting.PrintArray(array)
-	sorting.InsertionSort(array)
+	sorting.InsertionSort(array, true)
 	fmt.Println(colorYellow + "\tPrinting the sorted array:" + colorReset)
 	sorting.PrintArray(array)
 }

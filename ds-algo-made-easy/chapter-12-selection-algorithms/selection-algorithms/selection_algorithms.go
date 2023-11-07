@@ -223,3 +223,70 @@ func KthSmallestUsingPartition(array []int, left, right, k int) int {
 	// elements in array
 	return math.MaxInt64
 }
+
+func medianOfMediansPartition(array []int, pivot int) ([]int, []int, []int) {
+	left, middle, right := []int{}, []int{}, []int{}
+	for _, x := range array {
+		if x < pivot {
+			left = append(left, x)
+		} else if x == pivot {
+			middle = append(middle, x)
+		} else {
+			right = append(right, x)
+		}
+	}
+	return left, middle, right
+}
+
+/*
+Algorithm: Selection(A, k)
+ 1. Partition A into groups, with each group having five items (the last group may have fewer items).
+ 2. Sort each group separately (e.g., insertion sort).
+ 3. Find the median of each of the   groups and store them in some array (let us say A′).
+ 4. Use Selection recursively to find the median of A′ (median of medians). Let us asay the median of medians is m.
+ 5. Let q = # elements of A smaller than m;
+ 6. If(k==q+1)
+    return m;
+ 7. // Partition with pivot
+
+Else partition A into X and Y
+  - X = {items smaller than m)
+  - Y = {items larger than m}
+    8. If(k<q+1)
+    return Selection(X, k)
+    9. Else
+    return Selection(Y, k - (q+1))
+*/
+func KthSmallestElementUsingMedianOfMedians(arr []int, k int) int {
+	if len(arr) < 10 {
+		sorting.InsertionSort(arr, false)
+		return arr[k]
+	}
+
+	sublists := make([][]int, 0)
+	for i := 0; i < len(arr); i += 5 {
+		end := i + 5
+		if end > len(arr) {
+			end = len(arr)
+		}
+		sublists = append(sublists, arr[i:end])
+	}
+
+	medians := make([]int, 0)
+	for _, sublist := range sublists {
+		median := KthSmallestElementUsingMedianOfMedians(sublist, len(sublist)/2)
+		medians = append(medians, median)
+	}
+
+	medianOfMedians := KthSmallestElementUsingMedianOfMedians(medians, len(medians)/2)
+
+	left, middle, right := medianOfMediansPartition(arr, medianOfMedians)
+
+	if k < len(left) {
+		return KthSmallestElementUsingMedianOfMedians(left, k)
+	} else if k < len(left)+len(middle) {
+		return middle[0]
+	} else {
+		return KthSmallestElementUsingMedianOfMedians(right, k-len(left)-len(middle))
+	}
+}
