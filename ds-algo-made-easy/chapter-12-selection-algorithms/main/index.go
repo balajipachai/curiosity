@@ -64,11 +64,25 @@ func maxMinByComparingPairs() {
 	printDottedLine()
 }
 
+func kthSmallestUsingPartition() {
+	fmt.Println(colorCyan + "\t************K-th SMALLEST ELEMENT USING PARTITION************" + colorReset)
+	array := []int{1000, 11, 445, 1, 330, 3000}
+	k := 5
+	fmt.Println(colorYellow + "\tPrinting the array:" + colorReset)
+	selectionalgorithms.PrintArray(array)
+	fmt.Println(colorYellow, "\tK = ", k, colorReset)
+	kthSmallestElement := selectionalgorithms.KthSmallestUsingPartition(array, 0, len(array)-1, k)
+	fmt.Println(colorCyan, "\tKth smallest element = ", kthSmallestElement, colorReset)
+	fmt.Println(colorGreen, "\tTIME COMPLEXITY: O(n)", colorReset)
+	printDottedLine()
+}
+
 func selectionAlgorithmFundamentals() {
 	maxMinUsingSorting()
 	maxMinUsingLinearSearch()
 	maxMinUsingTournamentMethod()
 	maxMinByComparingPairs()
+	kthSmallestUsingPartition()
 }
 
 func main() {

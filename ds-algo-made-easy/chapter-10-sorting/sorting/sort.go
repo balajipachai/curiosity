@@ -189,7 +189,7 @@ func MergeSort(array []int, temp []int, left, right int) {
 // The partition function takes an array, selects a pivot element, and rearranges the elements such
 // that all elements smaller than the pivot are placed before it, and all elements greater than the
 // pivot are placed after it.
-func partition(array []int, low, high int) int {
+func Partition(array []int, low, high int) int {
 	pivot := array[high]
 
 	i := low - 1
@@ -211,7 +211,7 @@ func QuickSort(array []int, low, high int) {
 	var pivot int
 
 	if high > low {
-		pivot = partition(array, low, high)
+		pivot = Partition(array, low, high)
 		QuickSort(array, low, pivot-1)
 		QuickSort(array, pivot+1, high)
 	}

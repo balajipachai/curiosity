@@ -10,6 +10,7 @@ package selectionalgorithms
 
 import (
 	"fmt"
+	"math"
 
 	"example.com/sorting"
 )
@@ -187,4 +188,38 @@ func MaxMinByComparingPairs(array []int) (max, min int) {
 		return
 	}
 	return whyWasteResources(array)
+}
+
+/*
+QuickSelect is a selection algorithm to find the k-th smallest element in an unordered list. It is similar to the quick sort algorithm.
+  - The Partition method of QuickSort will be used
+  - First, check for the position to be greater than 0 and <= right - left + 1
+  - Get index by calling the Partition method
+  - If index - 1 == k - 1 then return array[index]
+  - if index - 1 > k - 1, then recur for the left side
+  - if index - 1 < k - 1, then recur for the right side
+*/
+func KthSmallestUsingPartition(array []int, left, right, k int) int {
+	// If k is smaller than number of
+	// elements in array
+	if k > 0 && k <= right-left+1 {
+		// Partition the array around last
+		// element and get position of pivot
+		// element in sorted array
+		index := sorting.Partition(array, left, right)
+		// If position is same as k
+		if index-left == k-1 {
+			return array[index]
+		}
+		// If position is more, recur
+		// for left subarray
+		if index-left > k-1 {
+			return KthSmallestUsingPartition(array, left, index-1, k)
+		}
+		// Else recur for right subarray
+		return KthSmallestUsingPartition(array, index+1, right, k-index+left-1)
+	}
+	// If k is more than number of
+	// elements in array
+	return math.MaxInt64
 }
