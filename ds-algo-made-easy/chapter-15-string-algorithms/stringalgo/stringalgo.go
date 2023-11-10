@@ -223,3 +223,74 @@ func BoyerMoore(T []int, P []int) {
 	timeElapsed := time.Since(start)
 	fmt.Println(colorCyan, "\t\tThe `Boyer-Moore` algorithm took ", timeElapsed, colorReset)
 }
+
+// TRIE DATASTRUCTURE
+type TrieNode struct {
+	isEndOfWord bool
+	childrens   [26]*TrieNode
+}
+
+// The function `GetTrieNode` returns a new instance of a TrieNode with its properties initialized.
+func GetTrieNode() *TrieNode {
+	newNode := &TrieNode{}
+	newNode.isEndOfWord = false
+	for i := 0; i < 26; i++ {
+		newNode.childrens[i] = nil
+	}
+	return newNode
+}
+
+// The `Insert` function is used to insert a word into a Trie data structure. It takes a slice of
+// characters as input and iterates through each character. For each character, it calculates the index
+// by subtracting the ASCII value of 'a' from the character. It then checks if the child node at that
+// index is nil. If it is nil, it creates a new TrieNode and assigns it to the child node at that
+// index. It then moves the iterator to the child node at that index. Finally, it sets the
+// `isEndOfWord` property of the last node to true, indicating that a word ends at that node.
+func (root *TrieNode) Insert(characters []int) {
+	n := len(characters)
+	iterator := root
+	for i := 0; i < n; i++ {
+		index := characters[i] - 'a'
+		if iterator.childrens[index] == nil {
+			iterator.childrens[index] = GetTrieNode()
+		}
+		iterator = iterator.childrens[index]
+	}
+	iterator.isEndOfWord = true
+}
+
+// The `Search` function is used to search for a word in a Trie data structure. It takes a slice of
+// characters as input and iterates through each character. For each character, it calculates the index
+// by subtracting the ASCII value of 'a' from the character. It then checks if the child node at that
+// index is nil. If it is nil, it means that the word does not exist in the Trie and the function
+// returns false. If the child node is not nil, it moves the iterator to the child node at that index.
+// Finally, it checks if the `isEndOfWord` property of the last node is true, indicating that a word
+// ends at that node. If it is true, it means that the word exists in the Trie and the function returns
+// true.
+func (root *TrieNode) Search(characters []int) bool {
+	n := len(characters)
+	iterator := root
+	for i := 0; i < n; i++ {
+		index := characters[i] - 'a'
+		if iterator.childrens[index] == nil {
+			return false
+		}
+		iterator = iterator.childrens[index]
+	}
+	return iterator.isEndOfWord
+}
+
+// The function recursively prints all the words stored in a Trie data structure.
+func Print(root *TrieNode, characters [26]int, level int) {
+	iterator := root
+	if iterator.isEndOfWord {
+		PrintArray(characters[:], true)
+	}
+
+	for i := 0; i < 26; i++ {
+		if iterator.childrens[i] != nil {
+			characters[level] = i + 'a'
+			Print(root.childrens[i], characters, level+1)
+		}
+	}
+}

@@ -135,11 +135,33 @@ func boyerMoore() {
 	printDottedLine()
 }
 
+func trieDataStructure() {
+	fmt.Println(colorRed, "\tTrie data structure", colorReset)
+	fmt.Println(colorBlue, "\tGet a root trie node", colorReset)
+	root := stringalgo.GetTrieNode()
+	fmt.Println(colorCyan, "\t\tRoot Node:\t", root, colorReset)
+
+	fmt.Println(colorBlue, "\tInsert and, ant, dad, do in the Trie", colorReset)
+	root.Insert([]int{'a', 'n', 'd'})
+	root.Insert([]int{'a', 'n', 't'})
+	root.Insert([]int{'d', 'o'})
+	root.Insert([]int{'d', 'a', 'd'})
+	fmt.Println(colorBlue, "\tPrint trie nodes", colorReset)
+	stringalgo.Print(root, [26]int{}, 0)
+
+	fmt.Println(colorBlue, "\tSearch and & do in the Trie", colorReset)
+	fmt.Println(colorCyan, "\tSearch `and` in the Trie\t", root.Search([]int{'a', 'n', 'd'}))
+	fmt.Println(colorCyan, "\tSearch `ant` in the Trie\t", root.Search([]int{'a', 'n', 't'}))
+	fmt.Println(colorBlue, "\tSearch dooo in the Trie", colorReset)
+	fmt.Println(colorCyan, "\tSearch `dooo` in the Trie\t", root.Search([]int{'d', 'o', 'o', 'o'}))
+}
+
 func fundamentals() {
 	bruteForceStringMatch()
 	robinKarp()
 	kmp()
 	boyerMoore()
+	trieDataStructure()
 }
 
 func main() {
