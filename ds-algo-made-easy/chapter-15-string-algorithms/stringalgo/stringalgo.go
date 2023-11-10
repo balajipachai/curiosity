@@ -188,6 +188,7 @@ func badCharacterHeuristic(P []int, badCharacter [NO_OF_CHARS]int) {
 
 // The Boyer-Moore algorithm is implemented in Go to search for a pattern in a given text.
 func BoyerMoore(T []int, P []int) {
+	start := time.Now()
 	m := len(P)
 	n := len(T)
 
@@ -219,4 +220,6 @@ func BoyerMoore(T []int, P []int) {
 			}
 		}
 	}
+	timeElapsed := time.Since(start)
+	fmt.Println(colorCyan, "\t\tThe `Boyer-Moore` algorithm took ", timeElapsed, colorReset)
 }
