@@ -1,6 +1,6 @@
 #include <algorithm>
 #include <iostream>
-#include <numeric> // For accumulation operation
+#include <numeric> // For accumulate, iota operation
 #include <vector>
 
 using namespace std;
@@ -118,13 +118,53 @@ int main() {
   cout << "\tAccumulation of `vect` element is "
        << accumulate(vect.begin(), vect.end(), 0) << endl;
 
-  cout << "\tCount the occurence of 2 in the vector `vect`"
+  cout << "\tCount the occurence of 2 in the vector `vect`\t"
        << count(vect.begin(), vect.end(), 2) << endl;
 
-  cout << "\tFinds 40 in unsortedNubmers vector"
-       << find(unsortedNumbers.begin(), unsortedNumbers.end(), 40) !=
+  cout << "\tFinds 40 in unsortedNubmers vector" << endl;
+  find(unsortedNumbers.begin(), unsortedNumbers.end(), 40) !=
           unsortedNumbers.end()
-      ? cout << "\tElement found" << endl
-      : cout << "\t Element not found" << endl;
+      ? cout << "\t\tElement found" << endl
+      : cout << "\t\tElement not found" << endl;
+
+  cout << "\t**************************************ARRAY "
+          "ALGORITHMS*******************"
+          "**"
+          "**"
+          "***************"
+       << endl;
+  int num[6] = {1, 2, 3, 4, 5, -6};
+  printArray(num, 6, false);
+  cout << "\tall_of()\n";
+  all_of(num, num + 6, [](int x) { return x > 0; })
+      ? cout << "\tAll elements are positive\n"
+      : cout << "\tAll elements are not positive\n";
+
+  cout << "\tany_of(): Checking if any number is negative\n";
+  any_of(num, num + 6, [](int x) { return x < 0; })
+      ? cout << "\tThere is a negative number\n"
+      : cout << "\tNo negative numbers found\n";
+
+  cout << "\tany_of(): Checking if any number is negative in `unsortedNumbers "
+          "vector`\n";
+  any_of(unsortedNumbers.begin(), unsortedNumbers.end(),
+         [](int x) { return x < 0; })
+      ? cout << "\tThere is a negative number\n"
+      : cout << "\tNo negative numbers found\n";
+
+  int copiedArray[6];
+  cout << "\tPrinting the copied array\n";
+  printArray(copiedArray, 6, false);
+
+  cout << "\tCopying `num` to `copiedArray`\n";
+  copy_n(num, 6, copiedArray);
+
+  cout << "\tPrinting the copied array after copy_n() operations\n";
+  printArray(copiedArray, 6, false);
+
+  cout << "\tUsing iota() to assign continuous values to the array\n";
+  int continuousValues[10];
+  iota(continuousValues, continuousValues + 10, 10);
+  printArray(continuousValues, 10, false);
   return 0;
 }
