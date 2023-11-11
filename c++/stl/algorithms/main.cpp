@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <iostream>
 #include <numeric> // For accumulate, iota operation
+#include <valarray>
 #include <vector>
 
 using namespace std;
@@ -166,5 +167,82 @@ int main() {
   int continuousValues[10];
   iota(continuousValues, continuousValues + 10, 10);
   printArray(continuousValues, 10, false);
+
+  cout << "\tvalarray class: C++98 introduced a special container called "
+          "valarray to hold and provide mathematical operations on arrays "
+          "efficiently.\n";
+
+  valarray<int> varr1 = {10, 2, 20, 1, 30};
+  for (int x : varr1)
+    cout << "\t" << x;
+  cout << endl;
+  valarray<int> varr2;
+  cout << "\tUsing apply to increment all values by 2\n";
+  varr2 = varr1.apply([](int x) { return x += 2; });
+  for (int x : varr2)
+    cout << "\t" << x;
+  cout << endl;
+
+  cout << "\tSum of varr1 is = " << varr1.sum() << endl;
+  cout << "\tSum of varr2 is = " << varr2.sum() << endl;
+
+  cout << "\tMin of varr1 is = " << varr1.min() << endl;
+  cout << "\tMax of varr1 is = " << varr1.max() << endl;
+
+  valarray<int> shiftedVarr;
+
+  cout << "\t\tShifts: shift() & cshift()\n";
+  cout << "\t\t\tIf the number is positive, left-shift is applied, if number "
+          "is negative, right-shift is applied\n";
+
+  cout << "\tShift varr1 by 2\n";
+  shiftedVarr = varr1.shift(2);
+  cout << "\tPrinting the shifted array\n";
+  for (int x : shiftedVarr)
+    cout << "\t" << x;
+  cout << endl;
+
+  cout << "\tCshift varr1 by -4\n";
+  shiftedVarr = varr1.cshift(-4);
+  cout << "\tPrinting the shifted array\n";
+  for (int x : shiftedVarr)
+    cout << "\t" << x;
+  cout << endl;
+  cout << "\t**************************************BEFORE SWAPPING"
+          "*******************"
+          "**"
+          "**"
+          "***************"
+       << endl;
+
+  cout << "\tPrinting varr1 before swapping\n";
+  for (int x : varr1)
+    cout << "\t" << x;
+  cout << endl;
+
+  cout << "\tPrinting varr2 before swapping\n";
+  for (int x : varr2)
+    cout << "\t" << x;
+  cout << endl;
+
+  cout << "\tSwapping the valarrays: varr1 with varr2\n";
+  varr1.swap(varr2);
+
+  cout << "\t**************************************AFTER SWAPPING"
+          "*******************"
+          "**"
+          "**"
+          "***************"
+       << endl;
+
+  cout << "\tPrinting varr1 after swapping\n";
+  for (int x : varr1)
+    cout << "\t" << x;
+  cout << endl;
+
+  cout << "\tPrinting varrw after swapping\n";
+  for (int x : varr2)
+    cout << "\t" << x;
+  cout << endl;
   return 0;
 }
