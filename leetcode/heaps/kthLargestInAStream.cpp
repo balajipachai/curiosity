@@ -11,121 +11,83 @@ using namespace std;
  * @param vc The parameter "vc" is a reference to a vector of integers.
  */
 void print(vector<int> &vc) {
+  cout << "\t";
   for (auto i : vc) {
     cout << i << " ";
   }
   cout << endl;
 }
 
-struct greaters {
-  bool operator()(const int &a, const int &b) { return a > b; }
-};
-
+/* The KthLargest class maintains a min heap of the k largest elements from a
+given set of numbers and provides a method to add a new number and return the
+kth largest element. */
 class KthLargest {
 public:
-  int _k;
-  vector<int> _nums;
-  KthLargest(int k, vector<int> &nums) {}
-
-  int add(int val) {
-    // Uses Sorting
-    _nums.push_back(val);
-    sort(_nums.begin(), _nums.end());
-    return _nums[_nums.size() - _k];
-  }
-
-  void KthLargestUsingHeaps(int k, vector<int> &nums) {
-    _k = k;
-    for (int i = 0; i < nums.size(); i++)
-      _nums.push_back(nums[i]);
-    // Create a min-heap using the elements from nums
-    make_heap(_nums.begin(), _nums.end(), greaters());
-    cout << "isHeap 1\t" << is_heap(_nums.begin(), _nums.end()) << endl;
-    cout << "Printing _nums\t";
-    print(_nums);
-    // cout << "1: \n";
-    // print(nums);
+  int k;
+  vector<int> nums;
+  /**
+   * The function creates a min heap using the elements from the given vector
+   * and pops elements from the heap until its length is equal to the given
+   * value of k.
+   *
+   * @param k The parameter "k" represents the value of kth largest element that
+   * we want to find.
+   * @param nums A vector of integers containing the elements from which we want
+   * to find the kth largest element.
+   */
+  KthLargest(int k, vector<int> &nums) {
+    // In the constructor, create a min heap using the elements from nums. Then,
     // pop from the heap until heap.length == k.
-    while (_nums.size() != _k) {
-      //   cout << "2: \n";
-      //   print(nums);
-      pop_heap(_nums.begin(), _nums.end());
-      //   cout << "3: \n";
-      //   print(nums);
-      _nums.pop_back(); // removes element from the vector
-      //   cout << "4: \n";
-      //   print(nums);
-      cout << "isHeap 2\t" << is_heap(_nums.begin(), _nums.end()) << endl;
+    this->k = k;
+    this->nums = nums;
+    // Creation of min-heap
+    make_heap(this->nums.begin(), this->nums.end(), greater<int>());
+    while (this->nums.size() > this->k) {
+      // Pop from the heap, and arrange the heap as a min-heap
+      pop_heap(this->nums.begin(), this->nums.end(), greater<int>());
+      this->nums.pop_back();
     }
   }
 
-  int addUsingHeaps(int val) {
-    _nums.push_back(val);
-    push_heap(_nums.begin(), _nums.end());
-    cout << "\nnums size: ***********\t" << _nums.size()
-         << "\t*****************\n";
-    cout << "isHeap 3\t" << is_heap(_nums.begin(), _nums.end()) << endl;
-    while (_nums.size() > _k) {
-      //   cout << "5: \n";
-      //   print(_nums);
-      pop_heap(_nums.begin(), _nums.end());
-      //   cout << "6: \n";
-      //   print(_nums);
-      _nums.pop_back();
-      //   cout << "7: \n";
-      //   print(_nums);
-      cout << "isHeap 4\t" << is_heap(_nums.begin(), _nums.end()) << endl;
+  /**
+   * The add function adds a value to a vector, maintains the vector as a
+   * min-heap, and removes the smallest elements if the vector size exceeds a
+   * given threshold.
+   *
+   * @param val The parameter "val" is an integer value that you want to add to
+   * the "nums" vector.
+   *
+   * @return the smallest element in the `nums` vector, which is the front
+   * element of the vector after the heap has been arranged as a min-heap.
+   */
+  int add(int val) {
+    this->nums.push_back(val);
+    // Push in the heap, and arrange the heap as a min-heap
+    push_heap(this->nums.begin(), this->nums.end(), greater<int>());
+    while (this->nums.size() > this->k) {
+      // Pop from the heap, and arrange the heap as a min-heap
+      pop_heap(this->nums.begin(), this->nums.end(), greater<int>());
+      this->nums.pop_back(); // removes the last element
     }
-    cout << "Printing _nums\t";
-    print(_nums);
-    return _nums.front();
+    return this->nums.front();
   }
 };
 
+/**
+ * The code creates an object of class KthLargest and adds elements to it, then
+ * prints the result of each addition.
+ */
 int main() {
   vector<int> nums = {4, 5, 8, 2};
   int k = 3;
   KthLargest *obj = new KthLargest(k, nums);
-  //   cout << "\tKthLargest after adding 3 in the stream\t" << obj->add(3) <<
-  //   endl;
-  //   ;
-  //   cout << "\tKthLargest after adding 5 in the stream\t" << obj->add(5) <<
-  //   endl;
-  //   ;
-  //   cout << "\tKthLargest after adding 10 in the stream\t" << obj->add(10)
-  //        << endl;
-  //   ;
-  //   cout << "\tKthLargest after adding 9 in the stream\t" << obj->add(9) <<
-  //   endl;
-  //   ;
-  //   cout << "\tKthLargest after adding 4 in the stream\t" << obj->add(4) <<
-  //   endl;
-  //   ;
-
-  cout << "\tSolution using heaps\n";
-  nums = {4, 5, 8, 2};
-  obj->KthLargestUsingHeaps(k, nums);
-  int answer = obj->addUsingHeaps(3);
-  cout << "\tKthLargest after adding 3 in the stream***********\t" << answer
-       << " ******************\n";
-  ;
-  answer = obj->addUsingHeaps(5);
-  cout << "\tKthLargest after adding 5 in the stream***********\t" << answer
-       << " ******************\n";
-  ;
-
-  answer = obj->addUsingHeaps(10);
-  cout << "\tKthLargest after adding 10 in the stream***********\t" << answer
-       << " ******************\n";
-  ;
-
-  answer = obj->addUsingHeaps(9);
-  cout << "\tKthLargest after adding 9 in the stream***********\t" << answer
-       << " ******************\n";
-  ;
-
-  answer = obj->addUsingHeaps(4);
-  cout << "\tKthLargest after adding 4 in the stream***********\t" << answer
-       << " ******************\n";
-  ;
+  cout << "\tInput stream:" << endl;
+  print(nums);
+  cout << "\tKthLargest in a stream after adding 3, 5, 10, 9 & 4 one by "
+          "one:\n\t";
+  cout << obj->add(3) << "\t";
+  cout << obj->add(5) << "\t";
+  cout << obj->add(10) << "\t";
+  cout << obj->add(9) << "\t";
+  cout << obj->add(4) << endl;
 }
