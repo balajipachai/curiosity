@@ -70,3 +70,7 @@ scaffold-eth/staking/.idea
 scaffold-eth/staking/.netlify
 scaffold-eth/staking/*.tsbuildinfo
 scaffold-eth/staking/*.stackdump
+
+# C++ *.out files
+project-euler/*.out
+leetcode/*/*.out
