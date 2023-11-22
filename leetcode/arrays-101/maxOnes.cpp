@@ -20,7 +20,6 @@ Constraints:
 nums[i] is either 0 or 1.
 */
 #include <iostream>
-// #include <math>
 
 using namespace std;
 
