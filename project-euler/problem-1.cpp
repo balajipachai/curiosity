@@ -4,21 +4,22 @@ get 3, 5, 6 & 9. The sum of these multiples is 23. Find the sum of all the
 multiples of 3 or 5 below 1000.
 */
 
+#include <iomanip>
 #include <iostream>
 using namespace std;
 
 class Solution {
 public:
   /**
-   * The function calculates the sum of the digits of a given number.
+   * The function "sumOfDigits" calculates the sum of the digits of a given
+   * number.
    *
-   * @param num The parameter "num" is an integer representing the number for
-   * which we want to calculate the sum of its digits.
+   * @param num The parameter "num" is an unsigned long long integer.
    *
-   * @return The sum of the digits of the given number.
+   * @return the sum of the digits of the input number.
    */
-  int sumOfDigits(int num) {
-    int sum = 0;
+  unsigned long long sumOfDigits(unsigned long long num) {
+    unsigned long long sum = 0;
     while (num > 0) {
       sum += num % 10;
       num /= 10;
@@ -28,17 +29,15 @@ public:
 
   /**
    * The function checks if a given number is a multiple of 3 by calculating the
-   * sum of its digits and returning true if the sum is divisible by 3,
-   * otherwise it returns false.
+   * sum of its digits and checking if it is divisible by 3.
    *
-   * @param num An integer number that we want to check if it is a multiple
-   * of 3.
+   * @param num An unsigned long long integer representing the number to check
+   * if it is a multiple of 3.
    *
-   * @return a boolean value. It returns true if the given number is a multiple
-   * of 3, and false otherwise.
+   * @return a boolean value.
    */
-  bool isMultipleOf3(int num) {
-    int digitSum = sumOfDigits(num);
+  bool isMultipleOf3(unsigned long long num) {
+    unsigned long long digitSum = sumOfDigits(num);
     if (digitSum % 3 != 0) {
       return false;
     }
@@ -49,14 +48,13 @@ public:
    * The function checks if a given number is a multiple of 5 by checking if its
    * unit digit is either 0 or 5.
    *
-   * @param num An integer number that we want to check if it is a multiple
-   * of 5.
+   * @param num An unsigned long long integer representing the number to check
+   * if it is a multiple of 5.
    *
-   * @return a boolean value. It returns true if the given number is a multiple
-   * of 5 (i.e., the unit digit is either 0 or 5), and false otherwise.
+   * @return a boolean value, either true or false.
    */
-  bool isMultipleOf5(int num) {
-    int unitDigit = num % 10;
+  bool isMultipleOf5(unsigned long long num) {
+    unsigned long long unitDigit = num % 10;
     if (unitDigit == 0 || unitDigit == 5) {
       return true;
     }
@@ -74,8 +72,8 @@ public:
    *
    * @return the sum of all the multiples of 3 or 5 below the given number.
    */
-  int sumOfMultiplesOf3or5Below1000(int num) {
-    int sum = 0;
+  unsigned long long sumOfMultiplesOf3or5Below1000(unsigned long long num) {
+    unsigned long long sum = 0;
     for (int i = 3; i < num; i++) {
       if ((isMultipleOf3(i)) || (isMultipleOf5(i))) {
         sum += i;
@@ -97,12 +95,25 @@ public:
 };
 
 int main() {
-  cout << "\tSum of multiples of 3 or 5 below 1000:";
+  cout << "\tSum of multiples of 3 or 5 below 1000000000:";
   Solution solution;
-  cout << "\t" << solution.sumOfMultiplesOf3or5Below1000(1000) << endl;
+  time_t start, end;
+  time(&start);
+  // unsync the I/O of C and C++.
+  ios_base::sync_with_stdio(false);
+  cout << "\t" << solution.sumOfMultiplesOf3or5Below1000(1000000000) << endl;
+  // Recording end time.
+  time(&end);
+
+  // Calculating total time taken by the program.
+  double time_taken = double(end - start);
+  cout << "Time taken by program 1 is : " << fixed << time_taken
+       << setprecision(5);
+  cout << " sec " << endl;
   cout << "Enter the value of n\t";
   unsigned long long n;
   cin >> n;
+  time(&start);
   // Since we have to calculate sum less than n-1
   n--;
   auto sumThree = 3 * solution.sum(n / 3);
@@ -111,7 +122,20 @@ int main() {
   // and 5, thus, we are supposed to subtract the sum of fifteeen to get rid of
   // the error
   auto sumFifteeen = 15 * solution.sum(n / 15);
-
+  time(&end);
   cout << "\t" << sumThree + sumFive - sumFifteeen << endl;
+  time_taken = double(end - start);
+  cout << "Time taken by program 2 is : " << fixed << time_taken
+       << setprecision(5);
+  cout << " sec " << endl;
   return 0;
 }
+
+/**
+ * OUTPUT
+ * Sum of multiples of 3 or 5 below 1000000000:    233333333166666668
+ * Time taken by program 1 is : 27.000000 sec
+ * Enter the value of n    1000000000
+ * Answer => 233333333166666668
+ * Time taken by program 2 is : 0.00000 sec
+ */
