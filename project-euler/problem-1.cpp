@@ -83,11 +83,35 @@ public:
     }
     return sum;
   }
+
+  /**
+   * The function calculates the sum of all numbers from 1 to n using the
+   * formula (n^2 + n) / 2.
+   *
+   * @param n The parameter "n" in the above code represents a positive integer
+   * value.
+   *
+   * @return The sum of all numbers from 1 to n is being returned.
+   */
+  unsigned long long sum(unsigned long long n) { return ((n * n) + n) / 2; }
 };
 
 int main() {
   cout << "\tSum of multiples of 3 or 5 below 1000:";
   Solution solution;
   cout << "\t" << solution.sumOfMultiplesOf3or5Below1000(1000) << endl;
+  cout << "Enter the value of n\t";
+  unsigned long long n;
+  cin >> n;
+  // Since we have to calculate sum less than n-1
+  n--;
+  auto sumThree = 3 * solution.sum(n / 3);
+  auto sumFive = 5 * solution.sum(n / 5);
+  // Since the sum of 3 and 5 will contain the sums that are both divisible by 3
+  // and 5, thus, we are supposed to subtract the sum of fifteeen to get rid of
+  // the error
+  auto sumFifteeen = 15 * solution.sum(n / 15);
+
+  cout << "\t" << sumThree + sumFive - sumFifteeen << endl;
   return 0;
 }
