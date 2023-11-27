@@ -29,6 +29,13 @@ public:
     return reverse == number;
   }
 
+  /**
+   * The function "largestPallindrome" finds the largest palindrome number that
+   * is the product of two 3-digit numbers and returns it.
+   *
+   * @return The function `largestPallindrome()` returns the largest palindrome
+   * number that can be obtained by multiplying two 3-digit numbers.
+   */
   int largestPallindrome() {
     int max = -1;
     int p = 0;

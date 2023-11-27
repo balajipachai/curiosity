@@ -5,6 +5,7 @@
  * Fibonacci sequence whose values do not exceed four million, find the sum of
  * the even-valued terms.
  */
+#include <iomanip>
 #include <iostream>
 using namespace std;
 
@@ -52,10 +53,62 @@ public:
     cout << "\tValue of n when sum crosses 4 million =\t" << n << endl;
     return sum;
   }
+
+  /**
+   * The function calculates the sum of all even Fibonacci numbers up to a given
+   * number.
+   *
+   * @param n The parameter `n` represents the upper limit or the maximum value
+   * of the Fibonacci sequence that we want to consider. The function
+   * `sumOfEvenFibs` calculates the sum of all even Fibonacci numbers up to and
+   * including `n`.
+   *
+   * @return the sum of all even Fibonacci numbers less than or equal to the
+   * input number `n`.
+   */
+  unsigned long long sumOfEvenFibs(unsigned long long n) {
+    unsigned long long sum = 0;
+    unsigned long long a = 1;
+    unsigned long long b = 2;
+
+    while (b <= n) {
+      if (b % 2 == 0)
+        sum += b;
+      auto next = a + b;
+      a = b;
+      b = next;
+    }
+    return sum;
+  }
 };
 
 int main() {
   Solution solution;
-  int answer = solution.sumOfEvenFibs(4000000);
+
+  time_t start, end;
+  time(&start);
+  // unsync the I/O of C and C++.
+  ios_base::sync_with_stdio(false);
+
+  int answer = solution.sumOfEvenFibs(400000000);
   cout << "\tSum of even fibs less than 4 Million =\t" << answer << endl;
+  // Recording end time.
+  time(&end);
+
+  // Calculating total time taken by the program.
+  double time_taken = double(end - start);
+  cout << "Time taken by program 1 is : " << fixed << time_taken
+       << setprecision(5);
+  cout << " sec " << endl;
+
+  cout << "Enter the value of n\t";
+  unsigned long long n;
+  cin >> n;
+  time(&start);
+  answer = solution.sumOfEvenFibs(n);
+  cout << "\tSum of even fibs less than 4 Million =\t" << answer << endl;
+  time_taken = double(end - start);
+  cout << "Time taken by program 2 is : " << fixed << time_taken
+       << setprecision(5);
+  cout << " sec " << endl;
 }
