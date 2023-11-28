@@ -108,7 +108,7 @@ public:
  * The main function merges two arrays, nums1 and nums2, using both a naive
  * approach and an efficient approach.
  */
-814d2700 - 985a - 4857 - 8da3 - 5b809dd46651int main() {
+int main() {
   Solution solution;
   vector<int> nums1 = {10, 20, 30, 0, 0, 0};
   vector<int> nums2 = {4, 5, 6};
