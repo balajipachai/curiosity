@@ -53,73 +53,86 @@ void print(vector<int> &vc, int n) {
 
 class Solution {
 public:
-  int findMaxConsecutiveOnes(vector<int> &nums) {
+  /**
+   * The function `findMaxConsecutiveOnes` finds the length of the longest
+   * sequence of consecutive ones in a given vector, allowing for at most one
+   * zero in the sequence.
+   *
+   * @param nums The parameter `nums` is a reference to a vector of integers.
+   *
+   * @return the length of the longest consecutive sequence of 1s in the given
+   * vector of integers.
+   */
+  int bruteForce(vector<int> &nums) {
+    // Brute Force Approach
+    int longestSequence = 0;
     int n = nums.size();
-    int maxOnes = 0;
-    int count = 0;
-    int lastZeroIndex = -1;
+    for (int left = 0; left < n; left++) {
+      int numZeroes = 0;
+      for (int right = left; right < n; right++) {
+        if (nums[right] == 0) {
+          numZeroes += 1;
+        }
 
-    for (int i = 0; i < n; i++) {
-      // The count should increase whenever there's a 1 in the array
-      // As and when a zero is encountered, flip that too a 1 and continue
-      // increasing the one's count Whenever a second 0 is encountered then
-      // store the max consecutive ones count in a variable called as maxOnes
-      // set the onesCount to the difference of current zero index -
-      // previousZeroIndex + 1 (+1 since the array indices are zero based) Check
-      // if previousMaxOnes < currentMaxOnes, and set maxOnes count accordingly
-      // Return maxOnes count
-      // DONE
-      if (nums[i]) {
-        cout << "if" << endl;
-        count++;
-      } else if (!nums[i] && lastZeroIndex == -1) {
-        cout << "elif" << endl;
-        count++;
-        lastZeroIndex = i;
-      } else {
-        cout << "else" << endl;
-        // second zero is encountered
-        maxOnes = count;
-        count = i - (lastZeroIndex + 1);
-        lastZeroIndex = i;
+        if (numZeroes <= 1) {
+          longestSequence = max(longestSequence, right - left + 1);
+        }
+      }
+    }
+    return longestSequence;
+  }
+
+  /**
+   * The slidingWindow function finds the length of the longest subarray in a
+   * given array that contains at most two zeroes.
+   *
+   * @param nums The parameter "nums" is a reference to a vector of integers.
+   *
+   * @return the length of the longest subarray in the given vector `nums` that
+   * contains at most two zeroes.
+   */
+  int slidingWindow(vector<int> &nums) {
+    int longestSequence = 0;
+    int n = nums.size();
+    int right = 0;
+    int left = 0;
+    int numZeroes = 0;
+
+    while (right < n) {
+      if (nums[right] == 0) {
+        numZeroes += 1;
       }
 
-      //   return maxOnes;
-
-      //   if (!nums[i] && lastZeroIndex == -1) {
-      //     cout << "\tInside first if\t";
-      //     lastZeroIndex = i;
-      //     count++;
-      //     cout << lastZeroIndex << endl;
-      //   } else if (!nums[i] && lastZeroIndex >= 0) {
-      //     if (count > maxOnes) {
-      //       cout << "\tInside second if\t";
-      //       maxOnes = count;
-      //       cout << maxOnes << endl;
-      //     }
-      //     count = i - (lastZeroIndex + 1);
-      //     lastZeroIndex = i;
-      //   } else {
-      //     count++;
-      //     cout << "\tno ifs executed\t" << count << endl;
-      //     if (!maxOnes && count == n) {
-      //       maxOnes = count;
-      //     }
-      //   }
+      // invalid window, then contract the window
+      while (numZeroes == 2) {
+        if (nums[left] == 0) {
+          numZeroes -= 1;
+        }
+        left++;
+      }
+      longestSequence = max(longestSequence, right - left + 1);
+      // expand window
+      right++;
     }
-    cout << "\tMax ones " << maxOnes << endl;
-    return maxOnes;
+    return longestSequence;
   }
 };
 
 int main() {
   Solution solution;
-  vector<int> nums = {1, 1, 0, 1};
+  vector<int> nums = {1, 0, 1, 1, 0, 1};
 
   cout << "\tPrinting the nums array:" << endl;
   print(nums, nums.size());
-  cout << "\tMax consecutive ones in the array are:\n";
+  cout << "\tMax consecutive ones in the array using Brute Force approach "
+          "are:\n";
 
-  int maxOnes = solution.findMaxConsecutiveOnes(nums);
+  int maxOnes = solution.bruteForce(nums);
+  cout << "\t" << maxOnes << endl;
+
+  cout << "\tMax consecutive ones in the array using Sliding Window approach "
+          "are:\n";
+
+  maxOnes = solution.slidingWindow(nums);
   cout << "\t" << maxOnes << endl;
 }
