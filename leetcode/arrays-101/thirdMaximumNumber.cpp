@@ -58,6 +58,17 @@ void print(vector<int> &vc, int n) {
 
 class Solution {
 public:
+  /**
+   * The function bruteForce takes a vector of integers, sorts it in descending
+   * order, removes duplicates, and returns the third largest distinct element
+   * if it exists, otherwise it returns the second largest distinct element.
+   *
+   * @param nums The parameter "nums" is a reference to a vector of integers.
+   *
+   * @return The function `bruteForce` returns the third largest distinct
+   * element from the input vector `nums`. If there are less than 3 distinct
+   * elements, it returns the second largest distinct element.
+   */
   int bruteForce(vector<int> &nums) {
     int n = nums.size();
     if (n == 1) {
@@ -73,6 +84,50 @@ public:
       return nums[2];
     }
     return nums[1];
+  }
+
+  /**
+   * The function "thirdMax" returns the third largest element in a given vector
+   * of integers, ignoring duplicates.
+   *
+   * @param nums A reference to a vector of integers, named "nums".
+   *
+   * @return the third maximum element from the given vector of integers.
+   */
+  int thirdMax(vector<int> &nums) {
+    long long firstMax = numeric_limits<long long>::min();
+    long long secondMax = numeric_limits<long long>::min();
+    long long thirdMax = numeric_limits<long long>::min();
+
+    for (int i = 0; i < nums.size(); i++) {
+      // If the num is already stored in either firstMax, secondMax or thirdMax
+      // then skip it
+      if (firstMax == nums[i] || secondMax == nums[i] || thirdMax == nums[i]) {
+        continue;
+      }
+
+      // if nums[i] is greather than firstMax then update both secondMax and
+      // thirdMax
+      if (firstMax <= nums[i]) {
+        thirdMax = secondMax;
+        secondMax = firstMax;
+        firstMax = nums[i];
+      } else if (secondMax <= nums[i]) {
+        // when nums[i] > secondMax then update secondMax and thirdmax
+        thirdMax = secondMax;
+        secondMax = nums[i];
+      } else if (thirdMax <= nums[i]) {
+        // when nums[i] > thirdMax then update thirdMax
+        thirdMax = nums[i];
+      }
+    }
+
+    // When thirdMax is not at all update in that case return firstMax
+    if (thirdMax == numeric_limits<long long>::min()) {
+      return firstMax;
+    }
+
+    return thirdMax;
   }
 };
 
@@ -116,5 +171,38 @@ int main() {
   max = solution.bruteForce(nums);
   cout << "\tPrinting the nums array after sort, unique & resize:" << endl;
   print(nums, nums.size());
+  cout << "\t" << max << endl;
+
+  cout << "\t*************Efficient Approach**********" << endl;
+  nums = {1, 2, 3, 3, 3, 10, 1, 2, 3, 7, 7, 8};
+
+  cout << "\tPrinting the nums array:" << endl;
+  print(nums, nums.size());
+  cout << "\tThird distinct max is:\n";
+  max = solution.thirdMax(nums);
+  cout << "\t" << max << endl;
+
+  nums = {1, 2};
+
+  cout << "\tPrinting the nums array:" << endl;
+  print(nums, nums.size());
+  cout << "\tThird distinct max is:\n";
+  max = solution.thirdMax(nums);
+  cout << "\t" << max << endl;
+
+  nums = {3, 2, 1};
+
+  cout << "\tPrinting the nums array:" << endl;
+  print(nums, nums.size());
+  cout << "\tThird distinct max is:\n";
+  max = solution.thirdMax(nums);
+  cout << "\t" << max << endl;
+
+  nums = {1, 2, -2147483648};
+
+  cout << "\tPrinting the nums array:" << endl;
+  print(nums, nums.size());
+  cout << "\tThird distinct max is:\n";
+  max = solution.thirdMax(nums);
   cout << "\t" << max << endl;
 }
