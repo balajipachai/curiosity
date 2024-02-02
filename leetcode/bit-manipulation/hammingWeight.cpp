@@ -52,44 +52,54 @@ public:
   uint32_t m4 = 0x0f0f0f0f;  // binary:  4 zeros,  4 ones ...
   uint32_t m8 = 0x00ff00ff;  // binary:  8 zeros,  8 ones ...
   uint32_t m16 = 0x0000ffff; // binary: 16 zeros, 16 ones ...
-  int getZeroOneAsPerBits(int numOfBits) {
-    switch (numOfBits) {
-    case 2:
-      return 1431655765;
-      break;
-    case 4:
-      return 252645135;
-      break;
-    case 8:
-      return 16711935;
-      break;
-    case 16:
-      return 65535;
-      break;
-    default:
-      return 2147483647;
-    }
+
+  /**
+   * The function calculates the Hamming weight of a 32-bit unsigned integer,
+   * which is the number of set bits in its binary representation.
+   *
+   * @param n The parameter `n` is an unsigned 32-bit integer.
+   *
+   * @return the number of bits that are set to 1 in the input number `n`.
+   */
+  int hammingWeight(uint32_t n) {
+    n = (n & m1) + ((n >> 1) & m1);
+    n = (n & m2) + ((n >> 2) & m2);
+    n = (n & m4) + ((n >> 4) & m4);
+    n = (n & m8) + ((n >> 8) & m8);
+    n = (n & m16) + ((n >> 16) & m16);
+    return n;
   }
-  int helper(uint32_t num, int numOfBits) {
-    uint32_t n = num;
-    cout << "\tnumOfBits => " << numOfBits << endl;
-    cout << "\tnum = n => " << n << endl;
-    uint32_t n0 = (n >> 0) & getZeroOneAsPerBits(numOfBits);
-    uint32_t n1 = (n >> 1) & getZeroOneAsPerBits(numOfBits);
-    uint32_t n2 = n0 + n1;
-    cout << "\tn0+n1 = " << n2 << endl;
-    return n2;
-  }
-  int hammingWeight(uint32_t n) { n = () }
 };
 
 int main() {
   Solution solution;
-  string result;
+  int result;
 
   int num = 27834;
-  cout << "\tEntered number is: " << num;
-  printf("\tHexadecimal representation of %d is = ", num);
+  cout << "\tEntered number is: " << num << endl;
+  cout << "\tBinary representation of given number is: "
+       << bitset<32>(num).to_string() << endl;
+  printf("\tHamming weight (Number of 1s) in %d = ", num);
+  result = solution.hammingWeight(num);
+  cout << result << endl;
+
+  cout << endl;
+
+  num = 3;
+  cout << "\tEntered number is: " << num << endl;
+  cout << "\tBinary representation of given number is: "
+       << bitset<32>(num).to_string() << endl;
+  printf("\tHamming weight (Number of 1s) in %d = ", num);
+  result = solution.hammingWeight(num);
+  cout << result << endl;
+
+  cout << endl;
+
+  num = -3;
+  cout << "\tEntered number is: " << num << endl;
+  cout << "\tBinary representation of given number is: "
+       << bitset<32>(num).to_string() << endl;
+  printf("\tHamming weight (Number of 1s) in %d = ", num);
   result = solution.hammingWeight(num);
   cout << result << endl;
 
