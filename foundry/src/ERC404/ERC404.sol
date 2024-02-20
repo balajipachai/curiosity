@@ -92,12 +92,26 @@ abstract contract ERC404 is Ownable {
         bool approved
     );
 
+    event NameSymbolUpdate(
+        string oldName,
+        string oldSymbol,
+        string newName,
+        string newSymbol
+    );
+
+    event WhiteListSet(
+        address indexed target,
+        bool state
+    );
+
+
     // Errors
     error NotFound();
     error AlreadyExists();
     error InvalidRecipient();
     error InvalidSender();
     error UnsafeRecipient();
+    error InvalidTarget();
 
     // Metadata
     /// @dev Token name
@@ -157,16 +171,15 @@ abstract contract ERC404 is Ownable {
     /// @notice Initialization function to set pairs / etc
     ///         saving gas by avoiding mint / burn on unnecessary targets
     function setWhitelist(address target, bool state) public onlyOwner {
+        if(target == address(0)) revert InvalidTarget();
         whitelist[target] = state;
+        emit WhiteListSet(target, state);
     }
 
     /// @notice Function to find owner of a given native token
-    function ownerOf(uint256 id) public view virtual returns (address owner) {
-        owner = _ownerOf[id];
-
-        if (owner == address(0)) {
-            revert NotFound();
-        }
+    function ownerOf(uint256 id) public view virtual returns (address tokenOwner) {
+        tokenOwner = _ownerOf[id];
+        if (tokenOwner == address(0)) revert NotFound();
     }
 
     /// @notice tokenURI must be implemented by child contract
@@ -179,21 +192,22 @@ abstract contract ERC404 is Ownable {
         uint256 amountOrId
     ) public virtual returns (bool) {
         if (amountOrId <= minted && amountOrId > 0) {
-            address owner = _ownerOf[amountOrId];
+            //ERC721-Approval
+            address tokenOwner = _ownerOf[amountOrId];
 
-            if (msg.sender != owner && !isApprovedForAll[owner][msg.sender]) {
+            if (msg.sender != tokenOwner && !isApprovedForAll[tokenOwner][msg.sender]) {
                 revert Unauthorized();
             }
 
             getApproved[amountOrId] = spender;
 
-            emit Approval(owner, spender, amountOrId);
+            emit Approval(tokenOwner, spender, amountOrId);
         } else {
+            // ERC20-Approval
             allowance[msg.sender][spender] = amountOrId;
 
             emit Approval(msg.sender, spender, amountOrId);
         }
-
         return true;
     }
 
@@ -387,7 +401,10 @@ abstract contract ERC404 is Ownable {
         string memory _name,
         string memory _symbol
     ) internal {
+        string memory oldName = name;
+        string memory oldSymbol = symbol;
         name = _name;
         symbol = _symbol;
+        emit NameSymbolUpdate(oldName, oldSymbol, name, symbol);
     }
 }
