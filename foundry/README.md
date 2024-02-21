@@ -64,3 +64,7 @@ $ forge --help
 $ anvil --help
 $ cast --help
 ```
+
+### To generate code coverage
+
+forge coverage --report lcov && genhtml lcov.info -o coverage/html
