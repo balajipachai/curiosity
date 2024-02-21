@@ -99,11 +99,7 @@ abstract contract ERC404 is Ownable {
         string newSymbol
     );
 
-    event WhiteListSet(
-        address indexed target,
-        bool state
-    );
-
+    event WhiteListSet(address indexed target, bool state);
 
     // Errors
     error NotFound();
@@ -171,13 +167,15 @@ abstract contract ERC404 is Ownable {
     /// @notice Initialization function to set pairs / etc
     ///         saving gas by avoiding mint / burn on unnecessary targets
     function setWhitelist(address target, bool state) public onlyOwner {
-        if(target == address(0)) revert InvalidTarget();
+        if (target == address(0)) revert InvalidTarget();
         whitelist[target] = state;
         emit WhiteListSet(target, state);
     }
 
     /// @notice Function to find owner of a given native token
-    function ownerOf(uint256 id) public view virtual returns (address tokenOwner) {
+    function ownerOf(
+        uint256 id
+    ) public view virtual returns (address tokenOwner) {
         tokenOwner = _ownerOf[id];
         if (tokenOwner == address(0)) revert NotFound();
     }
@@ -195,7 +193,10 @@ abstract contract ERC404 is Ownable {
             //ERC721-Approval
             address tokenOwner = _ownerOf[amountOrId];
 
-            if (msg.sender != tokenOwner && !isApprovedForAll[tokenOwner][msg.sender]) {
+            if (
+                msg.sender != tokenOwner &&
+                !isApprovedForAll[tokenOwner][msg.sender]
+            ) {
                 revert Unauthorized();
             }
 
@@ -289,8 +290,6 @@ abstract contract ERC404 is Ownable {
         address to,
         uint256 id
     ) public virtual {
-        transferFrom(from, to, id);
-
         if (
             to.code.length != 0 &&
             ERC721Receiver(to).onERC721Received(msg.sender, from, id, "") !=
@@ -298,6 +297,7 @@ abstract contract ERC404 is Ownable {
         ) {
             revert UnsafeRecipient();
         }
+        transferFrom(from, to, id);
     }
 
     /// @notice Function for native transfers with contract support and callback data
@@ -307,8 +307,6 @@ abstract contract ERC404 is Ownable {
         uint256 id,
         bytes calldata data
     ) public virtual {
-        transferFrom(from, to, id);
-
         if (
             to.code.length != 0 &&
             ERC721Receiver(to).onERC721Received(msg.sender, from, id, data) !=
@@ -316,6 +314,8 @@ abstract contract ERC404 is Ownable {
         ) {
             revert UnsafeRecipient();
         }
+
+        transferFrom(from, to, id);
     }
 
     /// @notice Internal function for fractional transfers

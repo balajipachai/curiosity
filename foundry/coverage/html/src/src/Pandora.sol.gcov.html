@@ -31,18 +31,18 @@
             <td class="headerValue">lcov.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">3.6&nbsp;%</td>
-            <td class="headerCovTableEntry">28</td>
-            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">32</td>
+            <td class="headerCovTableEntry">32</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2024-02-21 06:37:11</td>
+            <td class="headerValue">2024-02-21 11:19:07</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntryLo">25.0&nbsp;%</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
             <td class="headerCovTableEntry">4</td>
-            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">4</td>
           </tr>
                   <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
                 </table>
@@ -70,76 +70,83 @@
 <span id="L8"><span class="lineNum">       8</span>              :     string public dataURI;</span>
 <span id="L9"><span class="lineNum">       9</span>              :     string public baseTokenURI;</span>
 <span id="L10"><span class="lineNum">      10</span>              : </span>
-<span id="L11"><span class="lineNum">      11</span>              :     constructor(</span>
-<span id="L12"><span class="lineNum">      12</span>              :         address _owner</span>
-<span id="L13"><span class="lineNum">      13</span>              :     ) ERC404(&quot;Pandora&quot;, &quot;PANDORA&quot;, 18, 10000, _owner) {</span>
-<span id="L14"><span class="lineNum">      14</span>              :         balanceOf[_owner] = 10000 * 10 ** 18;</span>
-<span id="L15"><span class="lineNum">      15</span>              :     }</span>
-<span id="L16"><span class="lineNum">      16</span>              : </span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaUNC tlaBgUNC">           0 :     function setDataURI(string memory _dataURI) public onlyOwner {</span></span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaUNC">           0 :         dataURI = _dataURI;</span></span>
-<span id="L19"><span class="lineNum">      19</span>              :     }</span>
-<span id="L20"><span class="lineNum">      20</span>              : </span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaUNC">           0 :     function setTokenURI(string memory _tokenURI) public onlyOwner {</span></span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaUNC">           0 :         baseTokenURI = _tokenURI;</span></span>
-<span id="L23"><span class="lineNum">      23</span>              :     }</span>
-<span id="L24"><span class="lineNum">      24</span>              : </span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC tlaBgGNC">           3 :     function setNameSymbol(</span></span>
-<span id="L26"><span class="lineNum">      26</span>              :         string memory _name,</span>
-<span id="L27"><span class="lineNum">      27</span>              :         string memory _symbol</span>
-<span id="L28"><span class="lineNum">      28</span>              :     ) public onlyOwner {</span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">           2 :         _setNameSymbol(_name, _symbol);</span></span>
+<span id="L11"><span class="lineNum">      11</span>              :     event DataURIUPdate(string oldUri, string newUri);</span>
+<span id="L12"><span class="lineNum">      12</span>              :     event TokenURIUPdate(string oldUri, string newUri);</span>
+<span id="L13"><span class="lineNum">      13</span>              : </span>
+<span id="L14"><span class="lineNum">      14</span>              :     constructor(</span>
+<span id="L15"><span class="lineNum">      15</span>              :         address _owner</span>
+<span id="L16"><span class="lineNum">      16</span>              :     ) ERC404(&quot;Pandora&quot;, &quot;PANDORA&quot;, 18, 10000, _owner) {</span>
+<span id="L17"><span class="lineNum">      17</span>              :         balanceOf[_owner] = 10000 * 10 ** 18;</span>
+<span id="L18"><span class="lineNum">      18</span>              :     }</span>
+<span id="L19"><span class="lineNum">      19</span>              : </span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC tlaBgGNC">           2 :     function setDataURI(string memory _dataURI) public onlyOwner {</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">           1 :         string memory oldUri = dataURI;</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">           1 :         dataURI = _dataURI;</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">           1 :         emit DataURIUPdate(oldUri, dataURI);</span></span>
+<span id="L24"><span class="lineNum">      24</span>              :     }</span>
+<span id="L25"><span class="lineNum">      25</span>              : </span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           2 :     function setTokenURI(string memory _tokenURI) public onlyOwner {</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">           1 :         string memory oldUri = baseTokenURI;</span></span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">           1 :         baseTokenURI = _tokenURI;</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">           1 :         emit TokenURIUPdate(oldUri, baseTokenURI);</span></span>
 <span id="L30"><span class="lineNum">      30</span>              :     }</span>
 <span id="L31"><span class="lineNum">      31</span>              : </span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaUNC tlaBgUNC">           0 :     function tokenURI(uint256 id) public view override returns (string memory) {</span></span>
-<span id="L33"><span class="lineNum">      33</span> <span class="tlaUNC">           0 :         if (bytes(baseTokenURI).length &gt; 0) {</span></span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaUNC">           0 :             return string.concat(baseTokenURI, Strings.toString(id));</span></span>
-<span id="L35"><span class="lineNum">      35</span>              :         } else {</span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaUNC">           0 :             uint8 seed = uint8(bytes1(keccak256(abi.encodePacked(id))));</span></span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaUNC">           0 :             string memory image;</span></span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaUNC">           0 :             string memory color;</span></span>
-<span id="L39"><span class="lineNum">      39</span>              : </span>
-<span id="L40"><span class="lineNum">      40</span> <span class="tlaUNC">           0 :             if (seed &lt;= 100) {</span></span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaUNC">           0 :                 image = &quot;1.gif&quot;;</span></span>
-<span id="L42"><span class="lineNum">      42</span> <span class="tlaUNC">           0 :                 color = &quot;Green&quot;;</span></span>
-<span id="L43"><span class="lineNum">      43</span> <span class="tlaUNC">           0 :             } else if (seed &lt;= 160) {</span></span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaUNC">           0 :                 image = &quot;2.gif&quot;;</span></span>
-<span id="L45"><span class="lineNum">      45</span> <span class="tlaUNC">           0 :                 color = &quot;Blue&quot;;</span></span>
-<span id="L46"><span class="lineNum">      46</span> <span class="tlaUNC">           0 :             } else if (seed &lt;= 210) {</span></span>
-<span id="L47"><span class="lineNum">      47</span> <span class="tlaUNC">           0 :                 image = &quot;3.gif&quot;;</span></span>
-<span id="L48"><span class="lineNum">      48</span> <span class="tlaUNC">           0 :                 color = &quot;Purple&quot;;</span></span>
-<span id="L49"><span class="lineNum">      49</span> <span class="tlaUNC">           0 :             } else if (seed &lt;= 240) {</span></span>
-<span id="L50"><span class="lineNum">      50</span> <span class="tlaUNC">           0 :                 image = &quot;4.gif&quot;;</span></span>
-<span id="L51"><span class="lineNum">      51</span> <span class="tlaUNC">           0 :                 color = &quot;Orange&quot;;</span></span>
-<span id="L52"><span class="lineNum">      52</span> <span class="tlaUNC">           0 :             } else if (seed &lt;= 255) {</span></span>
-<span id="L53"><span class="lineNum">      53</span> <span class="tlaUNC">           0 :                 image = &quot;5.gif&quot;;</span></span>
-<span id="L54"><span class="lineNum">      54</span> <span class="tlaUNC">           0 :                 color = &quot;Red&quot;;</span></span>
-<span id="L55"><span class="lineNum">      55</span>              :             }</span>
-<span id="L56"><span class="lineNum">      56</span>              : </span>
-<span id="L57"><span class="lineNum">      57</span> <span class="tlaUNC">           0 :             string memory jsonPreImage = string.concat(</span></span>
-<span id="L58"><span class="lineNum">      58</span>              :                 string.concat(</span>
-<span id="L59"><span class="lineNum">      59</span>              :                     string.concat('{&quot;name&quot;: &quot;Pandora #', Strings.toString(id)),</span>
-<span id="L60"><span class="lineNum">      60</span>              :                     '&quot;,&quot;description&quot;:&quot;A collection of 10,000 Replicants enabled by ERC404, an experimental token standard.&quot;,&quot;external_url&quot;:&quot;https://pandora.build&quot;,&quot;image&quot;:&quot;'</span>
-<span id="L61"><span class="lineNum">      61</span>              :                 ),</span>
-<span id="L62"><span class="lineNum">      62</span>              :                 string.concat(dataURI, image)</span>
-<span id="L63"><span class="lineNum">      63</span>              :             );</span>
-<span id="L64"><span class="lineNum">      64</span> <span class="tlaUNC">           0 :             string memory jsonPostImage = string.concat(</span></span>
-<span id="L65"><span class="lineNum">      65</span>              :                 '&quot;,&quot;attributes&quot;:[{&quot;trait_type&quot;:&quot;Color&quot;,&quot;value&quot;:&quot;',</span>
-<span id="L66"><span class="lineNum">      66</span>              :                 color</span>
-<span id="L67"><span class="lineNum">      67</span>              :             );</span>
-<span id="L68"><span class="lineNum">      68</span> <span class="tlaUNC">           0 :             string memory jsonPostTraits = '&quot;}]}';</span></span>
-<span id="L69"><span class="lineNum">      69</span>              : </span>
-<span id="L70"><span class="lineNum">      70</span> <span class="tlaUNC">           0 :             return</span></span>
-<span id="L71"><span class="lineNum">      71</span> <span class="tlaUNC">           0 :                 string.concat(</span></span>
-<span id="L72"><span class="lineNum">      72</span>              :                     &quot;data:application/json;utf8,&quot;,</span>
-<span id="L73"><span class="lineNum">      73</span>              :                     string.concat(</span>
-<span id="L74"><span class="lineNum">      74</span>              :                         string.concat(jsonPreImage, jsonPostImage),</span>
-<span id="L75"><span class="lineNum">      75</span>              :                         jsonPostTraits</span>
-<span id="L76"><span class="lineNum">      76</span>              :                     )</span>
-<span id="L77"><span class="lineNum">      77</span>              :                 );</span>
-<span id="L78"><span class="lineNum">      78</span>              :         }</span>
-<span id="L79"><span class="lineNum">      79</span>              :     }</span>
-<span id="L80"><span class="lineNum">      80</span>              : }</span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">           3 :     function setNameSymbol(</span></span>
+<span id="L33"><span class="lineNum">      33</span>              :         string memory _name,</span>
+<span id="L34"><span class="lineNum">      34</span>              :         string memory _symbol</span>
+<span id="L35"><span class="lineNum">      35</span>              :     ) public onlyOwner {</span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">           2 :         _setNameSymbol(_name, _symbol);</span></span>
+<span id="L37"><span class="lineNum">      37</span>              :     }</span>
+<span id="L38"><span class="lineNum">      38</span>              : </span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">         257 :     function tokenURI(uint256 id) public view override returns (string memory) {</span></span>
+<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">         257 :         if (bytes(baseTokenURI).length &gt; 0) {</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">           1 :             return string.concat(baseTokenURI, Strings.toString(id));</span></span>
+<span id="L42"><span class="lineNum">      42</span>              :         } else {</span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">         256 :             uint8 seed = uint8(bytes1(keccak256(abi.encodePacked(id))));</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">         256 :             string memory image;</span></span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">         256 :             string memory color;</span></span>
+<span id="L46"><span class="lineNum">      46</span>              : </span>
+<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">         256 :             if (seed &lt;= 100) {</span></span>
+<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">         102 :                 image = &quot;1.gif&quot;;</span></span>
+<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">         102 :                 color = &quot;Green&quot;;</span></span>
+<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">         154 :             } else if (seed &lt;= 160) {</span></span>
+<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">          43 :                 image = &quot;2.gif&quot;;</span></span>
+<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">          43 :                 color = &quot;Blue&quot;;</span></span>
+<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">         111 :             } else if (seed &lt;= 210) {</span></span>
+<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">          71 :                 image = &quot;3.gif&quot;;</span></span>
+<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">          71 :                 color = &quot;Purple&quot;;</span></span>
+<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">          40 :             } else if (seed &lt;= 240) {</span></span>
+<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">          36 :                 image = &quot;4.gif&quot;;</span></span>
+<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">          36 :                 color = &quot;Orange&quot;;</span></span>
+<span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">           4 :             } else if (seed &lt;= 255) {</span></span>
+<span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">           4 :                 image = &quot;5.gif&quot;;</span></span>
+<span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">           4 :                 color = &quot;Red&quot;;</span></span>
+<span id="L62"><span class="lineNum">      62</span>              :             }</span>
+<span id="L63"><span class="lineNum">      63</span>              : </span>
+<span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC">         256 :             string memory jsonPreImage = string.concat(</span></span>
+<span id="L65"><span class="lineNum">      65</span>              :                 string.concat(</span>
+<span id="L66"><span class="lineNum">      66</span>              :                     string.concat('{&quot;name&quot;: &quot;Pandora #', Strings.toString(id)),</span>
+<span id="L67"><span class="lineNum">      67</span>              :                     '&quot;,&quot;description&quot;:&quot;A collection of 10,000 Replicants enabled by ERC404, an experimental token standard.&quot;,&quot;external_url&quot;:&quot;https://pandora.build&quot;,&quot;image&quot;:&quot;'</span>
+<span id="L68"><span class="lineNum">      68</span>              :                 ),</span>
+<span id="L69"><span class="lineNum">      69</span>              :                 string.concat(dataURI, image)</span>
+<span id="L70"><span class="lineNum">      70</span>              :             );</span>
+<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">         256 :             string memory jsonPostImage = string.concat(</span></span>
+<span id="L72"><span class="lineNum">      72</span>              :                 '&quot;,&quot;attributes&quot;:[{&quot;trait_type&quot;:&quot;Color&quot;,&quot;value&quot;:&quot;',</span>
+<span id="L73"><span class="lineNum">      73</span>              :                 color</span>
+<span id="L74"><span class="lineNum">      74</span>              :             );</span>
+<span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">         256 :             string memory jsonPostTraits = '&quot;}]}';</span></span>
+<span id="L76"><span class="lineNum">      76</span>              : </span>
+<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">         256 :             return</span></span>
+<span id="L78"><span class="lineNum">      78</span> <span class="tlaGNC">         256 :                 string.concat(</span></span>
+<span id="L79"><span class="lineNum">      79</span>              :                     &quot;data:application/json;utf8,&quot;,</span>
+<span id="L80"><span class="lineNum">      80</span>              :                     string.concat(</span>
+<span id="L81"><span class="lineNum">      81</span>              :                         string.concat(jsonPreImage, jsonPostImage),</span>
+<span id="L82"><span class="lineNum">      82</span>              :                         jsonPostTraits</span>
+<span id="L83"><span class="lineNum">      83</span>              :                     )</span>
+<span id="L84"><span class="lineNum">      84</span>              :                 );</span>
+<span id="L85"><span class="lineNum">      85</span>              :         }</span>
+<span id="L86"><span class="lineNum">      86</span>              :     }</span>
+<span id="L87"><span class="lineNum">      87</span>              : }</span>
         </pre>
               </td>
             </tr>

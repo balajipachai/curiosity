@@ -8,6 +8,9 @@ contract Pandora is ERC404 {
     string public dataURI;
     string public baseTokenURI;
 
+    event DataURIUPdate(string oldUri, string newUri);
+    event TokenURIUPdate(string oldUri, string newUri);
+
     constructor(
         address _owner
     ) ERC404("Pandora", "PANDORA", 18, 10000, _owner) {
@@ -15,11 +18,15 @@ contract Pandora is ERC404 {
     }
 
     function setDataURI(string memory _dataURI) public onlyOwner {
+        string memory oldUri = dataURI;
         dataURI = _dataURI;
+        emit DataURIUPdate(oldUri, dataURI);
     }
 
     function setTokenURI(string memory _tokenURI) public onlyOwner {
+        string memory oldUri = baseTokenURI;
         baseTokenURI = _tokenURI;
+        emit TokenURIUPdate(oldUri, baseTokenURI);
     }
 
     function setNameSymbol(
