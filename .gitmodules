@@ -4,3 +4,6 @@
 [submodule "erc404/lib/forge-std"]
 	path = erc404/lib/forge-std
 	url = https://github.com/foundry-rs/forge-std
+[submodule "all-about-ercs/lib/forge-std"]
+	path = all-about-ercs/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
